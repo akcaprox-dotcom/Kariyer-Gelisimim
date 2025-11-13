@@ -958,10 +958,181 @@ www.akcaprox.com
             }
         }
     </style>
+  
+  <style>
+    /* Google Auth Button */
+    .google-auth-btn {
+        background: white;
+        color: #444;
+        border: 2px solid #ddd;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        margin: 15px 0;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .google-auth-btn:hover {
+        background: #f8f9fa;
+        border-color: #4285f4;
+        box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .google-auth-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Firebase Auth Status Box */
+    .firebase-auth-status {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+        z-index: 9999;
+        animation: slideInRight 0.5s ease, pulse 2s infinite;
+        min-width: 300px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .firebase-auth-status.hidden {
+        display: none;
+    }
+
+    .firebase-auth-status h3 {
+        color: white;
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .firebase-auth-status p {
+        color: rgba(255, 255, 255, 0.95);
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .firebase-auth-status .email {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 8px;
+        word-break: break-all;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .status-icon {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #4caf50;
+        animation: blink 1.5s infinite;
+        box-shadow: 0 0 10px #4caf50;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+        }
+        50% {
+            box-shadow: 0 8px 32px rgba(118, 75, 162, 0.6), 
+                        0 0 40px rgba(102, 126, 234, 0.3);
+        }
+    }
+
+    @keyframes blink {
+        0%, 100% {
+            opacity: 1;
+            box-shadow: 0 0 10px #4caf50;
+        }
+        50% {
+            opacity: 0.3;
+            box-shadow: 0 0 5px #4caf50;
+        }
+    }
+
+    @keyframes rainbow {
+        0% { border-color: #ff0000; }
+        14% { border-color: #ff7f00; }
+        28% { border-color: #ffff00; }
+        42% { border-color: #00ff00; }
+        57% { border-color: #0000ff; }
+        71% { border-color: #4b0082; }
+        85% { border-color: #9400d3; }
+        100% { border-color: #ff0000; }
+    }
+
+    .firebase-auth-status.rainbow-border {
+        animation: slideInRight 0.5s ease, pulse 2s infinite, rainbow 3s linear infinite;
+        border-width: 3px;
+    }
+
+    .close-status-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        transition: all 0.3s;
+    }
+
+    .close-status-btn:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: rotate(90deg);
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .firebase-auth-status {
+            top: 10px;
+            right: 10px;
+            left: 10px;
+            min-width: auto;
+            padding: 15px;
+        }
+    }
+  </style>
+  
   <style>@view-transition { navigation: auto; }</style>
   
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
   
@@ -978,6 +1149,32 @@ www.akcaprox.com
    </div><!-- Login Screen -->
    <div class="login-screen" id="loginScreen">
     <h1 id="loginTitle">Üye Girişi</h1>
+    
+    <!-- Firebase Auth Status Box -->
+    <div id="firebaseAuthStatus" class="firebase-auth-status hidden">
+        <button class="close-status-btn" onclick="closeAuthStatus()">×</button>
+        <h3>
+            <span class="status-icon"></span>
+            ✅ Giriş Yapıldı!
+        </h3>
+        <p id="authMethodText">Google ile bağlantı kuruldu</p>
+        <div class="email" id="authEmailDisplay"></div>
+    </div>
+
+    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px; margin-bottom: 15px; font-size: 0.9rem; color: #856404;">
+        <strong>🔐 Bilgilendirme:</strong> Admin paneline erişim için Google ile giriş yapmanız gerekmektedir. Güvenlik nedeniyle zorunludur.
+    </div>
+
+    <button type="button" class="google-auth-btn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Google ile Giriş Yap
+    </button>
+
     <form id="loginForm" onsubmit="handleLogin(event)">
      <div class="form-group"><label for="loginNickname">Rumuz:</label> <input type="text" id="loginNickname" required>
      </div>
@@ -987,6 +1184,18 @@ www.akcaprox.com
    </div><!-- Register Screen -->
    <div class="register-screen hidden" id="registerScreen">
     <h1>Üye Kayıt</h1>
+    
+    <div id="googleAuthInfo" class="firebase-auth-status" style="position: relative; margin-bottom: 20px; display: none;">
+        <h3 style="color: white; margin: 0 0 10px 0; font-size: 16px;">
+            <span class="status-icon"></span>
+            Google ile Bağlantı Kuruldu
+        </h3>
+        <div class="email" id="registerGoogleEmail" style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 6px; font-size: 14px;"></div>
+        <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 13px;">
+            ℹ️ Kayıt sonrası rumuz ve şifre ile giriş yapmanız gerekecek.
+        </p>
+    </div>
+    
     <form id="registerForm" onsubmit="handleRegister(event)">
      <div class="form-group"><label for="nickname">Rumuz:</label> <input type="text" id="nickname" required>
       <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 6px; padding: 10px; margin-top: 8px; font-size: 0.9rem; color: #0c5460;"><strong>🔒 Gizlilik Notu:</strong> Lütfen kişisel bilgilerde isim-soyisim kullanmayınız. Rumuz sistemi kişiselliğinizi korumak için yapılmıştır.
@@ -1007,10 +1216,44 @@ www.akcaprox.com
     </form>
    </div><!-- Admin Login Screen -->
    <div class="admin-panel hidden" id="adminLoginScreen">
-    <h1>Admin Girişi</h1>
-    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+    <h1>🔐 Admin Girişi</h1>
+    
+    <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border: 2px solid #ff4757; border-radius: 10px; padding: 15px; margin-bottom: 20px; color: white; box-shadow: 0 4px 15px rgba(255, 75, 87, 0.3);">
+        <h3 style="margin: 0 0 10px 0; font-size: 16px;">⚠️ GÜVENLİK UYARISI</h3>
+        <p style="margin: 5px 0; font-size: 14px; line-height: 1.5;">
+            Admin paneline erişim için <strong>Google ile kimlik doğrulama yapmanız zorunludur</strong>.
+        </p>
+        <p style="margin: 5px 0; font-size: 13px; opacity: 0.9;">
+            🔒 Bu güvenlik önlemi, yetkisiz erişimleri engeller ve tüm admin işlemlerini kayıt altına alır.
+        </p>
+    </div>
+
+    <div id="adminGoogleAuthStatus" style="display: none; background: linear-gradient(135deg, #4caf50 0%, #45a049 100%); border-radius: 10px; padding: 15px; margin-bottom: 20px; color: white;">
+        <h3 style="margin: 0 0 10px 0; font-size: 16px;">
+            <span class="status-icon" style="background: white;"></span>
+            ✅ Google Kimlik Doğrulaması Başarılı
+        </h3>
+        <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 6px; margin-top: 10px;">
+            <strong>Admin:</strong> <span id="adminGoogleEmail"></span>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 13px; opacity: 0.9;">
+            Şimdi admin şifrenizi girerek panele erişebilirsiniz.
+        </p>
+    </div>
+
+    <button type="button" class="google-auth-btn" onclick="adminGoogleLogin()" id="adminGoogleBtn">
+        <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        🔐 Google ile Admin Girişi Yap
+    </button>
+
+    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" style="display: none;">
      <div class="form-group"><label for="adminPassword">Admin Şifresi:</label> <input type="password" id="adminPassword" required>
-     </div><button type="submit" class="btn">Giriş Yap</button> <button type="button" class="btn btn-secondary" onclick="hideAdminLogin()">İptal</button>
+     </div><button type="submit" class="btn">Admin Paneline Gir</button> <button type="button" class="btn btn-secondary" onclick="hideAdminLogin()">İptal</button>
     </form>
    </div><!-- Admin Panel -->
    <div class="admin-panel hidden" id="adminPanel">
@@ -1134,6 +1377,7 @@ www.akcaprox.com
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+        const auth = firebase.auth();
         const analytics = firebase.analytics();
 
         // Global değişkenler
@@ -1143,12 +1387,134 @@ www.akcaprox.com
         let answers = [];
         let currentCategoryIndex = 0;
         let currentQuestionInCategory = 0;
+        let firebaseAuthUser = null; // Firebase Authentication kullanıcısı
+
+        // Google ile Giriş
+        async function signInWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('email');
+                provider.addScope('profile');
+                
+                console.log('🔐 Google ile giriş yapılıyor...');
+                
+                const result = await auth.signInWithPopup(provider);
+                firebaseAuthUser = result.user;
+                
+                console.log('✅ Google girişi başarılı!');
+                console.log('Kullanıcı:', firebaseAuthUser.displayName);
+                console.log('Email:', firebaseAuthUser.email);
+                console.log('UID:', firebaseAuthUser.uid);
+                
+                // Görsel bildirim göster
+                showAuthStatus(firebaseAuthUser.email, 'Google');
+                
+                // Kullanıcının sistemde kayıtlı olup olmadığını kontrol et
+                allUsers = await firebaseDB.getAll();
+                const existingUser = allUsers.find(u => u.google_email === firebaseAuthUser.email);
+                
+                if (existingUser) {
+                    // Kullanıcı kayıtlı, normal giriş ekranına yönlendir
+                    showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen rumuz ve şifrenizle giriş yapın.`, 'success');
+                    // Giriş ekranında kal
+                } else {
+                    // Kullanıcı kayıtlı değil, kayıt ekranına yönlendir
+                    showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen kayıt formunu doldurun.`, 'success');
+                    showRegister();
+                    
+                    // Google bilgilerini kayıt formunda göster
+                    const googleAuthInfo = document.getElementById('googleAuthInfo');
+                    const registerGoogleEmail = document.getElementById('registerGoogleEmail');
+                    
+                    if (googleAuthInfo && registerGoogleEmail) {
+                        googleAuthInfo.style.display = 'block';
+                        registerGoogleEmail.textContent = firebaseAuthUser.email;
+                    }
+                }
+                
+                // Analytics event
+                firebase.analytics().logEvent('login', {
+                    method: 'Google'
+                });
+                
+            } catch (error) {
+                console.error('❌ Google giriş hatası:', error);
+                
+                if (error.code === 'auth/popup-closed-by-user') {
+                    showMessage('Google giriş penceresi kapatıldı.', 'error');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showMessage('Popup engellenmiş! Tarayıcınızın popup ayarlarını kontrol edin.', 'error');
+                } else {
+                    showMessage('Google girişi başarısız: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Auth Status'u göster
+        function showAuthStatus(email, method) {
+            const statusBox = document.getElementById('firebaseAuthStatus');
+            const emailDisplay = document.getElementById('authEmailDisplay');
+            const methodText = document.getElementById('authMethodText');
+            
+            emailDisplay.textContent = email || 'Anonim Kullanıcı';
+            methodText.textContent = method ? `${method} ile bağlantı kuruldu` : 'Anonim bağlantı kuruldu';
+            
+            statusBox.classList.remove('hidden');
+            statusBox.classList.add('rainbow-border');
+            
+            // 8 saniye sonra otomatik kapat
+            setTimeout(() => {
+                statusBox.classList.add('hidden');
+            }, 8000);
+        }
+
+        // Auth Status'u kapat
+        function closeAuthStatus() {
+            document.getElementById('firebaseAuthStatus').classList.add('hidden');
+        }
+
+        // Firebase Anonymous Authentication - Otomatik giriş
+        async function ensureFirebaseAuth() {
+            if (firebaseAuthUser) {
+                return firebaseAuthUser;
+            }
+
+            try {
+                // Mevcut kullanıcıyı kontrol et
+                if (auth.currentUser) {
+                    firebaseAuthUser = auth.currentUser;
+                    console.log('🔐 Firebase Auth - Mevcut kullanıcı:', firebaseAuthUser.uid);
+                    
+                    // Eğer Google ile giriş yapılmışsa göster
+                    if (firebaseAuthUser.email) {
+                        showAuthStatus(firebaseAuthUser.email, 'Google');
+                    }
+                    
+                    return firebaseAuthUser;
+                }
+
+                // Anonim giriş yap
+                console.log('🔐 Firebase Auth - Anonim giriş yapılıyor...');
+                const userCredential = await auth.signInAnonymously();
+                firebaseAuthUser = userCredential.user;
+                console.log('✅ Firebase Auth - Anonim giriş başarılı! UID:', firebaseAuthUser.uid);
+                
+                // Anonim giriş bildirimini göster
+                showAuthStatus('Anonim Kullanıcı (UID: ' + firebaseAuthUser.uid.substring(0, 8) + '...)', 'Anonim');
+                
+                return firebaseAuthUser;
+            } catch (error) {
+                console.error('❌ Firebase Auth hatası:', error);
+                throw error;
+            }
+        }
 
         // Firebase Realtime Database Yönetimi
         const firebaseDB = {
             // Tüm kullanıcıları getir
             async getAll() {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
                     const snapshot = await database.ref('users').once('value');
                     const usersObj = snapshot.val() || {};
                     return Object.values(usersObj);
@@ -1161,10 +1527,14 @@ www.akcaprox.com
             // Yeni kullanıcı ekle
             async create(user) {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
+                    console.log('Firebase\'e kullanıcı kaydediliyor:', user.nickname);
                     await database.ref('users/' + user.user_id).set(user);
+                    console.log('✅ Firebase\'e başarıyla kaydedildi!');
                     return { isOk: true, data: user };
                 } catch (error) {
-                    console.error('Kullanıcı eklenemedi:', error);
+                    console.error('❌ Firebase kayıt hatası:', error);
+                    console.error('Hata detayı:', error.code, error.message);
                     return { isOk: false, error: error.message };
                 }
             },
@@ -1172,6 +1542,7 @@ www.akcaprox.com
             // Kullanıcı güncelle
             async update(updatedUser) {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
                     await database.ref('users/' + updatedUser.user_id).update(updatedUser);
                     return { isOk: true, data: updatedUser };
                 } catch (error) {
@@ -1183,6 +1554,7 @@ www.akcaprox.com
             // Kullanıcı sil
             async delete(userId) {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
                     await database.ref('users/' + userId).remove();
                     return { isOk: true };
                 } catch (error) {
@@ -1194,6 +1566,7 @@ www.akcaprox.com
             // Kullanıcı ID'sine göre getir
             async getById(userId) {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
                     const snapshot = await database.ref('users/' + userId).once('value');
                     return snapshot.val();
                 } catch (error) {
@@ -1205,6 +1578,7 @@ www.akcaprox.com
             // Rumuz ve telefona göre kullanıcı bul
             async findByNicknameAndPhone(nickname, phone) {
                 try {
+                    await ensureFirebaseAuth(); // Auth kontrolü
                     const snapshot = await database.ref('users').once('value');
                     const usersObj = snapshot.val() || {};
                     const users = Object.values(usersObj);
@@ -1218,8 +1592,53 @@ www.akcaprox.com
 
         // Sayfa yüklendiğinde kullanıcıları yükle
         async function initializeApp() {
-            allUsers = await firebaseDB.getAll();
-            console.log('Firebase bağlantısı kuruldu. Toplam kullanıcı:', allUsers.length);
+            try {
+                console.log('🔥 Firebase bağlantısı başlatılıyor...');
+                console.log('Database URL:', database.ref().toString());
+                
+                // Önce anonim authentication yap
+                await ensureFirebaseAuth();
+                
+                allUsers = await firebaseDB.getAll();
+                console.log('✅ Firebase bağlantısı başarılı! Toplam kullanıcı:', allUsers.length);
+                
+                // Eğer ilk kullanımsa bilgilendirme göster
+                if (allUsers.length === 0) {
+                    console.log('ℹ️ Henüz kullanıcı yok. İlk kaydınızı oluşturabilirsiniz.');
+                }
+            } catch (error) {
+                console.error('❌ Firebase başlatma hatası:', error);
+                console.error('Hata kodu:', error.code);
+                console.error('Hata mesajı:', error.message);
+                
+                if (error.code === "auth/operation-not-allowed") {
+                    console.error('');
+                    console.error('� Firebase Anonymous Authentication aktif değil!');
+                    console.error('');
+                    console.error('Firebase Console\'a gidin:');
+                    console.error('1. https://console.firebase.google.com/');
+                    console.error('2. "kariyer-gelisimi" projesini seçin');
+                    console.error('3. Authentication > Sign-in method');
+                    console.error('4. "Anonymous" seçeneğini aktif edin (Enable)');
+                    console.error('5. "Save" butonuna tıklayın');
+                    console.error('');
+                    console.error('Database Rules zaten doğru (auth != null)');
+                    console.error('Sadece Anonymous Authentication\'ı açmanız yeterli!');
+                    console.error('');
+                }
+                
+                if (error.code === "PERMISSION_DENIED" || error.message.includes("permission")) {
+                    console.error('');
+                    console.error('🔒 Firebase Database Rules doğru!');
+                    console.error('Rules: auth != null (Kimlik doğrulama gerekli)');
+                    console.error('');
+                    console.error('Şimdi Anonymous Authentication\'ı aktif edin:');
+                    console.error('1. https://console.firebase.google.com/');
+                    console.error('2. Authentication > Sign-in method');
+                    console.error('3. "Anonymous" seçeneğini ENABLE yapın');
+                    console.error('');
+                }
+            }
         }
 
         // Sayfa yüklendiğinde SDK'ları başlat
@@ -1321,11 +1740,17 @@ www.akcaprox.com
                     test_results: "",
                     overall_score: 0,
                     test_history: [],
-                    is_active: true
+                    is_active: true,
+                    google_email: firebaseAuthUser && firebaseAuthUser.email ? firebaseAuthUser.email : null,
+                    google_name: firebaseAuthUser && firebaseAuthUser.displayName ? firebaseAuthUser.displayName : null
                 };
+
+                console.log('📝 Kayıt verisi hazırlandı:', formData.nickname);
 
                 // Firebase'e kaydet
                 const result = await firebaseDB.create(formData);
+                
+                console.log('📡 Firebase yanıtı:', result);
                 
                 btnText.classList.remove('hidden');
                 loading.classList.add('hidden');
@@ -1334,6 +1759,8 @@ www.akcaprox.com
                 if (result.isOk) {
                     // Kullanıcı listesini güncelle
                     allUsers = await firebaseDB.getAll();
+                    
+                    console.log('✅ Kullanıcı başarıyla kaydedildi! Toplam kullanıcı:', allUsers.length);
                     
                     // Başarı mesajı
                     showMessage("Kayıt başarılı! Şifrenizi almak için lütfen süper yönetici ile iletişime geçin.", "success");
@@ -1373,12 +1800,31 @@ www.akcaprox.com
                     document.getElementById('registerForm').reset();
                     setTimeout(() => showLogin(), 3000);
                 } else {
-                    console.error("Kayıt hatası:", result.error);
-                    showMessage(`Kayıt sırasında hata oluştu: ${result.error || 'Bilinmeyen hata'}. Lütfen tekrar deneyin.`, "error");
+                    console.error("❌ Kayıt hatası:", result.error);
+                    
+                    // Kullanıcıya anlaşılır hata mesajı
+                    let errorMessage = "Kayıt sırasında hata oluştu.";
+                    
+                    if (result.error && result.error.includes("permission")) {
+                        errorMessage = "🔒 Firebase veritabanı izinleri ayarlanmamış! Lütfen Firebase Console'dan Database Rules'u ayarlayın.";
+                    } else if (result.error) {
+                        errorMessage = `Hata: ${result.error}`;
+                    }
+                    
+                    showMessage(errorMessage, "error");
                 }
             } catch (error) {
-                console.error("Kayıt işlemi hatası:", error);
-                showMessage(`Sistem hatası: ${error.message}. Lütfen sayfayı yenileyip tekrar deneyin.`, "error");
+                console.error("❌ Kayıt işlemi hatası:", error);
+                
+                let errorMessage = "Sistem hatası oluştu.";
+                
+                if (error.code === "PERMISSION_DENIED") {
+                    errorMessage = "🔒 Firebase veritabanı izinleri ayarlanmamış! Lütfen Firebase Console'dan Database Rules'u ayarlayın.";
+                } else if (error.message) {
+                    errorMessage = `Hata: ${error.message}`;
+                }
+                
+                showMessage(errorMessage, "error");
                 
                 btnText.classList.remove('hidden');
                 loading.classList.add('hidden');
@@ -1445,27 +1891,104 @@ www.akcaprox.com
         }
 
         // Admin giriş
+        // Admin giriş
         function showAdminLogin() {
             hideAllScreens();
             document.getElementById('adminLoginScreen').classList.remove('hidden');
+            
+            // Eğer Google ile giriş yapılmışsa formu göster
+            if (firebaseAuthUser && firebaseAuthUser.email) {
+                document.getElementById('adminGoogleAuthStatus').style.display = 'block';
+                document.getElementById('adminGoogleEmail').textContent = firebaseAuthUser.email;
+                document.getElementById('adminGoogleBtn').style.display = 'none';
+                document.getElementById('adminLoginForm').style.display = 'block';
+            } else {
+                document.getElementById('adminGoogleAuthStatus').style.display = 'none';
+                document.getElementById('adminGoogleBtn').style.display = 'flex';
+                document.getElementById('adminLoginForm').style.display = 'none';
+            }
+        }
+
+        // Admin için Google Login
+        async function adminGoogleLogin() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('email');
+                provider.addScope('profile');
+                
+                console.log('🔐 Admin - Google ile giriş yapılıyor...');
+                
+                const result = await auth.signInWithPopup(provider);
+                firebaseAuthUser = result.user;
+                
+                console.log('✅ Admin Google girişi başarılı!');
+                console.log('Admin:', firebaseAuthUser.displayName);
+                console.log('Email:', firebaseAuthUser.email);
+                
+                // Admin bilgilerini göster
+                document.getElementById('adminGoogleAuthStatus').style.display = 'block';
+                document.getElementById('adminGoogleEmail').textContent = firebaseAuthUser.email;
+                document.getElementById('adminGoogleBtn').style.display = 'none';
+                document.getElementById('adminLoginForm').style.display = 'block';
+                
+                showMessage(`Merhaba ${firebaseAuthUser.displayName}! Şimdi admin şifrenizi girin.`, 'success');
+                
+                // Analytics
+                firebase.analytics().logEvent('admin_google_login', {
+                    email: firebaseAuthUser.email
+                });
+                
+            } catch (error) {
+                console.error('❌ Admin Google giriş hatası:', error);
+                
+                if (error.code === 'auth/popup-closed-by-user') {
+                    showMessage('Google giriş penceresi kapatıldı.', 'error');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showMessage('Popup engellenmiş! Tarayıcınızın popup ayarlarını kontrol edin.', 'error');
+                } else {
+                    showMessage('Google girişi başarısız: ' + error.message, 'error');
+                }
+            }
         }
 
         // Admin giriş işlemi
         function handleAdminLogin(event) {
             event.preventDefault();
+            
+            // Google authentication kontrolü
+            if (!firebaseAuthUser || !firebaseAuthUser.email) {
+                showMessage("⚠️ Önce Google ile kimlik doğrulaması yapmalısınız!", "error");
+                return;
+            }
+            
             const password = document.getElementById('adminPassword').value;
             
             if (password === "030714") {
+                console.log('✅ Admin panel erişimi:', firebaseAuthUser.email);
+                
+                // Analytics - Admin paneline giriş
+                firebase.analytics().logEvent('admin_panel_access', {
+                    email: firebaseAuthUser.email,
+                    timestamp: new Date().toISOString()
+                });
+                
                 showAdminPanel();
             } else {
                 showMessage("Hatalı admin şifresi!", "error");
                 document.getElementById('adminPassword').value = '';
+                
+                // Analytics - Başarısız giriş denemesi
+                firebase.analytics().logEvent('admin_login_failed', {
+                    email: firebaseAuthUser.email
+                });
             }
         }
 
         // Admin giriş ekranını gizle
+        // Admin giriş ekranını gizle
         function hideAdminLogin() {
             document.getElementById('adminLoginScreen').classList.add('hidden');
+            document.getElementById('adminPassword').value = ''; // Şifreyi temizle
             showLogin();
         }
 
@@ -1611,6 +2134,7 @@ www.akcaprox.com
 
         function hideAdmin() {
             document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('adminPassword').value = ''; // Şifreyi temizle
             showLogin();
         }
 
