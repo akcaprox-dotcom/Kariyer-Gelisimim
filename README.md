@@ -5215,15 +5215,8 @@ www.akcaprox.com
 
         // Türkçe karakter temizleme fonksiyonu (PDF için)
         function cleanTurkish(text) {
-            if (!text) return '';
-            const map = {
-                'ı': 'i', 'İ': 'I', 'ş': 's', 'Ş': 'S',
-                'ğ': 'g', 'Ğ': 'G', 'ü': 'u', 'Ü': 'U',
-                'ö': 'o', 'Ö': 'O', 'ç': 'c', 'Ç': 'C',
-                'â': 'a', 'Â': 'A', 'î': 'i', 'Î': 'I',
-                'û': 'u', 'Û': 'U'
-            };
-            return text.toString().replace(/[ıİşŞğĞüÜöÖçÇâÂîÎûÛ]/g, letter => map[letter] || letter);
+            // jsPDF Türkçe karakterleri destekliyor, dönüştürme yapmıyoruz
+            return text || '';
         }
 
         // PDF Rapor Fonksiyonları
@@ -5242,8 +5235,11 @@ www.akcaprox.com
                     unit: 'mm',
                     format: 'a4',
                     putOnlyUsedFonts: true,
-                    compress: true
+                    compress: true,
+                    floatPrecision: 16
                 });
+                
+                doc.setLanguage("tr");
                 
                 const pageWidth = doc.internal.pageSize.getWidth();
                 const pageHeight = doc.internal.pageSize.getHeight();
@@ -5448,8 +5444,11 @@ www.akcaprox.com
                     unit: 'mm',
                     format: 'a4',
                     putOnlyUsedFonts: true,
-                    compress: true
+                    compress: true,
+                    floatPrecision: 16
                 });
+                
+                doc.setLanguage("tr");
                 
                 const pageWidth = doc.internal.pageSize.getWidth();
                 const pageHeight = doc.internal.pageSize.getHeight();
