@@ -25,9 +25,9 @@ www.akcaprox.com
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px 20px;
             min-height: 100vh;
             position: relative;
         }
@@ -62,15 +62,18 @@ www.akcaprox.com
         .login-screen, .register-screen, .welcome-screen, .admin-panel {
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 15px 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .login-screen h1, .register-screen h1, .welcome-screen h1, .admin-panel h1 {
-            font-size: 2rem;
-            margin-bottom: 12px;
+            font-size: 1.75rem;
+            margin-bottom: 5px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -325,18 +328,18 @@ www.akcaprox.com
             display: none;
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 20px 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .results-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .results-title {
-            font-size: 1.9rem;
-            margin-bottom: 12px;
+            font-size: 1.75rem;
+            margin-bottom: 8px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -347,7 +350,7 @@ www.akcaprox.com
             font-size: 2.5rem;
             font-weight: bold;
             color: #667eea;
-            margin: 15px 0;
+            margin: 12px 0;
         }
 
         .score-interpretation {
@@ -358,21 +361,21 @@ www.akcaprox.com
 
         .category-results {
             display: grid;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .category-result {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 16px;
+            padding: 12px 16px;
             border-left: 4px solid #667eea;
         }
 
         .category-name {
             font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
             color: #2c3e50;
         }
 
@@ -504,18 +507,18 @@ www.akcaprox.com
         }
 
         .analysis-section {
-            margin: 30px 0;
-            padding: 25px;
+            margin: 20px 0;
+            padding: 20px;
             background: #f8f9fa;
             border-radius: 15px;
             border-left: 5px solid #667eea;
         }
 
         .analysis-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #667eea;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
@@ -523,15 +526,15 @@ www.akcaprox.com
             background: #fff3cd;
             border: 2px solid #ffc107;
             border-radius: 10px;
-            padding: 20px;
-            margin: 30px 0;
+            padding: 15px;
+            margin: 20px 0;
             color: #856404;
         }
 
         .disclaimer-title {
             font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
             color: #dc3545;
         }
 
@@ -634,7 +637,7 @@ www.akcaprox.com
         .pdf-container {
             background: white;
             padding: 40px;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -1149,7 +1152,6 @@ www.akcaprox.com
    </div><!-- Login Screen -->
    <div class="login-screen" id="loginScreen">
     <h1 id="loginTitle">Kariyer Gelişim Performansı ve İlerleme Paneli</h1>
-    <p style="text-align: center; color: #666; font-size: 0.95rem; margin-top: -10px; margin-bottom: 25px;">Üye Girişi</p>
 
     <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px; margin-bottom: 15px; font-size: 0.9rem; color: #856404;">
         <strong>🔐 Bilgilendirme:</strong> Panele erişim için Google ile giriş yapmanız gerekmektedir. Güvenlik nedeniyle zorunludur.
@@ -1308,7 +1310,7 @@ www.akcaprox.com
     <h1>📊 Geçmiş Raporlarım</h1>
     <p style="text-align: center; color: #666; margin-bottom: 30px;">Test geçmişinizi görüntüleyin ve raporlarınızı karşılaştırın</p>
     
-    <div id="reportsHistory" style="max-width: 1000px; margin: 0 auto;"></div>
+    <div id="reportsHistory" style="max-width: 900px; margin: 0 auto;"></div>
     
     <div style="margin-top: 30px;">
         <button class="btn btn-secondary" onclick="backToWelcomeFromReports()">← Ana Menüye Dön</button>
@@ -5014,14 +5016,14 @@ www.akcaprox.com
         function generateSelfLeadershipAnalysis(percentage, level, userInfo) {
             return getGenericCategoryAnalysis('Öz Liderlik ve Sorumluluk', percentage, level, userInfo, {
                 keySkills: ['öz disiplin', 'sorumluluk alma', 'sürekli gelişim', 'değer temelli liderlik'],
-                careerRelevance: 'Executive roller, girişimcilik, takım liderliği'
+                careerRelevance: 'Üst düzey yöneticilik, girişimcilik, takım liderliği'
             });
         }
 
         function generateTeamworkAnalysis(percentage, level, userInfo) {
             return getGenericCategoryAnalysis('Ekip Çalışması ve Çatışma Yönetimi', percentage, level, userInfo, {
                 keySkills: ['işbirliği', 'çatışma çözme', 'ekip dinamikleri', 'kapsayıcı liderlik'],
-                careerRelevance: 'Takım liderliği, proje yönetimi, cross-functional roller'
+                careerRelevance: 'Takım liderliği, proje yönetimi, farklı departmanlarla çalışma'
             });
         }
 
@@ -5071,52 +5073,52 @@ www.akcaprox.com
                     `${categoryName} alanında sertifikasyon ve ileri eğitim programları tamamlayın`,
                     `Sektör konferanslarında ${specs.keySkills[0]} konusunda sunumlar yapın`,
                     `Genç profesyonellere mentorluk yaparak bilginizi paylaşın`,
-                    `Akademik makaleler ve blog yazıları yayımlayarak thought leadership konumunuzu güçlendirin`,
-                    `International networking ve knowledge sharing platformlarında aktif olun`
+                    `Akademik makaleler ve blog yazıları yayımlayarak düşünce liderliği konumunuzu güçlendirin`,
+                    `Uluslararası ağ oluşturma ve bilgi paylaşım platformlarında aktif olun`
                 ] : level === 'veryGood' || level === 'good' ? [
                     `${specs.keySkills[0]} ve ${specs.keySkills[1]} becerileri üzerine eğitimler alın`,
-                    `Pratik projeler ve case study'ler üzerinde çalışarak deneyim kazanın`,
-                    `Professional development programlarına düzenli katılın`,
+                    `Pratik projeler ve örnek çalışmalar üzerinde çalışarak deneyim kazanın`,
+                    `Profesyonel gelişim programlarına düzenli katılın`,
                     `Mentor desteği alarak hızlı gelişim sağlayın`,
                     `Online kurslar ve sertifikasyonlarla bilginizi güncel tutun`
                 ] : [
                     `Temel ${specs.keySkills[0]} eğitimlerinden başlayın`,
                     `Profesyonel koçluk veya danışmanlık desteği alın`,
                     `Küçük projelerle pratik deneyim kazanmaya başlayın`,
-                    `Peer learning gruplarına katılın`,
+                    `Akran öğrenme gruplarına katılın`,
                     `Düzenli öz değerlendirme yaparak ilerlemenizi takip edin`
                 ],
                 
                 resources: level === 'outstanding' || level === 'excellent' ? [
-                    `Executive education programs - Harvard, Stanford, INSEAD`,
-                    `Professional certification: ${specs.careerRelevance} alanında ileri seviye`,
-                    `Industry-leading masterclasses ve workshops`,
-                    `McKinsey, BCG, Deloitte research publications`,
-                    `Global professional associations ve thought leadership platforms`
+                    `Üst düzey yönetici eğitim programları - Harvard, Stanford, INSEAD`,
+                    `Profesyonel sertifikasyon: ${specs.careerRelevance} alanında ileri seviye`,
+                    `Sektör lideri uzmanlık kursları ve atölyeler`,
+                    `Önde gelen danışmanlık firmalarının araştırma yayınları`,
+                    `Küresel profesyonel dernekler ve düşünce liderliği platformları`
                 ] : level === 'veryGood' || level === 'good' ? [
-                    `Coursera/edX: ${categoryName} konusunda specialized courses`,
-                    `LinkedIn Learning professional development paths`,
-                    `Industry-specific certifications ve training programs`,
-                    `Professional books ve HBR articles`,
-                    `Networking events ve professional meetups`
+                    `Coursera/edX: ${categoryName} konusunda uzmanlaşma kursları`,
+                    `LinkedIn Learning profesyonel gelişim programları`,
+                    `Sektöre özel sertifika ve eğitim programları`,
+                    `Profesyonel kitaplar ve sektör makaleleri`,
+                    `Ağ oluşturma etkinlikleri ve mesleki buluşmalar`
                 ] : [
-                    `Temel online kurslar - Udemy, Coursera fundamentals`,
-                    `YouTube educational channels (ücretsiz kaynaklar)`,
-                    `Introductory books ve beginner guides`,
-                    `Local workshops ve community learning groups`,
-                    `Professional coaching sessions`
+                    `Temel online kurslar - Udemy, Coursera temel seviye`,
+                    `YouTube eğitim kanalları (ücretsiz kaynaklar)`,
+                    `Başlangıç seviyesi kitaplar ve rehberler`,
+                    `Yerel atölyeler ve topluluk öğrenme grupları`,
+                    `Profesyonel koçluk seansları`
                 ],
                 
                 timeframe: level === 'outstanding' || level === 'excellent' ? 
-                    `Bu üstün seviyenizi sürdürmek ve global recognition kazanmak için 12-24 aylık stratejik visibility ve thought leadership planı önerilir. Executive education ve international exposure'a öncelik verilmelidir.` :
+                    `Bu üstün seviyenizi sürdürmek ve küresel tanınırlık kazanmak için 12-24 aylık stratejik görünürlük ve düşünce liderliği planı önerilir. Üst düzey eğitim ve uluslararası deneyime öncelik verilmelidir.` :
                     level === 'veryGood' || level === 'good' ?
-                    `Senior specialist veya management pozisyonları için gereken yetkinlik seviyesine 12-18 ay içinde ulaşabilirsiniz. İlk 6 ayda temel becerileri pekiştirmeye, sonraki 6-12 ayda ileri tekniklere odaklanılmalıdır.` :
+                    `Kıdemli uzman veya yönetici pozisyonları için gereken yetkinlik seviyesine 12-18 ay içinde ulaşabilirsiniz. İlk 6 ayda temel becerileri pekiştirmeye, sonraki 6-12 ayda ileri tekniklere odaklanılmalıdır.` :
                     `İlk 3-6 ayda temel becerileri kazanmak, 6-12 ay içinde profesyonel ortamlarda rahat çalışabilir seviyeye ulaşmak hedeflenmelidir. Düzenli koçluk ve mentorluk desteği kritik öneme sahiptir.`,
                 
                 careerImpact: level === 'outstanding' || level === 'excellent' ?
-                    `${categoryName} alanındaki bu üstün performansınız, C-suite ve executive pozisyonlara geçişte %60-70 avantaj sağlamaktadır. Bu yetkinlik, headhunter'lar ve executive search firmalarının en çok aradığı özelliklerdendir. Global şirketlerde leadership rolleri için ideal profile sahipsiniz.` :
+                    `${categoryName} alanındaki bu üstün performansınız, üst düzey yönetici pozisyonlarına geçişte %60-70 avantaj sağlamaktadır. Bu yetkinlik, insan kaynakları uzmanlarının ve iş arama firmalarının en çok aradığı özelliklerdendir. Küresel şirketlerde liderlik rolleri için ideal profile sahipsiniz.` :
                     level === 'veryGood' || level === 'good' ?
-                    `Bu yetkinlik seviyeniz, middle management ve senior specialist rollerine geçişte %40-50 avantaj sağlar. Sistematik gelişim ile 2-3 yıl içinde leadership pozisyonlarına ulaşma olasılığınız yüksektir. ${specs.careerRelevance} alanlarında belirgin fırsatlar yaratır.` :
+                    `Bu yetkinlik seviyeniz, orta ve üst kademe pozisyonlarına geçişte %40-50 avantaj sağlar. Sistematik gelişim ile 2-3 yıl içinde liderlik pozisyonlarına ulaşma olasılığınız yüksektir. ${specs.careerRelevance} alanlarında belirgin fırsatlar yaratır.` :
                     `${categoryName} becerilerindeki eksiklik, kariyer ilerlemenizi doğrudan etkilemektedir. Bu alan modern iş dünyasında ${specs.careerRelevance} için kritik öneme sahip olduğundan, acil ve yoğun gelişim programına ihtiyaç vardır. 6-12 aylık yapılandırılmış eğitim ile önemli ilerleme kaydetmeniz mümkündür.`
             };
         }
