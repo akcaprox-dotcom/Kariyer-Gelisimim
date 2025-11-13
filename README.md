@@ -5217,9 +5217,9 @@ www.akcaprox.com
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(24);
                 doc.setFont('helvetica', 'bold');
-                doc.text('KARİYER GELİŞİM ENVANTERİ', pageWidth / 2, 20, { align: 'center' });
+                doc.text(cleanTurkish('KARİYER GELİŞİM ENVANTERİ'), pageWidth / 2, 20, { align: 'center' });
                 doc.setFontSize(12);
-                doc.text('Profesyonel Yetkinlik Değerlendirme Raporu', pageWidth / 2, 30, { align: 'center' });
+                doc.text(cleanTurkish('Profesyonel Yetkinlik Değerlendirme Raporu'), pageWidth / 2, 30, { align: 'center' });
 
                 yPos = 50;
 
@@ -5235,31 +5235,31 @@ www.akcaprox.com
                 });
                 
                 doc.setFont('helvetica', 'bold');
-                doc.text('Katılımcı:', 15, yPos);
+                doc.text(cleanTurkish('Katılımcı:'), 15, yPos);
                 doc.setFont('helvetica', 'normal');
                 doc.text(cleanTurkish(currentUser.nickname), 50, yPos);
                 yPos += 7;
 
                 doc.setFont('helvetica', 'bold');
-                doc.text('Rapor Tarihi:', 15, yPos);
+                doc.text(cleanTurkish('Rapor Tarihi:'), 15, yPos);
                 doc.setFont('helvetica', 'normal');
                 doc.text(cleanTurkish(reportDate), 50, yPos);
                 yPos += 7;
 
                 doc.setFont('helvetica', 'bold');
-                doc.text('Mezuniyet:', 15, yPos);
+                doc.text(cleanTurkish('Mezuniyet:'), 15, yPos);
                 doc.setFont('helvetica', 'normal');
                 doc.text(cleanTurkish(currentUser.education_level), 50, yPos);
                 yPos += 7;
 
                 doc.setFont('helvetica', 'bold');
-                doc.text('Bölüm:', 15, yPos);
+                doc.text(cleanTurkish('Bölüm:'), 15, yPos);
                 doc.setFont('helvetica', 'normal');
                 doc.text(cleanTurkish(currentUser.department), 50, yPos);
                 yPos += 7;
 
                 doc.setFont('helvetica', 'bold');
-                doc.text('Pozisyon:', 15, yPos);
+                doc.text(cleanTurkish('Pozisyon:'), 15, yPos);
                 doc.setFont('helvetica', 'normal');
                 doc.text(cleanTurkish(currentUser.current_position), 50, yPos);
                 yPos += 12;
@@ -5297,7 +5297,7 @@ www.akcaprox.com
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
-                doc.text('KATEGORİ SONUÇLARI', 15, yPos);
+                doc.text(cleanTurkish('KATEGORİ SONUÇLARI'), 15, yPos);
                 yPos += 10;
 
                 if (!window.categoryScoresGlobal || window.categoryScoresGlobal.length === 0) {
@@ -5349,7 +5349,7 @@ www.akcaprox.com
 
                 doc.setFontSize(12);
                 doc.setFont('helvetica', 'bold');
-                doc.text('DEĞERLENDİRME', 15, yPos);
+                doc.text(cleanTurkish('DEĞERLENDİRME'), 15, yPos);
                 yPos += 8;
 
                 doc.setFontSize(10);
@@ -5370,7 +5370,7 @@ www.akcaprox.com
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(133, 100, 4);
-                doc.text('ÖNEMLİ UYARI', 20, yPos + 8);
+                doc.text(cleanTurkish('ÖNEMLİ UYARI'), 20, yPos + 8);
                 doc.setFont('helvetica', 'normal');
                 const warningText = cleanTurkish('Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.');
                 const splitWarning = doc.splitTextToSize(warningText, pageWidth - 40);
@@ -5423,9 +5423,9 @@ www.akcaprox.com
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(22);
                 doc.setFont('helvetica', 'bold');
-                doc.text('AKÇA PRO X ANALİZİ', pageWidth / 2, 18, { align: 'center' });
+                doc.text(cleanTurkish('AKÇA PRO X ANALİZİ'), pageWidth / 2, 18, { align: 'center' });
                 doc.setFontSize(16);
-                doc.text('Detaylı Kariyer Yetkinlik Analizi', pageWidth / 2, 28, { align: 'center' });
+                doc.text(cleanTurkish('Detaylı Kariyer Yetkinlik Analizi'), pageWidth / 2, 28, { align: 'center' });
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'normal');
                 const reportDate = new Date().toLocaleDateString('tr-TR', { 
@@ -5435,7 +5435,7 @@ www.akcaprox.com
                     hour: '2-digit',
                     minute: '2-digit'
                 });
-                doc.text('Rapor Tarihi: ' + cleanTurkish(reportDate), pageWidth / 2, 38, { align: 'center' });
+                doc.text(cleanTurkish('Rapor Tarihi: ') + cleanTurkish(reportDate), pageWidth / 2, 38, { align: 'center' });
 
                 yPos = 55;
 
@@ -5447,18 +5447,18 @@ www.akcaprox.com
 
                 doc.setFontSize(12);
                 doc.setFont('helvetica', 'bold');
-                doc.text('KATILIMCI BILGILERI', 20, yPos);
+                doc.text(cleanTurkish('KATILIMCI BİLGİLERİ'), 20, yPos);
                 yPos += 7;
 
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'normal');
-                doc.text('Rumuz: ' + cleanTurkish(currentUser.nickname), 20, yPos);
+                doc.text(cleanTurkish('Rumuz: ') + cleanTurkish(currentUser.nickname), 20, yPos);
                 yPos += 6;
-                doc.text('Mezuniyet: ' + cleanTurkish(currentUser.education_level), 20, yPos);
+                doc.text(cleanTurkish('Mezuniyet: ') + cleanTurkish(currentUser.education_level), 20, yPos);
                 yPos += 6;
-                doc.text('Bölüm: ' + cleanTurkish(currentUser.department), 20, yPos);
+                doc.text(cleanTurkish('Bölüm: ') + cleanTurkish(currentUser.department), 20, yPos);
                 yPos += 6;
-                doc.text('Pozisyon: ' + cleanTurkish(currentUser.current_position), 20, yPos);
+                doc.text(cleanTurkish('Pozisyon: ') + cleanTurkish(currentUser.current_position), 20, yPos);
                 yPos += 12;
 
                 // Genel Skor
@@ -5496,7 +5496,7 @@ www.akcaprox.com
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
-                doc.text('KATEGORİ SONUÇLARI', pageWidth / 2, yPos, { align: 'center' });
+                doc.text(cleanTurkish('KATEGORİ SONUÇLARI'), pageWidth / 2, yPos, { align: 'center' });
                 yPos += 10;
 
                 window.categoryScoresGlobal.forEach((category, index) => {
@@ -5540,12 +5540,17 @@ www.akcaprox.com
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
-                doc.text('GRAFIK ANALIZLER', pageWidth / 2, yPos, { align: 'center' });
+                doc.text(cleanTurkish('GRAFİK ANALİZLER'), pageWidth / 2, yPos, { align: 'center' });
                 yPos += 10;
 
                 // Grafikleri canvas'tan al ve PDF'e ekle
                 const charts = ['radarChart', 'pieChart', 'barChart', 'scatterChart'];
-                const chartTitles = ['Radar Analizi', 'Pasta Grafiği', 'Çubuk Grafiği', 'Nokta Grafiği'];
+                const chartTitles = [
+                    cleanTurkish('Radar Analizi'), 
+                    cleanTurkish('Pasta Grafiği'), 
+                    cleanTurkish('Çubuk Grafiği'), 
+                    cleanTurkish('Nokta Grafiği')
+                ];
                 
                 for (let i = 0; i < charts.length; i++) {
                     const canvas = document.getElementById(charts[i]);
@@ -5568,12 +5573,51 @@ www.akcaprox.com
                     }
                 }
 
+                // Grafik açıklamaları - Yeni sayfa
+                doc.addPage();
+                yPos = 20;
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(0, 0, 0);
+                doc.text(cleanTurkish('GRAFİK AÇIKLAMALARI'), pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+
+                // Pasta grafiği açıklamaları
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Pasta Grafiği Dağılımı'), 15, yPos);
+                yPos += 7;
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                const totalScore = window.categoryScoresGlobal.reduce((sum, cat) => sum + cat.score, 0);
+                
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    if (yPos > pageHeight - 15) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    const pieShare = Math.round((category.score / totalScore) * 100);
+                    const categoryText = `${index + 1}. ${cleanTurkish(category.name)}`;
+                    const scoreInfo = `Pasta Payi: ${pieShare}% | Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`;
+                    
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(categoryText, 15, yPos);
+                    yPos += 4;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(scoreInfo, 15, yPos);
+                    doc.setTextColor(0, 0, 0);
+                    yPos += 7;
+                });
+
                 // Kategori analizleri
                 doc.addPage();
                 yPos = 20;
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
-                doc.text('KATEGORI ANALIZLERI', pageWidth / 2, yPos, { align: 'center' });
+                doc.text(cleanTurkish('KATEGORİ ANALİZLERİ'), pageWidth / 2, yPos, { align: 'center' });
                 yPos += 10;
 
                 window.categoryScoresGlobal.forEach((category, index) => {
@@ -5627,7 +5671,7 @@ www.akcaprox.com
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(220, 53, 69);
-                doc.text('ÖNEMLİ UYARI', pageWidth / 2, yPos + 12, { align: 'center' });
+                doc.text(cleanTurkish('ÖNEMLİ UYARI'), pageWidth / 2, yPos + 12, { align: 'center' });
                 
                 yPos += 22;
                 doc.setFontSize(10);
