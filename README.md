@@ -62,15 +62,15 @@ www.akcaprox.com
         .login-screen, .register-screen, .welcome-screen, .admin-panel {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
 
         .login-screen h1, .register-screen h1, .welcome-screen h1, .admin-panel h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -78,23 +78,23 @@ www.akcaprox.com
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             text-align: left;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: #333;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -110,13 +110,13 @@ www.akcaprox.com
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
+            padding: 12px 32px;
+            font-size: 1rem;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-            margin: 10px;
+            margin: 8px;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
@@ -170,17 +170,17 @@ www.akcaprox.com
             display: none;
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #e0e0e0;
             border-radius: 4px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
 
@@ -196,49 +196,49 @@ www.akcaprox.com
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 2px solid #f0f0f0;
         }
 
         .question-counter {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .category-badge {
             background: #f8f9fa;
             color: #667eea;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 2px solid #667eea;
         }
 
         .question-text {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             line-height: 1.5;
             color: #2c3e50;
         }
 
         .options-container {
             display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .option {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -331,12 +331,12 @@ www.akcaprox.com
 
         .results-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .results-title {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
+            font-size: 1.9rem;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -344,29 +344,29 @@ www.akcaprox.com
         }
 
         .overall-score {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #667eea;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .score-interpretation {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .category-results {
             display: grid;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .category-result {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 20px;
-            border-left: 5px solid #667eea;
+            padding: 16px;
+            border-left: 4px solid #667eea;
         }
 
         .category-name {
@@ -483,29 +483,29 @@ www.akcaprox.com
         .chart-box {
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             border: 2px solid #e9ecef;
         }
 
         .chart-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #2c3e50;
         }
 
         .chart-canvas {
             width: 100%;
-            height: 300px;
+            height: 280px;
             background: white;
             border-radius: 10px;
             border: 1px solid #dee2e6;
         }
 
         .analysis-section {
-            margin: 40px 0;
-            padding: 30px;
+            margin: 30px 0;
+            padding: 25px;
             background: #f8f9fa;
             border-radius: 15px;
             border-left: 5px solid #667eea;
@@ -962,9 +962,9 @@ www.akcaprox.com
   <style>
     /* Google Auth Button */
     .google-auth-btn {
-        background: white;
-        color: #444;
-        border: 2px solid #ddd;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         padding: 12px 24px;
         font-size: 16px;
         font-weight: 500;
@@ -977,13 +977,13 @@ www.akcaprox.com
         transition: all 0.3s ease;
         margin: 15px 0;
         width: 100%;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
     }
 
     .google-auth-btn:hover {
-        background: #f8f9fa;
-        border-color: #4285f4;
-        box-shadow: 0 4px 8px rgba(66, 133, 244, 0.2);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
         transform: translateY(-2px);
     }
 
@@ -997,10 +997,10 @@ www.akcaprox.com
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
         padding: 20px 25px;
         border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
         z-index: 9999;
         animation: slideInRight 0.5s ease, pulse 2s infinite;
         min-width: 300px;
@@ -1060,10 +1060,10 @@ www.akcaprox.com
 
     @keyframes pulse {
         0%, 100% {
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
         }
         50% {
-            box-shadow: 0 8px 32px rgba(118, 75, 162, 0.6), 
+            box-shadow: 0 8px 32px rgba(69, 160, 73, 0.6), 
                         0 0 40px rgba(102, 126, 234, 0.3);
         }
     }
@@ -1150,37 +1150,64 @@ www.akcaprox.com
    <div class="login-screen" id="loginScreen">
     <h1 id="loginTitle">Kariyer Gelişim Performansı ve İlerleme Paneli</h1>
     <p style="text-align: center; color: #666; font-size: 0.95rem; margin-top: -10px; margin-bottom: 25px;">Üye Girişi</p>
-    
-    <!-- Firebase Auth Status Box -->
-    <div id="firebaseAuthStatus" class="firebase-auth-status hidden">
-        <button class="close-status-btn" onclick="closeAuthStatus()">×</button>
-        <h3>
-            <span class="status-icon"></span>
-            ✅ Giriş Yapıldı!
-        </h3>
-        <p id="authMethodText">Google ile bağlantı kuruldu</p>
-        <div class="email" id="authEmailDisplay"></div>
-    </div>
 
     <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px; margin-bottom: 15px; font-size: 0.9rem; color: #856404;">
-        <strong>🔐 Bilgilendirme:</strong> Admin paneline erişim için Google ile giriş yapmanız gerekmektedir. Güvenlik nedeniyle zorunludur.
+        <strong>🔐 Bilgilendirme:</strong> Panele erişim için Google ile giriş yapmanız gerekmektedir. Güvenlik nedeniyle zorunludur.
+    </div>
+    
+    <!-- Sorumluluk Reddi Butonu -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button type="button" onclick="showDisclaimerModal()" style="
+            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+            transition: all 0.3s ease;
+        ">
+            ⚖️ Sorumluluk Reddi ve Gizlilik Beyanı
+        </button>
     </div>
 
-    <button type="button" class="google-auth-btn" onclick="signInWithGoogle()">
-        <svg viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-        </svg>
-        Google ile Giriş Yap
-    </button>
+    <!-- Google Auth Button / Status -->
+    <div id="googleAuthContainer">
+        <button type="button" class="google-auth-btn" onclick="checkDisclaimerAndLogin()" id="googleLoginBtn">
+            <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Google ile Giriş Yap
+        </button>
+        
+        <!-- Firebase Auth Status (butonun yerine gelecek) -->
+        <div id="firebaseAuthStatus" class="firebase-auth-status hidden">
+            <button class="close-status-btn" onclick="closeAuthStatus()">×</button>
+            <h3>
+                <span class="status-icon"></span>
+                ✅ Google ile Giriş Yapıldı!
+            </h3>
+            <p id="authMethodText">Bağlantı kuruldu</p>
+            <div class="email" id="authEmailDisplay"></div>
+        </div>
+    </div>
 
     <form id="loginForm" onsubmit="handleLogin(event)">
-     <div class="form-group"><label for="loginNickname">Rumuz:</label> <input type="text" id="loginNickname" required>
+     <div class="form-group"><label for="loginNickname">Rumuz:</label> <input type="text" id="loginNickname" required disabled>
      </div>
-     <div class="form-group"><label for="loginPassword">Şifre:</label> <input type="password" id="loginPassword" required>
-     </div><button type="submit" class="btn" id="loginBtn"> <span class="btn-text">Giriş Yap</span> <span class="loading hidden"></span> </button> <button type="button" class="btn btn-secondary" onclick="showRegister()">Üye Ol</button>
+     <div class="form-group"><label for="loginPassword">Şifre:</label> <input type="password" id="loginPassword" required disabled>
+     </div>
+     <button type="submit" class="btn" id="loginBtn" disabled style="opacity: 0.5; cursor: not-allowed;"> 
+         <span class="btn-text">Giriş Yap</span> <span class="loading hidden"></span> 
+     </button> 
+     <button type="button" class="btn btn-secondary" id="registerBtn" onclick="showRegister()" disabled style="opacity: 0.5; cursor: not-allowed;">Üye Ol</button>
+     <p style="text-align: center; color: #999; font-size: 0.85rem; margin-top: 15px;">
+         ℹ️ Önce Google ile giriş yapmanız gerekiyor
+     </p>
     </form>
    </div><!-- Register Screen -->
    <div class="register-screen hidden" id="registerScreen">
@@ -1314,7 +1341,12 @@ www.akcaprox.com
      </div>
      <div class="score-interpretation" id="scoreInterpretation"></div>
     </div>
-    <div class="category-results" id="categoryResults"></div><button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button> <button class="btn" onclick="downloadPDFReport()">📄 PDF Rapor İndir</button> <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+    <div class="category-results" id="categoryResults"></div>
+    <div id="resultsActions">
+        <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button> 
+        <button class="btn" onclick="downloadPDFReport()">📄 PDF Rapor İndir</button> 
+        <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+    </div>
    </div><!-- Report Container -->
    <div class="report-container" id="reportContainer">
     <div class="disclaimer">
@@ -1337,12 +1369,14 @@ www.akcaprox.com
        Radar Analizi
       </div>
       <canvas class="chart-canvas" id="radarChart"></canvas>
+      <div id="radarChartLegend" style="margin-top: 15px;"></div>
      </div>
      <div class="chart-box">
       <div class="chart-title">
        Pasta Grafiği
       </div>
       <canvas class="chart-canvas" id="pieChart"></canvas>
+      <div id="pieChartLegend" style="margin-top: 15px;"></div>
      </div>
      <div class="chart-box">
       <div class="chart-title">
@@ -1355,6 +1389,7 @@ www.akcaprox.com
        Nokta Grafiği
       </div>
       <canvas class="chart-canvas" id="scatterChart"></canvas>
+      <div id="scatterChartLegend" style="margin-top: 15px;"></div>
      </div>
     </div>
     <div class="analysis-section">
@@ -1394,8 +1429,162 @@ www.akcaprox.com
         let firebaseAuthUser = null; // Firebase Authentication kullanıcısı
         window.googleUser = null; // Google ile giriş yapan kullanıcı (global)
         const SUPER_ADMIN_EMAIL = "analizprox@gmail.com"; // Süper admin email
+        let disclaimerAccepted = false; // Sorumluluk reddi onayı
+        let currentUserEmail = null; // Mevcut kullanıcının email'i
 
-        // Google ile Giriş
+        // Kullanıcıya özel disclaimer kontrolü
+        function checkUserDisclaimer(email) {
+            if (!email) return false;
+            const disclaimerKey = 'disclaimer_' + email;
+            return localStorage.getItem(disclaimerKey) === 'true';
+        }
+
+        function saveUserDisclaimer(email) {
+            if (!email) return;
+            const disclaimerKey = 'disclaimer_' + email;
+            localStorage.setItem(disclaimerKey, 'true');
+        }
+
+        // Sorumluluk Reddi Modal Fonksiyonları
+        function showDisclaimerModal() {
+            document.getElementById('disclaimerModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Scroll engelle
+            
+            // Checkbox'ı sıfırla
+            const checkbox = document.getElementById('disclaimerAccept');
+            if (checkbox) checkbox.checked = false;
+            
+            // Butonu devre dışı bırak
+            const acceptBtn = document.getElementById('acceptDisclaimerBtn');
+            if (acceptBtn) {
+                acceptBtn.disabled = true;
+                acceptBtn.style.cursor = 'not-allowed';
+                acceptBtn.style.opacity = '0.5';
+            }
+        }
+
+        function closeDisclaimerModal() {
+            document.getElementById('disclaimerModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Checkbox değişikliğini dinle
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('disclaimerAccept');
+            const acceptBtn = document.getElementById('acceptDisclaimerBtn');
+            
+            if (checkbox && acceptBtn) {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        acceptBtn.disabled = false;
+                        acceptBtn.style.cursor = 'pointer';
+                        acceptBtn.style.opacity = '1';
+                    } else {
+                        acceptBtn.disabled = true;
+                        acceptBtn.style.cursor = 'not-allowed';
+                        acceptBtn.style.opacity = '0.5';
+                    }
+                });
+            }
+        });
+
+        function acceptDisclaimer() {
+            if (currentUserEmail) {
+                saveUserDisclaimer(currentUserEmail);
+                disclaimerAccepted = true;
+                closeDisclaimerModal();
+                showMessage('✅ Sorumluluk reddi beyanı kabul edildi. Google girişi yapılıyor...', 'success');
+                
+                // Google giriş işlemini başlat
+                setTimeout(() => {
+                    signInWithGoogle();
+                }, 500);
+            } else {
+                showMessage('❌ Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+            }
+        }
+
+        // Google girişi öncesi disclaimer kontrolü
+        async function checkDisclaimerAndLogin() {
+            try {
+                // Önce Google ile kimlik doğrula (popup aç)
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('email');
+                provider.addScope('profile');
+                
+                console.log('🔐 Google ile kimlik doğrulama yapılıyor...');
+                
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                currentUserEmail = user.email;
+                
+                console.log('✅ Kimlik doğrulama başarılı:', currentUserEmail);
+                
+                // Bu kullanıcı daha önce disclaimer kabul etmiş mi?
+                if (checkUserDisclaimer(currentUserEmail)) {
+                    console.log('✅ Kullanıcı daha önce disclaimer kabul etmiş.');
+                    disclaimerAccepted = true;
+                    
+                    // Direkt giriş yap
+                    firebaseAuthUser = user;
+                    window.googleUser = user;
+                    
+                    // Görsel bildirim göster
+                    showAuthStatus(firebaseAuthUser.email, 'Google');
+                    
+                    // Form butonlarını aktif et
+                    enableLoginButtons();
+                    
+                    // Kullanıcının sistemde kayıtlı olup olmadığını kontrol et
+                    allUsers = await firebaseDB.getAll();
+                    const existingUser = allUsers.find(u => u.google_email === firebaseAuthUser.email);
+                    
+                    if (existingUser) {
+                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen rumuz ve şifrenizle giriş yapın.`, 'success');
+                    } else {
+                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen kayıt formunu doldurun.`, 'success');
+                        showRegister();
+                        
+                        const googleAuthInfo = document.getElementById('googleAuthInfo');
+                        const registerGoogleEmail = document.getElementById('registerGoogleEmail');
+                        
+                        if (googleAuthInfo && registerGoogleEmail) {
+                            googleAuthInfo.style.display = 'block';
+                            registerGoogleEmail.textContent = firebaseAuthUser.email;
+                        }
+                    }
+                    
+                    firebase.analytics().logEvent('login', {
+                        method: 'Google'
+                    });
+                    
+                } else {
+                    console.log('⚠️ Kullanıcı disclaimer kabul etmemiş. Modal açılıyor...');
+                    // Disclaimer kabul etmemiş, modal göster
+                    showMessage(`Merhaba ${user.displayName}! Lütfen önce Sorumluluk Reddi ve Gizlilik Beyanını okuyup onaylayın.`, 'info');
+                    
+                    // Oturumu kapat (disclaimer kabul edilene kadar)
+                    await auth.signOut();
+                    
+                    // Modal aç
+                    showDisclaimerModal();
+                }
+                
+            } catch (error) {
+                console.error('❌ Google giriş hatası:', error);
+                currentUserEmail = null;
+                
+                if (error.code === 'auth/popup-closed-by-user') {
+                    showMessage('Google giriş penceresi kapatıldı.', 'error');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showMessage('Popup engellenmiş! Tarayıcınızın popup ayarlarını kontrol edin.', 'error');
+                } else {
+                    showMessage('Google girişi başarısız: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Google ile Giriş (disclaimer kabul edildikten sonra)
         async function signInWithGoogle() {
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
@@ -1415,6 +1604,9 @@ www.akcaprox.com
                 
                 // Görsel bildirim göster
                 showAuthStatus(firebaseAuthUser.email, 'Google');
+                
+                // Form butonlarını aktif et
+                enableLoginButtons();
                 
                 // Kullanıcının sistemde kayıtlı olup olmadığını kontrol et
                 allUsers = await firebaseDB.getAll();
@@ -1462,17 +1654,90 @@ www.akcaprox.com
             const statusBox = document.getElementById('firebaseAuthStatus');
             const emailDisplay = document.getElementById('authEmailDisplay');
             const methodText = document.getElementById('authMethodText');
+            const googleBtn = document.getElementById('googleLoginBtn');
             
             emailDisplay.textContent = email || 'Anonim Kullanıcı';
-            methodText.textContent = method ? `${method} ile bağlantı kuruldu` : 'Anonim bağlantı kuruldu';
+            methodText.textContent = 'Giriş Yapıldı ✓';
             
-            statusBox.classList.remove('hidden');
-            statusBox.classList.add('rainbow-border');
+            // Butonu yeşil yap ve email göster
+            if (googleBtn) {
+                googleBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+                googleBtn.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                googleBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
+                        <path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/>
+                        <path fill="#fff" d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z"/>
+                    </svg>
+                    <span style="flex: 1; text-align: left;">${email}</span>
+                `;
+                googleBtn.style.cursor = 'default';
+                googleBtn.onclick = null;
+            }
+        }
+
+        // Giriş butonlarını aktif et
+        function enableLoginButtons() {
+            // Input alanlarını aktif et
+            document.getElementById('loginNickname').disabled = false;
+            document.getElementById('loginPassword').disabled = false;
+            
+            // Giriş Yap butonunu aktif et
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = false;
+            loginBtn.style.opacity = '1';
+            loginBtn.style.cursor = 'pointer';
+            
+            // Üye Ol butonunu aktif et
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.disabled = false;
+            registerBtn.style.opacity = '1';
+            registerBtn.style.cursor = 'pointer';
+            
+            // Bilgi metnini gizle
+            const infoText = document.querySelector('#loginForm p');
+            if (infoText) {
+                infoText.style.display = 'none';
+            }
+        }
+
+        // Giriş butonlarını devre dışı bırak
+        function disableLoginButtons() {
+            // Input alanlarını devre dışı bırak
+            document.getElementById('loginNickname').disabled = true;
+            document.getElementById('loginPassword').disabled = true;
+            
+            // Giriş Yap butonunu devre dışı bırak
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = '0.5';
+            loginBtn.style.cursor = 'not-allowed';
+            
+            // Üye Ol butonunu devre dışı bırak
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.disabled = true;
+            registerBtn.style.opacity = '0.5';
+            registerBtn.style.cursor = 'not-allowed';
+            
+            // Bilgi metnini göster
+            const infoText = document.querySelector('#loginForm p');
+            if (infoText) {
+                infoText.style.display = 'block';
+            }
         }
 
         // Auth Status'u kapat
         function closeAuthStatus() {
-            document.getElementById('firebaseAuthStatus').classList.add('hidden');
+            const statusBox = document.getElementById('firebaseAuthStatus');
+            const googleBtn = document.getElementById('googleLoginBtn');
+            
+            statusBox.classList.add('hidden');
+            // Butonu tekrar göster
+            if (googleBtn) {
+                googleBtn.style.display = 'flex';
+            }
+            
+            // Giriş butonlarını devre dışı bırak
+            disableLoginButtons();
         }
 
         // Firebase Anonymous Authentication - Otomatik giriş
@@ -1487,9 +1752,10 @@ www.akcaprox.com
                     firebaseAuthUser = auth.currentUser;
                     console.log('🔐 Firebase Auth - Mevcut kullanıcı:', firebaseAuthUser.uid);
                     
-                    // Eğer Google ile giriş yapılmışsa göster
+                    // Eğer Google ile giriş yapılmışsa göster ve butonları aktif et
                     if (firebaseAuthUser.email) {
                         showAuthStatus(firebaseAuthUser.email, 'Google');
+                        enableLoginButtons();
                     }
                     
                     return firebaseAuthUser;
@@ -2218,6 +2484,44 @@ www.akcaprox.com
 
             let html = '<div style="display: grid; gap: 20px;">';
             
+            // Tüm Zamanlar Ortalaması Kartı
+            if (currentUser.test_history.length > 1) {
+                const avgScore = Math.round(
+                    currentUser.test_history.reduce((sum, test) => sum + test.overall_score, 0) / 
+                    currentUser.test_history.length
+                );
+                
+                html += `
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); color: white;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                                    📊 Tüm Zamanlar Ortalaması
+                                </h3>
+                                <p style="margin: 5px 0; font-size: 14px; opacity: 0.9;">
+                                    ${currentUser.test_history.length} test ortalaması
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 36px; font-weight: bold;">
+                                    ${avgScore}%
+                                </div>
+                                <div style="font-size: 12px; opacity: 0.9;">Ortalama Skor</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <button class="btn" style="margin: 5px; background: white; color: #667eea;" onclick="viewAverageReport()">
+                                📈 Ortalama Raporu Görüntüle
+                            </button>
+                            <button class="btn" style="margin: 5px; background: rgba(255,255,255,0.2);" onclick="viewProgressChart()">
+                                📉 İlerleme Grafiği
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
             // Test geçmişini tarih sırasına göre sırala (en yeni önce)
             const sortedHistory = [...currentUser.test_history].sort((a, b) => 
                 new Date(b.test_date) - new Date(a.test_date)
@@ -2252,7 +2556,7 @@ www.akcaprox.com
                         
                         <div style="margin-top: 20px;">
                             <button class="btn" style="margin: 5px;" onclick="viewHistoricalReport(${index})">
-                                📊 Raporu Görüntüle
+                                📊 Bu Raporu Görüntüle
                             </button>
                             <button class="btn" style="margin: 5px; background: #43e97b;" onclick="downloadHistoricalPDF(${index})">
                                 📄 PDF İndir
@@ -2280,6 +2584,10 @@ www.akcaprox.com
             
             const test = sortedHistory[index];
             
+            // Geçmiş rapor bilgisini kaydet
+            window.isHistoricalReport = true;
+            window.historicalReportDate = test.test_date;
+            
             // Global değişkene test sonuçlarını yükle
             window.categoryScoresGlobal = JSON.parse(test.test_results);
             
@@ -2289,6 +2597,27 @@ www.akcaprox.com
             
             // Skorları göster
             document.getElementById('overallScore').textContent = test.overall_score + '%';
+            
+            // Geçmiş rapor uyarısı ekle
+            const testDate = new Date(test.test_date);
+            const dateStr = testDate.toLocaleDateString('tr-TR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Başlığı güncelle
+            const resultsTitle = document.querySelector('.results-title');
+            if (resultsTitle) {
+                resultsTitle.innerHTML = `
+                    📜 Geçmiş Rapor - Test #${sortedHistory.length - index}
+                    <div style="font-size: 14px; color: #666; font-weight: normal; margin-top: 5px;">
+                        📅 ${dateStr}
+                    </div>
+                `;
+            }
             
             // Yorum oluştur
             let interpretation = '';
@@ -2302,6 +2631,16 @@ www.akcaprox.com
                 interpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
             }
             document.getElementById('scoreInterpretation').textContent = interpretation;
+            
+            // Butonları geçmiş rapor için güncelle
+            const resultsActions = document.getElementById('resultsActions');
+            if (resultsActions) {
+                resultsActions.innerHTML = `
+                    <button class="btn" onclick="downloadHistoricalPDF(${index})">📄 PDF Rapor İndir</button>
+                    <button class="btn btn-secondary" onclick="showMyReports()">← Raporlara Dön</button>
+                    <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+                `;
+            }
             
             // Kategori sonuçlarını göster
             const categoryResultsContainer = document.getElementById('categoryResults');
@@ -2331,6 +2670,244 @@ www.akcaprox.com
             setTimeout(() => {
                 downloadPDFReport();
             }, 500);
+        }
+
+        function viewAverageReport() {
+            if (!currentUser || !currentUser.test_history || currentUser.test_history.length === 0) return;
+            
+            // Tüm testlerin ortalamasını hesapla
+            const categoryAverages = {};
+            
+            // Her kategori için ortalama hesapla
+            currentUser.test_history.forEach(test => {
+                const results = JSON.parse(test.test_results);
+                results.forEach(category => {
+                    if (!categoryAverages[category.name]) {
+                        categoryAverages[category.name] = {
+                            name: category.name,
+                            totalScore: 0,
+                            totalPercentage: 0,
+                            count: 0
+                        };
+                    }
+                    categoryAverages[category.name].totalScore += category.score;
+                    categoryAverages[category.name].totalPercentage += category.percentage;
+                    categoryAverages[category.name].count++;
+                });
+            });
+            
+            // Ortalama skorları hesapla
+            const avgCategoryScores = Object.values(categoryAverages).map(cat => ({
+                name: cat.name,
+                score: Math.round(cat.totalScore / cat.count),
+                percentage: cat.totalPercentage / cat.count
+            }));
+            
+            const avgOverallScore = Math.round(
+                currentUser.test_history.reduce((sum, test) => sum + test.overall_score, 0) / 
+                currentUser.test_history.length
+            );
+            
+            // Global değişkene kaydet
+            window.isHistoricalReport = true;
+            window.isAverageReport = true;
+            window.categoryScoresGlobal = avgCategoryScores;
+            
+            // Sonuç ekranını göster
+            hideAllScreens();
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Skorları göster
+            document.getElementById('overallScore').textContent = avgOverallScore + '%';
+            
+            // Başlığı güncelle
+            const resultsTitle = document.querySelector('.results-title');
+            if (resultsTitle) {
+                resultsTitle.innerHTML = `
+                    📊 Tüm Zamanlar Ortalama Raporu
+                    <div style="font-size: 14px; color: #666; font-weight: normal; margin-top: 5px;">
+                        ${currentUser.test_history.length} test ortalaması
+                    </div>
+                `;
+            }
+            
+            // Yorum
+            let interpretation = `${currentUser.test_history.length} test ortalamanıza göre, `;
+            if (avgOverallScore >= 85) {
+                interpretation += 'kariyer gelişiminizde sürekli güçlü bir performans sergiliyorsunuz!';
+            } else if (avgOverallScore >= 70) {
+                interpretation += 'genel olarak iyi bir performans gösteriyorsunuz. Bazı alanlarda tutarlı gelişim fırsatları var.';
+            } else if (avgOverallScore >= 55) {
+                interpretation += 'dengeli bir gelişim gösteriyorsunuz. Odaklanılması gereken alanlar belirgin.';
+            } else {
+                interpretation += 'sürekli gelişim potansiyeliniz yüksek. Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
+            }
+            document.getElementById('scoreInterpretation').textContent = interpretation;
+            
+            // Butonları güncelle
+            const resultsActions = document.getElementById('resultsActions');
+            if (resultsActions) {
+                resultsActions.innerHTML = `
+                    <button class="btn" onclick="viewProgressChart()">📉 İlerleme Grafiği</button>
+                    <button class="btn btn-secondary" onclick="showMyReports()">← Raporlara Dön</button>
+                    <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+                `;
+            }
+            
+            // Kategori sonuçlarını göster
+            const categoryResultsContainer = document.getElementById('categoryResults');
+            categoryResultsContainer.innerHTML = '';
+            
+            avgCategoryScores.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category-result';
+                
+                categoryDiv.innerHTML = `
+                    <div class="category-name">${category.name}</div>
+                    <div class="category-score">
+                        <span>${Math.round(category.percentage)}%</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${category.percentage}%"></div>
+                        </div>
+                        <span class="score-value">${category.score}/40 (ort.)</span>
+                    </div>
+                `;
+                
+                categoryResultsContainer.appendChild(categoryDiv);
+            });
+        }
+
+        function viewProgressChart() {
+            if (!currentUser || !currentUser.test_history || currentUser.test_history.length === 0) return;
+            
+            hideAllScreens();
+            
+            // İlerleme grafik ekranı oluştur
+            const container = document.createElement('div');
+            container.id = 'progressChartScreen';
+            container.className = 'results-container';
+            container.style.display = 'block';
+            
+            const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                new Date(a.test_date) - new Date(b.test_date)
+            );
+            
+            let html = `
+                <div class="results-header">
+                    <h2 class="results-title">📉 Kariyer Gelişim İlerleme Grafiği</h2>
+                    <p style="text-align: center; color: #666; margin-top: 10px;">
+                        ${sortedHistory.length} test sonuçlarınızın zamana göre değişimi
+                    </p>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin-bottom: 20px; color: #667eea;">📈 Genel Skor İlerlemesi</h3>
+                    <div style="position: relative; height: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; background: #f9f9f9;">
+            `;
+            
+            // Basit çizgi grafiği (ASCII stil)
+            const maxScore = 100;
+            const chartHeight = 250;
+            const chartWidth = sortedHistory.length * 100;
+            
+            sortedHistory.forEach((test, index) => {
+                const testDate = new Date(test.test_date).toLocaleDateString('tr-TR', { month: 'short', day: 'numeric' });
+                const percentage = test.overall_score;
+                const barHeight = (percentage / maxScore) * chartHeight;
+                const left = (index / (sortedHistory.length - 1)) * 80 + 10;
+                
+                html += `
+                    <div style="position: absolute; bottom: 20px; left: ${left}%; transform: translateX(-50%);">
+                        <div style="position: relative;">
+                            <div style="
+                                width: 60px;
+                                height: ${barHeight}px;
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                border-radius: 5px;
+                                margin-bottom: 5px;
+                                position: relative;
+                                box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+                            ">
+                                <span style="
+                                    position: absolute;
+                                    top: -25px;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    font-weight: bold;
+                                    color: #667eea;
+                                    font-size: 14px;
+                                ">${percentage}%</span>
+                            </div>
+                            <div style="text-align: center; font-size: 11px; color: #666; white-space: nowrap;">
+                                ${testDate}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <h3 style="margin-bottom: 20px; color: #667eea;">📊 Test Detayları</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f5f5f5;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Test #</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Tarih</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #ddd;">Skor</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #ddd;">Değişim</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            sortedHistory.forEach((test, index) => {
+                const testDate = new Date(test.test_date).toLocaleDateString('tr-TR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                let change = '';
+                if (index > 0) {
+                    const diff = test.overall_score - sortedHistory[index - 1].overall_score;
+                    if (diff > 0) {
+                        change = `<span style="color: #4caf50;">↗️ +${diff}%</span>`;
+                    } else if (diff < 0) {
+                        change = `<span style="color: #f44336;">↘️ ${diff}%</span>`;
+                    } else {
+                        change = `<span style="color: #999;">➡️ 0%</span>`;
+                    }
+                }
+                
+                html += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">Test #${index + 1}</td>
+                        <td style="padding: 12px;">${testDate}</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold; color: #667eea;">${test.overall_score}%</td>
+                        <td style="padding: 12px; text-align: center;">${change}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn" onclick="showMyReports()">← Raporlara Dön</button>
+                    <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            document.body.appendChild(container);
         }
 
         function compareReports(oldIndex, newIndex) {
@@ -3583,6 +4160,26 @@ www.akcaprox.com
             document.getElementById('quizContainer').style.display = 'none';
             document.getElementById('resultsContainer').style.display = 'block';
             
+            // Yeni test bayrağını temizle
+            window.isHistoricalReport = false;
+            window.historicalReportDate = null;
+            
+            // Başlığı normal haline döndür
+            const resultsTitle = document.querySelector('.results-title');
+            if (resultsTitle) {
+                resultsTitle.innerHTML = 'Kariyer Gelişim Raporu';
+            }
+            
+            // Butonları normale döndür
+            const resultsActions = document.getElementById('resultsActions');
+            if (resultsActions) {
+                resultsActions.innerHTML = `
+                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button> 
+                    <button class="btn" onclick="downloadPDFReport()">📄 PDF Rapor İndir</button> 
+                    <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+                `;
+            }
+            
             // Kategori skorlarını hesapla
             const categoryScores = [];
             let totalScore = 0;
@@ -3712,7 +4309,7 @@ www.akcaprox.com
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
             const isMobile = window.innerWidth <= 768;
-            const radius = Math.min(centerX, centerY) - (isMobile ? 50 : 60);
+            const radius = Math.min(centerX, centerY) - (isMobile ? 80 : 100);
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -3725,7 +4322,7 @@ www.akcaprox.com
                 ctx.stroke();
             }
             
-            // Eksen çizgileri
+            // Eksen çizgileri ve numaralar
             const angleStep = (2 * Math.PI) / 10;
             for (let i = 0; i < 10; i++) {
                 const angle = i * angleStep - Math.PI / 2;
@@ -3736,6 +4333,15 @@ www.akcaprox.com
                 ctx.moveTo(centerX, centerY);
                 ctx.lineTo(x, y);
                 ctx.stroke();
+                
+                // Numara etiketi (1-10)
+                ctx.fillStyle = '#667eea';
+                ctx.font = 'bold ' + (isMobile ? '14px' : '16px') + ' Arial';
+                ctx.textAlign = 'center';
+                const numRadius = radius + (isMobile ? 15 : 20);
+                const numX = centerX + Math.cos(angle) * numRadius;
+                const numY = centerY + Math.sin(angle) * numRadius;
+                ctx.fillText((i + 1).toString(), numX, numY + 5);
             }
             
             // Veri çizimi
@@ -3755,28 +4361,49 @@ www.akcaprox.com
                 } else {
                     ctx.lineTo(x, y);
                 }
+                
+                // Veri noktası
+                ctx.fillStyle = '#667eea';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fill();
             });
             
             ctx.closePath();
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.3)';
             ctx.fill();
+            ctx.strokeStyle = '#667eea';
             ctx.stroke();
             
-            // Etiketler
-            ctx.fillStyle = '#333';
-            ctx.font = isMobile ? '9px Arial' : '12px Arial';
-            ctx.textAlign = 'center';
-            window.categoryScoresGlobal.forEach((category, index) => {
-                const angle = index * angleStep - Math.PI / 2;
-                const labelRadius = radius + (isMobile ? 25 : 30);
-                const x = centerX + Math.cos(angle) * labelRadius;
-                const y = centerY + Math.sin(angle) * labelRadius;
-                
-                const words = category.name.split(' ');
-                const lineHeight = isMobile ? 10 : 15;
-                words.forEach((word, wordIndex) => {
-                    ctx.fillText(word, x, y + wordIndex * lineHeight);
+            // Legend (Açıklama) - Canvas dışında HTML ile
+            const legendContainer = document.getElementById('radarChartLegend');
+            if (legendContainer) {
+                let legendHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 20px;">';
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    legendHTML += `
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f9f9f9; border-radius: 6px;">
+                            <div style="
+                                width: 24px; 
+                                height: 24px; 
+                                background: #667eea; 
+                                border-radius: 50%; 
+                                display: flex; 
+                                align-items: center; 
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 12px;
+                            ">${index + 1}</div>
+                            <div style="flex: 1; font-size: 13px;">
+                                <strong>${category.name}</strong>
+                                <div style="color: #666; font-size: 11px;">${Math.round(category.percentage)}% - ${category.score}/40</div>
+                            </div>
+                        </div>
+                    `;
                 });
-            });
+                legendHTML += '</div>';
+                legendContainer.innerHTML = legendHTML;
+            }
         }
 
         function drawPieChart() {
@@ -3807,7 +4434,7 @@ www.akcaprox.com
                 ctx.closePath();
                 ctx.fill();
                 
-                // Yüzde etiketi - DOĞRU HESAPLAMA: Pastadaki gerçek payı
+                // Yüzde etiketi - pasta dilimindeki payı
                 const piePercentage = (category.score / total) * 100;
                 const labelAngle = currentAngle + sliceAngle / 2;
                 const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
@@ -3820,6 +4447,35 @@ www.akcaprox.com
                 
                 currentAngle += sliceAngle;
             });
+            
+            // Legend (Açıklama) - HTML ile
+            const legendContainer = document.getElementById('pieChartLegend');
+            if (legendContainer) {
+                let legendHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 20px;">';
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    const piePercentage = (category.score / total) * 100;
+                    legendHTML += `
+                        <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f9f9f9; border-radius: 8px;">
+                            <div style="
+                                width: 30px; 
+                                height: 30px; 
+                                background: ${colors[index % colors.length]}; 
+                                border-radius: 6px;
+                                flex-shrink: 0;
+                            "></div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold; font-size: 13px; margin-bottom: 3px;">${category.name}</div>
+                                <div style="color: #666; font-size: 12px;">
+                                    Pasta Payı: <strong>${Math.round(piePercentage)}%</strong> | 
+                                    Skor: <strong>${category.score}/40</strong> (${Math.round(category.percentage)}%)
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                legendHTML += '</div>';
+                legendContainer.innerHTML = legendHTML;
+            }
         }
 
         function drawBarChart() {
@@ -3905,25 +4561,48 @@ www.akcaprox.com
             ctx.lineTo(canvas.width - padding, canvas.height - padding);
             ctx.stroke();
             
-            // Grid çizgileri
+            // Grid çizgileri ve Y ekseni etiketleri
             ctx.strokeStyle = '#e0e0e0';
             ctx.lineWidth = 1;
-            for (let i = 1; i <= 4; i++) {
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'right';
+            
+            for (let i = 0; i <= 5; i++) {
                 const y = padding + (chartHeight * i) / 5;
+                const label = 100 - (i * 20);
+                
                 ctx.beginPath();
                 ctx.moveTo(padding, y);
                 ctx.lineTo(canvas.width - padding, y);
                 ctx.stroke();
+                
+                ctx.fillText(label + '%', padding - 5, y + 4);
             }
             
-            // Noktalar
+            // X ekseni etiketleri (kategori numaraları)
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#667eea';
+            ctx.font = 'bold 11px Arial';
+            
+            // Noktalar ve bağlantılar
             const dotRadius = isMobile ? 6 : 8;
+            const colors = [
+                '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe',
+                '#43e97b', '#fa709a', '#fee140', '#a8edea', '#d299c2'
+            ];
+            
             window.categoryScoresGlobal.forEach((category, index) => {
                 const x = padding + (index / (window.categoryScoresGlobal.length - 1)) * chartWidth;
                 const y = canvas.height - padding - (category.percentage / 100) * chartHeight;
                 
+                // X ekseni numarası
+                ctx.fillStyle = '#667eea';
+                ctx.fillText((index + 1).toString(), x, canvas.height - padding + 15);
+                
+                // Nokta
                 const gradient = ctx.createRadialGradient(x, y, 0, x, y, dotRadius);
-                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(0, colors[index % colors.length]);
                 gradient.addColorStop(1, '#764ba2');
                 
                 ctx.fillStyle = gradient;
@@ -3931,12 +4610,17 @@ www.akcaprox.com
                 ctx.arc(x, y, dotRadius, 0, 2 * Math.PI);
                 ctx.fill();
                 
+                // Skor etiketi
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 10px Arial';
+                ctx.fillText(Math.round(category.percentage) + '%', x, y - 12);
+                
                 // Çizgi bağlantısı
                 if (index > 0) {
                     const prevX = padding + ((index - 1) / (window.categoryScoresGlobal.length - 1)) * chartWidth;
                     const prevY = canvas.height - padding - (window.categoryScoresGlobal[index - 1].percentage / 100) * chartHeight;
                     
-                    ctx.strokeStyle = '#667eea';
+                    ctx.strokeStyle = 'rgba(102, 126, 234, 0.5)';
                     ctx.lineWidth = isMobile ? 1.5 : 2;
                     ctx.beginPath();
                     ctx.moveTo(prevX, prevY);
@@ -3944,6 +4628,36 @@ www.akcaprox.com
                     ctx.stroke();
                 }
             });
+            
+            // Legend (Açıklama)
+            const legendContainer = document.getElementById('scatterChartLegend');
+            if (legendContainer) {
+                let legendHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 20px;">';
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    legendHTML += `
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f9f9f9; border-radius: 6px;">
+                            <div style="
+                                width: 24px; 
+                                height: 24px; 
+                                background: ${colors[index % colors.length]}; 
+                                border-radius: 50%; 
+                                display: flex; 
+                                align-items: center; 
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 12px;
+                            ">${index + 1}</div>
+                            <div style="flex: 1; font-size: 13px;">
+                                <strong>${category.name}</strong>
+                                <div style="color: #666; font-size: 11px;">${Math.round(category.percentage)}%</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                legendHTML += '</div>';
+                legendContainer.innerHTML = legendHTML;
+            }
         }
 
         // Analiz oluşturma fonksiyonu
@@ -4844,5 +5558,150 @@ www.akcaprox.com
         // Sayfa yüklendiğinde login ekranını göster
         showLogin();
     </script>
+    
+    <!-- Sorumluluk Reddi Modal -->
+    <div id="disclaimerModal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        overflow-y: auto;
+        padding: 20px;
+    ">
+        <div style="
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        ">
+            <button onclick="closeDisclaimerModal()" style="
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: #f5576c;
+                color: white;
+                border: none;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                line-height: 1;
+            ">×</button>
+            
+            <h2 style="
+                text-align: center;
+                color: #667eea;
+                margin-bottom: 20px;
+                font-size: 1.8rem;
+            ">⚖️ Sorumluluk Reddi, Gizlilik ve Veri Güvenliği Beyanı</h2>
+            
+            <div style="
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 20px;
+                background: #f9f9f9;
+                border-radius: 10px;
+                margin-bottom: 25px;
+                line-height: 1.8;
+                font-size: 0.95rem;
+            ">
+                <p style="margin-bottom: 15px;">
+                    Bu belge, <strong>Akça Pro X</strong> ve/veya <strong>Analiz Pro X</strong> platformları ile <strong>Barış Akça</strong> tarafından sunulan <strong>Kariyer Gelişim Çerçevesi (KGC)</strong> test/analiz sonuçlarının kullanımına ilişkin yasal sorumluluk sınırlarını ve veri güvenliği ilkelerini belirlemektedir.
+                </p>
+                
+                <h3 style="color: #667eea; margin-top: 25px; margin-bottom: 15px; font-size: 1.3rem;">1. Veri Güvenliği ve Gizlilik Taahhüdü</h3>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">1.1. Veri Saklama ve Altyapı:</h4>
+                <p style="margin-bottom: 15px;">
+                    Tüm test ve analiz sonuçları, güvenilir ve yüksek standartlı bir bulut veri tabanı olan <strong>Google Firebase Firestore</strong> üzerinde saklanmaktadır. Veriler, Firebase'in güvenlik protokolleri ile korunmaktadır.
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">1.2. Kimlik Doğrulama ve Güvenlik:</h4>
+                <p style="margin-bottom: 15px;">
+                    Sisteme giriş, yalnızca güvenilir ve merkezi bir kimlik doğrulama yöntemi olan <strong>Google Girişi (Google Sign-In)</strong> kullanılarak sağlanır. Bu yöntem, kullanıcı güvenliğini en üst düzeyde tutmayı amaçlar.
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">1.3. Kişisel Veri Kullanımı ve Rumuz:</h4>
+                <p style="margin-bottom: 15px;">
+                    Platform, kullanıcıların <strong>Ad ve Soyadı</strong> gibi doğrudan kimlik bilgilerini talep etmez ve kullanmaz. Sisteme kayıt ve sonuçların ilişkilendirilmesi, kullanıcının belirlediği bir <strong>Rumuz</strong> veya otomatik olarak atanan bir <strong>kullanıcı kimliği (User ID)</strong> aracılığıyla gerçekleştirilir. Bu, anonimliği ve mahremiyeti destekler.
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">1.4. Veri Erişim Kısıtlaması:</h4>
+                <p style="margin-bottom: 10px;">Test ve analiz sonuçlarına erişim kesinlikle kısıtlanmıştır:</p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li style="margin-bottom: 8px;"><strong>Kullanıcı:</strong> Kendi sonuçlarını görüntüleyebilir ve değerlendirebilir.</li>
+                    <li style="margin-bottom: 8px;"><strong>Sistem Yöneticisi:</strong> Yalnızca sistemin işleyişini, teknik bütünlüğünü sağlamak ve kullanıcıya talep etmesi durumunda profesyonel danışmanlık hizmeti sunmak amacıyla sonuçlara erişim yetkisine sahiptir.</li>
+                </ul>
+                
+                <h3 style="color: #667eea; margin-top: 25px; margin-bottom: 15px; font-size: 1.3rem;">2. Analiz Sonuçlarının Kullanımına İlişkin Sorumluluk Reddi</h3>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">2.1. Testin Amacı ve Niteliği:</h4>
+                <p style="margin-bottom: 15px;">
+                    Bu <strong>Kariyer Gelişim Çerçevesi (KGC)</strong>, gençlerin öz-farkındalık, potansiyel keşfi ve düşünce yapısını tetikleme amacıyla tasarlanmış profesyonel bir araçtır. <strong>Test sonuçları, bir profesyonel kariyer planının veya tıbbi/psikolojik bir tanının yerini tutmaz.</strong>
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">2.2. Kullanıcı Sorumluluğu ve Aksiyon Planı:</h4>
+                <p style="margin-bottom: 15px;">
+                    Kullanıcı, test sonuçlarına dayanarak <strong>tek başına herhangi bir kesin kariyer kararı veya aksiyon planı belirlememelidir</strong>. Test sonuçlarının hatalı veya eksik yorumlanması, kullanıcı için uygun olmayan kararlara ve dolayısıyla hatalı sonuçlara yol açabilir.
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">2.3. Profesyonel Danışmanlık İhtiyacı:</h4>
+                <p style="margin-bottom: 15px;">
+                    Kullanıcının, KGC sonuçlarını kariyer yolculuğuna entegre etmesi ve bu sonuçlara dayanarak anlamlı, sağlam adımlar atması için <strong>mutlaka lisanslı ve/veya yetkili bir profesyonel danışmanlık hizmeti alması şiddetle tavsiye edilir.</strong>
+                </p>
+                
+                <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 10px;">2.4. Sorumluluk Sınırlaması:</h4>
+                <p style="margin-bottom: 15px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px;">
+                    <strong>⚠️ ÖNEMLİ:</strong> Kullanıcının, <strong>Akça Pro X</strong>, <strong>Analiz Pro X</strong> ve <strong>Barış Akça</strong>'dan bağımsız olarak, sadece kendi yorumlarına dayanarak attığı adımlar, aldığı kararlar veya uyguladığı planlar sonucunda ortaya çıkacak her türlü maddi, manevi veya kariyerle ilgili olumsuz sonuçtan doğan sorumluluk <strong>tamamen kullanıcıya aittir</strong>.
+                </p>
+                
+                <p style="margin-bottom: 15px; padding: 15px; background: #fee; border-left: 4px solid #f5576c; border-radius: 8px;">
+                    <strong>Akça Pro X</strong>, <strong>Analiz Pro X</strong> ve <strong>Barış Akça</strong>, ancak ve ancak profesyonel danışmanlık hizmetinin resmi olarak alındığı ve belgelendirildiği durumlar haricinde, test sonuçlarının yorumlanması ve uygulanmasından kaynaklanan <strong>hiçbir zarardan sorumlu tutulamaz</strong>.
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <label style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                ">
+                    <input type="checkbox" id="disclaimerAccept" style="
+                        width: 20px;
+                        height: 20px;
+                        cursor: pointer;
+                    ">
+                    <span>Okudum, anladım ve kabul ediyorum</span>
+                </label>
+                
+                <button onclick="acceptDisclaimer()" id="acceptDisclaimerBtn" disabled style="
+                    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+                    color: white;
+                    border: none;
+                    padding: 12px 40px;
+                    font-size: 1.1rem;
+                    border-radius: 50px;
+                    cursor: not-allowed;
+                    opacity: 0.5;
+                    transition: all 0.3s ease;
+                ">
+                    ✅ Onaylıyorum ve Devam Et
+                </button>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
