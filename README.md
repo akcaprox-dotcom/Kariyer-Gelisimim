@@ -5278,17 +5278,17 @@ www.akcaprox.com
                 doc.setTextColor(80, 80, 80);
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'italic');
-                const infoText1 = 'Kariyer Gelişim Çerçevesi (KGC), gençlerin öz-farkındalık, potansiyel keşfi ve düşünce yapısını tetikleme amacıyla tasarlanmış profesyonel bir araçtır. Test sonuçları, bir profesyonel kariyer planının veya tıbbi/psikolojik bir tanının yerini tutmaz.';
+                const infoText1 = cleanTurkish('Kariyer Gelişim Çerçevesi (KGC), gençlerin öz-farkındalık, potansiyel keşfi ve düşünce yapısını tetikleme amacıyla tasarlanmış profesyonel bir araçtır. Test sonuçları, bir profesyonel kariyer planının veya tıbbi/psikolojik bir tanının yerini tutmaz.');
                 const splitInfo1 = doc.splitTextToSize(infoText1, pageWidth - 40);
                 doc.text(splitInfo1, 20, yPos);
                 yPos += splitInfo1.length * 4 + 4;
                 
-                const infoText2 = 'Kullanıcı, test sonuçlarına dayanarak tek başına herhangi bir kesin kariyer kararı veya aksiyon planı belirlememelidir. Test sonuçlarının hatalı veya eksik yorumlanması, kullanıcı için uygun olmayan kararlara ve dolayısıyla hatalı sonuçlara yol açabilir.';
+                const infoText2 = cleanTurkish('Kullanıcı, test sonuçlarına dayanarak tek başına herhangi bir kesin kariyer kararı veya aksiyon planı belirlememelidir. Test sonuçlarının hatalı veya eksik yorumlanması, kullanıcı için uygun olmayan kararlara ve dolayısıyla hatalı sonuçlara yol açabilir.');
                 const splitInfo2 = doc.splitTextToSize(infoText2, pageWidth - 40);
                 doc.text(splitInfo2, 20, yPos);
                 yPos += splitInfo2.length * 4 + 4;
                 
-                const infoText3 = 'Kullanıcının, KGC sonuçlarını kariyer yolculuğuna entegre etmesi ve bu sonuçlara dayanarak anlamlı, sağlam adımlar atması için mutlaka lisanslı ve/veya yetkili bir profesyonel danışmanlık hizmeti alması şiddetle tavsiye edilir.';
+                const infoText3 = cleanTurkish('Kullanıcının, KGC sonuçlarını kariyer yolculuğuna entegre etmesi ve bu sonuçlara dayanarak anlamlı, sağlam adımlar atması için mutlaka lisanslı ve/veya yetkili bir profesyonel danışmanlık hizmeti alması şiddetle tavsiye edilir.');
                 const splitInfo3 = doc.splitTextToSize(infoText3, pageWidth - 40);
                 doc.text(splitInfo3, 20, yPos);
                 yPos += splitInfo3.length * 4 + 10;
@@ -5311,26 +5311,33 @@ www.akcaprox.com
                         yPos = 20;
                     }
 
-                    // Kategori adı
-                    doc.setFontSize(11);
+                    // Numara ve kategori adı
+                    doc.setFontSize(10);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(cleanTurkish(category.name), 15, yPos);
+                    doc.setTextColor(102, 126, 234);
+                    doc.text((index + 1).toString(), 15, yPos);
                     
-                    // Skor
-                    const scoreText = Math.round(category.percentage) + '% (' + category.score + '/40)';
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(cleanTurkish(category.name), 22, yPos);
+                    yPos += 5;
+                    
+                    // Skor detayı
+                    const scoreText = Math.round(category.percentage) + '% - ' + category.score + '/40';
+                    doc.setFontSize(9);
                     doc.setFont('helvetica', 'normal');
-                    doc.text(scoreText, pageWidth - 15, yPos, { align: 'right' });
-                    yPos += 2;
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(scoreText, 22, yPos);
+                    yPos += 3;
 
                     // Progress bar
-                    doc.setDrawColor(200, 200, 200);
-                    doc.setLineWidth(0.5);
-                    doc.rect(15, yPos, pageWidth - 30, 5);
+                    doc.setDrawColor(220, 220, 220);
+                    doc.setLineWidth(0.3);
+                    doc.rect(22, yPos, pageWidth - 37, 4);
                     
-                    const barWidth = ((pageWidth - 30) * category.percentage) / 100;
+                    const barWidth = ((pageWidth - 37) * category.percentage) / 100;
                     doc.setFillColor(102, 126, 234);
-                    doc.rect(15, yPos, barWidth, 5, 'F');
-                    yPos += 12;
+                    doc.rect(22, yPos, barWidth, 4, 'F');
+                    yPos += 10;
                 });
 
                 // Yorum ekle
@@ -5342,7 +5349,7 @@ www.akcaprox.com
 
                 doc.setFontSize(12);
                 doc.setFont('helvetica', 'bold');
-                doc.text('DEGERLENDIRME', 15, yPos);
+                doc.text('DEĞERLENDİRME', 15, yPos);
                 yPos += 8;
 
                 doc.setFontSize(10);
@@ -5365,14 +5372,14 @@ www.akcaprox.com
                 doc.setTextColor(133, 100, 4);
                 doc.text('ÖNEMLİ UYARI', 20, yPos + 8);
                 doc.setFont('helvetica', 'normal');
-                const warningText = 'Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.';
+                const warningText = cleanTurkish('Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.');
                 const splitWarning = doc.splitTextToSize(warningText, pageWidth - 40);
                 doc.text(splitWarning, 20, yPos + 15);
 
                 // Footer
                 doc.setTextColor(150, 150, 150);
                 doc.setFontSize(8);
-                doc.text('© 2025 Kariyer Gelişim Envanteri - AKÇA PRO X ANALİZİ', pageWidth / 2, pageHeight - 10, { align: 'center' });
+                doc.text(cleanTurkish('© 2025 Kariyer Gelişim Envanteri - AKÇA PRO X ANALİZİ'), pageWidth / 2, pageHeight - 10, { align: 'center' });
 
                 // PDF'i kaydet
                 const fileName = `Kariyer_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
@@ -5468,20 +5475,64 @@ www.akcaprox.com
                 doc.setTextColor(80, 80, 80);
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'italic');
-                const infoText1 = 'Kariyer Gelişim Çerçevesi (KGC), gençlerin öz-farkındalık, potansiyel keşfi ve düşünce yapısını tetikleme amacıyla tasarlanmış profesyonel bir araçtır. Test sonuçları, bir profesyonel kariyer planının veya tıbbi/psikolojik bir tanının yerini tutmaz.';
+                const infoText1 = cleanTurkish('Kariyer Gelişim Çerçevesi (KGC), gençlerin öz-farkındalık, potansiyel keşfi ve düşünce yapısını tetikleme amacıyla tasarlanmış profesyonel bir araçtır. Test sonuçları, bir profesyonel kariyer planının veya tıbbi/psikolojik bir tanının yerini tutmaz.');
                 const splitInfo1 = doc.splitTextToSize(infoText1, pageWidth - 40);
                 doc.text(splitInfo1, 20, yPos);
                 yPos += splitInfo1.length * 4 + 4;
                 
-                const infoText2 = 'Kullanıcı, test sonuçlarına dayanarak tek başına herhangi bir kesin kariyer kararı veya aksiyon planı belirlememelidir. Test sonuçlarının hatalı veya eksik yorumlanması, kullanıcı için uygun olmayan kararlara ve dolayısıyla hatalı sonuçlara yol açabilir.';
+                const infoText2 = cleanTurkish('Kullanıcı, test sonuçlarına dayanarak tek başına herhangi bir kesin kariyer kararı veya aksiyon planı belirlememelidir. Test sonuçlarının hatalı veya eksik yorumlanması, kullanıcı için uygun olmayan kararlara ve dolayısıyla hatalı sonuçlara yol açabilir.');
                 const splitInfo2 = doc.splitTextToSize(infoText2, pageWidth - 40);
                 doc.text(splitInfo2, 20, yPos);
                 yPos += splitInfo2.length * 4 + 4;
                 
-                const infoText3 = 'Kullanıcının, KGC sonuçlarını kariyer yolculuğuna entegre etmesi ve bu sonuçlara dayanarak anlamlı, sağlam adımlar atması için mutlaka lisanslı ve/veya yetkili bir profesyonel danışmanlık hizmeti alması şiddetle tavsiye edilir.';
+                const infoText3 = cleanTurkish('Kullanıcının, KGC sonuçlarını kariyer yolculuğuna entegre etmesi ve bu sonuçlara dayanarak anlamlı, sağlam adımlar atması için mutlaka lisanslı ve/veya yetkili bir profesyonel danışmanlık hizmeti alması şiddetle tavsiye edilir.');
                 const splitInfo3 = doc.splitTextToSize(infoText3, pageWidth - 40);
                 doc.text(splitInfo3, 20, yPos);
                 yPos += splitInfo3.length * 4 + 15;
+
+                // Kategori Sonuçları Listesi
+                doc.addPage();
+                yPos = 20;
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KATEGORİ SONUÇLARI', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    if (yPos > pageHeight - 30) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    // Numara ve kategori adı
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(102, 126, 234);
+                    doc.text((index + 1).toString(), 15, yPos);
+                    
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(cleanTurkish(category.name), 22, yPos);
+                    yPos += 5;
+                    
+                    // Skor detayı
+                    const scoreText = Math.round(category.percentage) + '% - ' + category.score + '/40';
+                    doc.setFontSize(9);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(scoreText, 22, yPos);
+                    yPos += 3;
+
+                    // Progress bar
+                    doc.setDrawColor(220, 220, 220);
+                    doc.setLineWidth(0.3);
+                    doc.rect(22, yPos, pageWidth - 37, 4);
+                    
+                    const barWidth = ((pageWidth - 37) * category.percentage) / 100;
+                    doc.setFillColor(102, 126, 234);
+                    doc.rect(22, yPos, barWidth, 4, 'F');
+                    yPos += 10;
+                });
 
                 // Grafikleri ekle
                 doc.addPage();
@@ -5582,13 +5633,13 @@ www.akcaprox.com
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(133, 100, 4);
-                const warningTitle = 'Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız.';
+                const warningTitle = cleanTurkish('Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız.');
                 const splitTitle = doc.splitTextToSize(warningTitle, pageWidth - 50);
                 doc.text(splitTitle, pageWidth / 2, yPos, { align: 'center' });
                 
                 yPos += splitTitle.length * 5 + 5;
                 doc.setFont('helvetica', 'normal');
-                const warningText = 'Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir. Sonuçlar genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.';
+                const warningText = cleanTurkish('Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir. Sonuçlar genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.');
                 const splitWarning = doc.splitTextToSize(warningText, pageWidth - 50);
                 doc.text(splitWarning, pageWidth / 2, yPos, { align: 'center' });
 
@@ -5599,7 +5650,7 @@ www.akcaprox.com
                     doc.setTextColor(150, 150, 150);
                     doc.setFontSize(8);
                     doc.text('Sayfa ' + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
-                    doc.text('© 2025 Kariyer Gelişim Envanteri - AKÇA PRO X ANALİZİ', pageWidth / 2, pageHeight - 5, { align: 'center' });
+                    doc.text(cleanTurkish('© 2025 Kariyer Gelişim Envanteri - AKÇA PRO X ANALİZİ'), pageWidth / 2, pageHeight - 5, { align: 'center' });
                 }
 
                 // PDF'i kaydet
