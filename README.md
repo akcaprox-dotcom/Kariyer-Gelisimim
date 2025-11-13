@@ -3098,7 +3098,6 @@ www.akcaprox.com
                 </div>
                 
                 <div style="margin-top: 30px; text-align: center;">
-                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn" onclick="downloadProgressPDFReport()">📄 PDF Rapor İndir</button>
                     <button class="btn" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
@@ -3194,7 +3193,6 @@ www.akcaprox.com
             html += `
                 </div>
                 <div style="margin-top: 30px; text-align: center;">
-                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn" onclick="downloadComparisonPDFReport(${oldIndex}, ${newIndex})">📄 PDF Rapor İndir</button>
                     <button class="btn btn-secondary" onclick="closeComparison()">← Geri Dön</button>
                 </div>
