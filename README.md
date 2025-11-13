@@ -959,6 +959,13 @@ www.akcaprox.com
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+  
+  <!-- PDF Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/polyfills.umd.min.js"></script>
@@ -1112,6 +1119,23 @@ www.akcaprox.com
    </div>
   </div>
   <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGYTJniNpr2ZGVTztQH00BPPXYNUI06uA",
+            authDomain: "kariyer-gelisimi.firebaseapp.com",
+            databaseURL: "https://kariyer-gelisimi-default-rtdb.europe-west1.firebasedatabase.app/",
+            projectId: "kariyer-gelisimi",
+            storageBucket: "kariyer-gelisimi.firebasestorage.app",
+            messagingSenderId: "921683004788",
+            appId: "1:921683004788:web:b8f9c712973cb863faf021",
+            measurementId: "G-8F05T9J35B"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const analytics = firebase.analytics();
+
         // Global değişkenler
         let currentUser = null;
         let allUsers = [];
@@ -1120,53 +1144,82 @@ www.akcaprox.com
         let currentCategoryIndex = 0;
         let currentQuestionInCategory = 0;
 
-        // LocalStorage Veri Yönetimi Sistemi
-        const STORAGE_KEY = 'kariyer_envanteri_users';
-        
-        // Veritabanı yönetimi
-        const localDB = {
+        // Firebase Realtime Database Yönetimi
+        const firebaseDB = {
             // Tüm kullanıcıları getir
-            getAll() {
-                const data = localStorage.getItem(STORAGE_KEY);
-                return data ? JSON.parse(data) : [];
+            async getAll() {
+                try {
+                    const snapshot = await database.ref('users').once('value');
+                    const usersObj = snapshot.val() || {};
+                    return Object.values(usersObj);
+                } catch (error) {
+                    console.error('Kullanıcılar getirilemedi:', error);
+                    return [];
+                }
             },
             
             // Yeni kullanıcı ekle
-            create(user) {
-                const users = this.getAll();
-                users.push(user);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-                allUsers = users;
-                return { isOk: true, data: user };
+            async create(user) {
+                try {
+                    await database.ref('users/' + user.user_id).set(user);
+                    return { isOk: true, data: user };
+                } catch (error) {
+                    console.error('Kullanıcı eklenemedi:', error);
+                    return { isOk: false, error: error.message };
+                }
             },
             
             // Kullanıcı güncelle
-            update(updatedUser) {
-                let users = this.getAll();
-                const index = users.findIndex(u => u.user_id === updatedUser.user_id);
-                if (index !== -1) {
-                    users[index] = updatedUser;
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-                    allUsers = users;
+            async update(updatedUser) {
+                try {
+                    await database.ref('users/' + updatedUser.user_id).update(updatedUser);
                     return { isOk: true, data: updatedUser };
+                } catch (error) {
+                    console.error('Kullanıcı güncellenemedi:', error);
+                    return { isOk: false, error: error.message };
                 }
-                return { isOk: false, error: 'Kullanıcı bulunamadı' };
             },
             
             // Kullanıcı sil
-            delete(userId) {
-                let users = this.getAll();
-                users = users.filter(u => u.user_id !== userId);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-                allUsers = users;
-                return { isOk: true };
+            async delete(userId) {
+                try {
+                    await database.ref('users/' + userId).remove();
+                    return { isOk: true };
+                } catch (error) {
+                    console.error('Kullanıcı silinemedi:', error);
+                    return { isOk: false, error: error.message };
+                }
+            },
+
+            // Kullanıcı ID'sine göre getir
+            async getById(userId) {
+                try {
+                    const snapshot = await database.ref('users/' + userId).once('value');
+                    return snapshot.val();
+                } catch (error) {
+                    console.error('Kullanıcı bulunamadı:', error);
+                    return null;
+                }
+            },
+
+            // Rumuz ve telefona göre kullanıcı bul
+            async findByNicknameAndPhone(nickname, phone) {
+                try {
+                    const snapshot = await database.ref('users').once('value');
+                    const usersObj = snapshot.val() || {};
+                    const users = Object.values(usersObj);
+                    return users.find(u => u.nickname === nickname && u.phone === phone);
+                } catch (error) {
+                    console.error('Kullanıcı araması başarısız:', error);
+                    return null;
+                }
             }
         };
 
         // Sayfa yüklendiğinde kullanıcıları yükle
-        function initializeApp() {
-            allUsers = localDB.getAll();
-            console.log('Uygulama başlatıldı. Toplam kullanıcı:', allUsers.length);
+        async function initializeApp() {
+            allUsers = await firebaseDB.getAll();
+            console.log('Firebase bağlantısı kuruldu. Toplam kullanıcı:', allUsers.length);
         }
 
         // Sayfa yüklendiğinde SDK'ları başlat
@@ -1244,8 +1297,8 @@ www.akcaprox.com
             btn.disabled = true;
 
             try {
-                // Rumuz kontrolü
-                const existingUser = allUsers.find(user => user.nickname === nickname);
+                // Rumuz kontrolü (Firebase'den)
+                const existingUser = await firebaseDB.findByNicknameAndPhone(nickname, null);
                 if (existingUser) {
                     showMessage("Bu rumuz zaten kullanılıyor. Lütfen farklı bir rumuz seçin.", "error");
                     btnText.classList.remove('hidden');
@@ -1266,23 +1319,27 @@ www.akcaprox.com
                     test_completed: false,
                     test_date: "",
                     test_results: "",
-                    overall_score: 0
+                    overall_score: 0,
+                    test_history: [],
+                    is_active: true
                 };
 
-                // LocalStorage'a kaydet
-                const result = localDB.create(formData);
+                // Firebase'e kaydet
+                const result = await firebaseDB.create(formData);
                 
                 btnText.classList.remove('hidden');
                 loading.classList.add('hidden');
                 btn.disabled = false;
 
                 if (result.isOk) {
-                    // Başarı mesajı (şifre gösterilmiyor, süper adminden isteyecekler)
+                    // Kullanıcı listesini güncelle
+                    allUsers = await firebaseDB.getAll();
+                    
+                    // Başarı mesajı
                     showMessage("Kayıt başarılı! Şifrenizi almak için lütfen süper yönetici ile iletişime geçin.", "success");
                     
                     // LinkedIn yönlendirme onayı
                     setTimeout(() => {
-                        // Inline onay sistemi (alert yerine)
                         const confirmDiv = document.createElement('div');
                         confirmDiv.style.cssText = `
                             position: fixed;
@@ -1317,7 +1374,7 @@ www.akcaprox.com
                     setTimeout(() => showLogin(), 3000);
                 } else {
                     console.error("Kayıt hatası:", result.error);
-                    showMessage(`Kayıt sırasında hata oluştu: ${result.error?.message || 'Bilinmeyen hata'}. Lütfen tekrar deneyin.`, "error");
+                    showMessage(`Kayıt sırasında hata oluştu: ${result.error || 'Bilinmeyen hata'}. Lütfen tekrar deneyin.`, "error");
                 }
             } catch (error) {
                 console.error("Kayıt işlemi hatası:", error);
@@ -1345,33 +1402,45 @@ www.akcaprox.com
             const password = document.getElementById('loginPassword').value.trim();
 
             console.log('Giriş denemesi - Rumuz:', nickname);
-            console.log('Toplam kullanıcı sayısı:', allUsers.length);
             
-            const user = allUsers.find(u => {
-                console.log('Kontrol ediliyor:', u.nickname, '===', nickname, '&&', u.password, '===', password);
-                return u.nickname === nickname && u.password === password;
-            });
-            
-            btnText.classList.remove('hidden');
-            loading.classList.add('hidden');
-            btn.disabled = false;
+            try {
+                // Firebase'den tüm kullanıcıları güncelle
+                allUsers = await firebaseDB.getAll();
+                console.log('Toplam kullanıcı sayısı:', allUsers.length);
+                
+                const user = allUsers.find(u => {
+                    console.log('Kontrol ediliyor:', u.nickname, '===', nickname);
+                    return u.nickname === nickname && u.password === password;
+                });
+                
+                btnText.classList.remove('hidden');
+                loading.classList.add('hidden');
+                btn.disabled = false;
 
-            if (user) {
-                // Kullanıcı aktif mi kontrol et
-                const isActive = user.is_active === undefined ? true : user.is_active;
-                
-                if (!isActive) {
-                    console.log('Giriş reddedildi - Kullanıcı pasif');
-                    showMessage("Hesabınız pasif durumda! Lütfen yönetici ile iletişime geçin.", "error");
-                    return;
+                if (user) {
+                    // Kullanıcı aktif mi kontrol et
+                    const isActive = user.is_active === undefined ? true : user.is_active;
+                    
+                    if (!isActive) {
+                        console.log('Giriş reddedildi - Kullanıcı pasif');
+                        showMessage("Hesabınız pasif durumda! Lütfen yönetici ile iletişime geçin.", "error");
+                        return;
+                    }
+                    
+                    currentUser = user;
+                    console.log('Giriş başarılı:', user);
+                    showWelcome();
+                } else {
+                    console.log('Giriş başarısız - Kullanıcı bulunamadı');
+                    showMessage("Rumuz veya şifre hatalı!", "error");
                 }
+            } catch (error) {
+                console.error('Giriş hatası:', error);
+                showMessage("Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.", "error");
                 
-                currentUser = user;
-                console.log('Giriş başarılı:', user);
-                showWelcome();
-            } else {
-                console.log('Giriş başarısız - Kullanıcı bulunamadı');
-                showMessage("Rumuz veya şifre hatalı!", "error");
+                btnText.classList.remove('hidden');
+                loading.classList.add('hidden');
+                btn.disabled = false;
             }
         }
 
@@ -1401,19 +1470,20 @@ www.akcaprox.com
         }
 
         // Admin panel göster
-        function showAdminPanel() {
+        async function showAdminPanel() {
             hideAllScreens();
             document.getElementById('adminPanel').classList.remove('hidden');
-            updateAdminPanel();
+            await updateAdminPanel();
         }
 
         // Üye silme fonksiyonu
-        function deleteUser(userId, nickname) {
+        async function deleteUser(userId, nickname) {
             if (confirm(`"${nickname}" kullanıcısını silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz!`)) {
-                const result = localDB.delete(userId);
+                const result = await firebaseDB.delete(userId);
                 if (result.isOk) {
                     showMessage(`"${nickname}" başarıyla silindi.`, "success");
-                    updateAdminPanel();
+                    allUsers = await firebaseDB.getAll();
+                    await updateAdminPanel();
                 } else {
                     showMessage("Kullanıcı silinirken hata oluştu!", "error");
                 }
@@ -1421,19 +1491,18 @@ www.akcaprox.com
         }
 
         // Üye aktif/pasif yapma
-        function toggleUserStatus(userId) {
-            let users = localDB.getAll();
-            const userIndex = users.findIndex(u => u.user_id === userId);
+        async function toggleUserStatus(userId) {
+            const user = await firebaseDB.getById(userId);
             
-            if (userIndex !== -1) {
-                const user = users[userIndex];
+            if (user) {
                 user.is_active = user.is_active === undefined ? false : !user.is_active;
                 
-                const result = localDB.update(user);
+                const result = await firebaseDB.update(user);
                 if (result.isOk) {
                     const status = user.is_active ? 'aktif' : 'pasif';
                     showMessage(`"${user.nickname}" ${status} yapıldı.`, "success");
-                    updateAdminPanel();
+                    allUsers = await firebaseDB.getAll();
+                    await updateAdminPanel();
                 } else {
                     showMessage("Durum değiştirilemedi!", "error");
                 }
@@ -1441,8 +1510,11 @@ www.akcaprox.com
         }
 
         // Admin panel güncelle
-        function updateAdminPanel() {
+        async function updateAdminPanel() {
             const content = document.getElementById('adminContent');
+            
+            // Firebase'den güncel verileri çek
+            allUsers = await firebaseDB.getAll();
             
             if (allUsers.length === 0) {
                 content.innerHTML = '<p>Henüz kayıtlı üye bulunmuyor.</p>';
@@ -3032,9 +3104,10 @@ www.akcaprox.com
                     test_history: testHistory // Tüm test geçmişi
                 };
 
-                const result = localDB.update(updatedUser);
+                const result = await firebaseDB.update(updatedUser);
                 if (result.isOk) {
                     currentUser = updatedUser;
+                    allUsers = await firebaseDB.getAll(); // Kullanıcı listesini güncelle
                 }
             }
         }
