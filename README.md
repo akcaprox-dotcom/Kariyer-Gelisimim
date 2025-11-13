@@ -1446,7 +1446,7 @@ www.akcaprox.com
         }
 
         // Sorumluluk Reddi Modal Fonksiyonları
-        function showDisclaimerModal() {
+        function showDisclaimerModal(readOnlyMode = true) {
             document.getElementById('disclaimerModal').style.display = 'block';
             document.body.style.overflow = 'hidden'; // Scroll engelle
             
@@ -1456,10 +1456,22 @@ www.akcaprox.com
             
             // Butonu devre dışı bırak
             const acceptBtn = document.getElementById('acceptDisclaimerBtn');
-            if (acceptBtn) {
-                acceptBtn.disabled = true;
-                acceptBtn.style.cursor = 'not-allowed';
-                acceptBtn.style.opacity = '0.5';
+            const actionDiv = document.getElementById('disclaimerActions');
+            const closeBtn = document.querySelector('.disclaimer-close-btn');
+            
+            if (readOnlyMode) {
+                // Sadece okuma modu - checkbox ve onay butonu gizli
+                if (actionDiv) actionDiv.style.display = 'none';
+                if (closeBtn) closeBtn.style.display = 'block';
+            } else {
+                // Onay modu - checkbox ve onay butonu görünür
+                if (actionDiv) actionDiv.style.display = 'flex';
+                if (closeBtn) closeBtn.style.display = 'block';
+                if (acceptBtn) {
+                    acceptBtn.disabled = true;
+                    acceptBtn.style.cursor = 'not-allowed';
+                    acceptBtn.style.opacity = '0.5';
+                }
             }
         }
 
@@ -1540,9 +1552,9 @@ www.akcaprox.com
                     const existingUser = allUsers.find(u => u.google_email === firebaseAuthUser.email);
                     
                     if (existingUser) {
-                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen rumuz ve şifrenizle giriş yapın.`, 'success');
+                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Sorumluluk reddi daha önce kabul edilmişti. Lütfen rumuz ve şifrenizle giriş yapın.`, 'success');
                     } else {
-                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Lütfen kayıt formunu doldurun.`, 'success');
+                        showMessage(`Merhaba ${firebaseAuthUser.displayName}! Sorumluluk reddi daha önce kabul edilmişti. Lütfen kayıt formunu doldurun.`, 'success');
                         showRegister();
                         
                         const googleAuthInfo = document.getElementById('googleAuthInfo');
@@ -1566,8 +1578,8 @@ www.akcaprox.com
                     // Oturumu kapat (disclaimer kabul edilene kadar)
                     await auth.signOut();
                     
-                    // Modal aç
-                    showDisclaimerModal();
+                    // Modal aç - onay modu
+                    showDisclaimerModal(false);
                 }
                 
             } catch (error) {
@@ -2903,6 +2915,7 @@ www.akcaprox.com
                 </div>
                 
                 <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
                 </div>
@@ -3005,6 +3018,7 @@ www.akcaprox.com
             html += `
                 </div>
                 <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn btn-secondary" onclick="closeComparison()">← Geri Dön</button>
                 </div>
             `;
@@ -3029,6 +3043,17 @@ www.akcaprox.com
         }
 
         function showDetailedReport() {
+            // Dinamik olarak oluşturulmuş ekranları kaldır
+            const progressChart = document.getElementById('progressChartScreen');
+            if (progressChart) progressChart.remove();
+            
+            const comparison = document.getElementById('comparisonScreen');
+            if (comparison) comparison.remove();
+            
+            // Sonuç ekranını göster
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Detaylı rapor ekranını göster
             document.getElementById('resultsContainer').style.display = 'none';
             document.getElementById('reportContainer').style.display = 'block';
             
@@ -5670,7 +5695,7 @@ www.akcaprox.com
                 </p>
             </div>
             
-            <div style="text-align: center; margin-top: 20px;">
+            <div id="disclaimerActions" style="text-align: center; margin-top: 20px;">
                 <label style="
                     display: flex;
                     align-items: center;
