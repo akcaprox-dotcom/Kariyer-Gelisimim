@@ -1383,6 +1383,7 @@ www.akcaprox.com
        Çubuk Grafiği
       </div>
       <canvas class="chart-canvas" id="barChart"></canvas>
+      <div id="barChartLegend" style="margin-top: 15px;"></div>
      </div>
      <div class="chart-box">
       <div class="chart-title">
@@ -4468,16 +4469,17 @@ www.akcaprox.com
                 ctx.closePath();
                 ctx.fill();
                 
-                // Yüzde etiketi - pasta dilimindeki payı
+                // Numara etiketi - pasta dilimindeki kategori numarası
                 const piePercentage = (category.score / total) * 100;
                 const labelAngle = currentAngle + sliceAngle / 2;
                 const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
                 const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
                 
                 ctx.fillStyle = 'white';
-                ctx.font = isMobile ? 'bold 11px Arial' : 'bold 14px Arial';
+                ctx.font = isMobile ? 'bold 14px Arial' : 'bold 18px Arial';
                 ctx.textAlign = 'center';
-                ctx.fillText(Math.round(piePercentage) + '%', labelX, labelY);
+                ctx.textBaseline = 'middle';
+                ctx.fillText((index + 1).toString(), labelX, labelY);
                 
                 currentAngle += sliceAngle;
             });
@@ -4496,7 +4498,13 @@ www.akcaprox.com
                                 background: ${colors[index % colors.length]}; 
                                 border-radius: 6px;
                                 flex-shrink: 0;
-                            "></div>
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 14px;
+                            ">${index + 1}</div>
                             <div style="flex: 1;">
                                 <div style="font-weight: bold; font-size: 13px; margin-bottom: 3px;">${category.name}</div>
                                 <div style="color: #666; font-size: 12px;">
@@ -4554,26 +4562,46 @@ www.akcaprox.com
                 ctx.textAlign = 'center';
                 ctx.fillText(Math.round(category.percentage) + '%', x + barWidth / 2, y - 5);
                 
-                // Kategori ismi (altta, dikey ve kısa)
-                ctx.save();
-                ctx.translate(x + barWidth / 2, canvas.height - bottomPadding + 10);
-                ctx.rotate(-Math.PI / 4); // 45 derece döndür
-                ctx.fillStyle = '#555';
-                ctx.font = isMobile ? '9px Arial' : '10px Arial';
-                ctx.textAlign = 'right';
-                
-                // İsmi kısalt (ilk 3 kelime veya 25 karakter)
-                let shortName = category.name;
-                const words = category.name.split(' ');
-                if (words.length > 3) {
-                    shortName = words.slice(0, 3).join(' ') + '...';
-                } else if (shortName.length > 25) {
-                    shortName = shortName.substring(0, 25) + '...';
-                }
-                
-                ctx.fillText(shortName, 0, 0);
-                ctx.restore();
+                // Kategori numarası (altta)
+                ctx.fillStyle = '#667eea';
+                ctx.font = isMobile ? 'bold 14px Arial' : 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText((index + 1).toString(), x + barWidth / 2, canvas.height - bottomPadding + 20);
             });
+            
+            // Legend (Açıklama)
+            const legendContainer = document.getElementById('barChartLegend');
+            if (legendContainer) {
+                let legendHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 20px;">';
+                const colors = [
+                    '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe',
+                    '#43e97b', '#fa709a', '#fee140', '#a8edea', '#d299c2'
+                ];
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    legendHTML += `
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: #f9f9f9; border-radius: 6px;">
+                            <div style="
+                                width: 24px; 
+                                height: 24px; 
+                                background: linear-gradient(135deg, #667eea, #764ba2); 
+                                border-radius: 4px; 
+                                display: flex; 
+                                align-items: center; 
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 12px;
+                            ">${index + 1}</div>
+                            <div style="flex: 1; font-size: 13px;">
+                                <strong>${category.name}</strong>
+                                <div style="color: #666; font-size: 11px;">${Math.round(category.percentage)}% - ${category.score}/40</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                legendHTML += '</div>';
+                legendContainer.innerHTML = legendHTML;
+            }
         }
 
         function drawScatterChart() {
@@ -4735,7 +4763,6 @@ www.akcaprox.com
                 <div class="ai-analysis-box">
                     <div class="ai-analysis-title">
                         🤖 AKÇA PRO X AI ANALİZİ 
-                        <span class="ai-badge">Yapay Zeka Destekli</span>
                     </div>
                     
                     <div class="analysis-subsection">
@@ -5601,6 +5628,40 @@ www.akcaprox.com
                     const pieShare = Math.round((category.score / totalScore) * 100);
                     const categoryText = `${index + 1}. ${cleanTurkish(category.name)}`;
                     const scoreInfo = `Pasta Payi: ${pieShare}% | Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`;
+                    
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(categoryText, 15, yPos);
+                    yPos += 4;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(scoreInfo, 15, yPos);
+                    doc.setTextColor(0, 0, 0);
+                    yPos += 7;
+                });
+
+                // Radar, Çubuk ve Nokta Grafikleri için ortak açıklama
+                yPos += 5;
+                if (yPos > pageHeight - 80) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Radar / Çubuk / Nokta Grafikleri Kategori Listesi'), 15, yPos);
+                yPos += 7;
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    if (yPos > pageHeight - 15) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    const categoryText = `${index + 1}. ${cleanTurkish(category.name)}`;
+                    const scoreInfo = `Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`;
                     
                     doc.setFont('helvetica', 'bold');
                     doc.text(categoryText, 15, yPos);
