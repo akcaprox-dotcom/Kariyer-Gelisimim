@@ -2622,17 +2622,38 @@ www.akcaprox.com
         }
 
         function backToWelcome() {
+            // Dinamik olarak oluşturulmuş ekranları kaldır
+            const progressChart = document.getElementById('progressChartScreen');
+            if (progressChart) progressChart.remove();
+            
+            const comparisonScreen = document.getElementById('comparisonScreen');
+            if (comparisonScreen) comparisonScreen.remove();
+            
             document.getElementById('resultsContainer').style.display = 'none';
             document.getElementById('reportContainer').style.display = 'none';
             showWelcome();
         }
 
         function backToWelcomeFromReports() {
+            // Dinamik olarak oluşturulmuş ekranları kaldır
+            const progressChart = document.getElementById('progressChartScreen');
+            if (progressChart) progressChart.remove();
+            
+            const comparisonScreen = document.getElementById('comparisonScreen');
+            if (comparisonScreen) comparisonScreen.remove();
+            
             document.getElementById('myReportsScreen').classList.add('hidden');
             showWelcome();
         }
 
         function showMyReports() {
+            // Dinamik olarak oluşturulmuş ekranları kaldır
+            const progressChart = document.getElementById('progressChartScreen');
+            if (progressChart) progressChart.remove();
+            
+            const comparisonScreen = document.getElementById('comparisonScreen');
+            if (comparisonScreen) comparisonScreen.remove();
+            
             hideAllScreens();
             document.getElementById('myReportsScreen').classList.remove('hidden');
             loadReportsHistory();
@@ -3111,6 +3132,7 @@ www.akcaprox.com
             
             const oldDate = new Date(oldTest.test_date).toLocaleDateString('tr-TR');
             const newDate = new Date(newTest.test_date).toLocaleDateString('tr-TR');
+            const scoreDiff = newTest.overall_score - oldTest.overall_score;
             
             let html = `
                 <div class="results-header">
@@ -3123,23 +3145,14 @@ www.akcaprox.com
                 </div>
                 
                 <div style="background: white; border-radius: 15px; padding: 25px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <h3 style="text-align: center; margin-bottom: 20px;">Genel Skor Değişimi</h3>
-                    <div style="display: flex; justify-content: space-around; align-items: center;">
-                        <div style="text-align: center;">
-                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Eski Test</div>
-                            <div style="font-size: 48px; font-weight: bold; color: #f5576c;">${oldTest.overall_score}%</div>
-                        </div>
-                        <div style="font-size: 48px; color: #667eea;">→</div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Yeni Test</div>
-                            <div style="font-size: 48px; font-weight: bold; color: #43e97b;">${newTest.overall_score}%</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Değişim</div>
-                            <div style="font-size: 48px; font-weight: bold; color: ${newTest.overall_score >= oldTest.overall_score ? '#43e97b' : '#f5576c'};">
-                                ${newTest.overall_score >= oldTest.overall_score ? '+' : ''}${newTest.overall_score - oldTest.overall_score}%
-                            </div>
-                        </div>
+                    <h3 style="text-align: center; margin-bottom: 20px; color: #667eea;">Genel Skor Değişimi</h3>
+                    <div style="text-align: center; font-size: 28px; font-weight: bold; color: #333; padding: 20px;">
+                        <span style="color: #f5576c;">${oldTest.overall_score}%</span>
+                        <span style="color: #667eea; margin: 0 15px;">→</span>
+                        <span style="color: #43e97b;">${newTest.overall_score}%</span>
+                        <span style="color: ${scoreDiff >= 0 ? '#43e97b' : '#f5576c'}; margin-left: 15px;">
+                            (${scoreDiff >= 0 ? '+' : ''}${scoreDiff}%)
+                        </span>
                     </div>
                 </div>
                 
