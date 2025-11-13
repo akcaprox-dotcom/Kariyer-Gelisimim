@@ -59,7 +59,7 @@ www.akcaprox.com
             fill: white;
         }
 
-        .login-screen, .register-screen, .welcome-screen, .admin-panel {
+        .login-screen, .register-screen, .welcome-screen {
             background: white;
             border-radius: 20px;
             padding: 15px 30px;
@@ -71,7 +71,29 @@ www.akcaprox.com
             margin-right: auto;
         }
 
-        .login-screen h1, .register-screen h1, .welcome-screen h1, .admin-panel h1 {
+        .admin-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            max-width: 100%;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .admin-panel h1 {
+            font-size: 1.75rem;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .login-screen h1, .register-screen h1, .welcome-screen h1 {
             font-size: 1.75rem;
             margin-bottom: 5px;
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -2360,41 +2382,142 @@ www.akcaprox.com
             }
         }
 
-        // Admin panel güncelle
-        async function updateAdminPanel() {
+        // Kullanıcıları filtreleme ve sıralama için değişkenler
+        let filteredUsers = [];
+        let sortOrder = 'asc'; // 'asc' veya 'desc'
+        let sortColumn = 'nickname'; // varsayılan sıralama kolonu
+
+        // Kullanıcıları filtrele
+        function filterUsers() {
+            const searchInput = document.getElementById('adminSearchInput');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredUsers = [...allUsers];
+            } else {
+                filteredUsers = allUsers.filter(user => 
+                    user.nickname.toLowerCase().includes(searchTerm) ||
+                    user.phone.includes(searchTerm) ||
+                    user.department.toLowerCase().includes(searchTerm) ||
+                    user.current_position.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderAdminTable();
+        }
+
+        // Kullanıcıları sırala
+        function sortUsers(column) {
+            // Aynı kolona tıklanırsa sıralama yönünü değiştir
+            if (sortColumn === column) {
+                sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortOrder = 'asc';
+            }
+
+            filteredUsers.sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+
+                // Tarih alanları için özel işlem
+                if (column === 'registration_date' || column === 'test_date') {
+                    aVal = new Date(aVal || 0).getTime();
+                    bVal = new Date(bVal || 0).getTime();
+                }
+                // Sayısal alanlar için
+                else if (column === 'overall_score') {
+                    aVal = parseFloat(aVal || 0);
+                    bVal = parseFloat(bVal || 0);
+                }
+                // Metin alanları için
+                else {
+                    aVal = String(aVal || '').toLowerCase();
+                    bVal = String(bVal || '').toLowerCase();
+                }
+
+                if (sortOrder === 'asc') {
+                    return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+                } else {
+                    return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+                }
+            });
+
+            renderAdminTable();
+        }
+
+        // Admin tablosunu render et
+        function renderAdminTable() {
             const content = document.getElementById('adminContent');
             
-            // Firebase'den güncel verileri çek
-            allUsers = await firebaseDB.getAll();
-            
-            if (allUsers.length === 0) {
-                content.innerHTML = '<p>Henüz kayıtlı üye bulunmuyor.</p>';
+            if (filteredUsers.length === 0) {
+                const searchInput = document.getElementById('adminSearchInput');
+                if (searchInput && searchInput.value.trim() !== '') {
+                    content.innerHTML = `
+                        <div class="admin-controls">
+                            <input type="text" id="adminSearchInput" placeholder="İsim, telefon, bölüm veya pozisyon ile ara..." 
+                                   onkeyup="filterUsers()" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <p>Arama sonucu bulunamadı.</p>
+                    `;
+                } else {
+                    content.innerHTML = '<p>Henüz kayıtlı üye bulunmuyor.</p>';
+                }
                 return;
             }
 
             let html = `
-                <h3>Toplam Üye Sayısı: ${allUsers.length}</h3>
-                <table class="admin-table">
+                <div class="admin-controls" style="margin-bottom: 15px;">
+                    <input type="text" id="adminSearchInput" placeholder="İsim, telefon, bölüm veya pozisyon ile ara..." 
+                           onkeyup="filterUsers()" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <span style="font-weight: bold;">Toplam Üye: ${allUsers.length}</span>
+                        <span style="color: #666;">|</span>
+                        <span>Gösterilen: ${filteredUsers.length}</span>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                <table class="admin-table" style="width: 100%; border-collapse: collapse;">
                     <thead>
-                        <tr>
-                            <th>Rumuz</th>
-                            <th>Telefon</th>
-                            <th>Mezuniyet</th>
-                            <th>Bölüm</th>
-                            <th>Pozisyon</th>
-                            <th>Şifre</th>
-                            <th>Kayıt Tarihi</th>
-                            <th>Test Durumu</th>
-                            <th>Test Tarihi</th>
-                            <th>Genel Skor</th>
-                            <th>Durum</th>
-                            <th>İşlemler</th>
+                        <tr style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('nickname')">
+                                Rumuz ${sortColumn === 'nickname' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('phone')">
+                                Telefon ${sortColumn === 'phone' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('education_level')">
+                                Mezuniyet ${sortColumn === 'education_level' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('department')">
+                                Bölüm ${sortColumn === 'department' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('current_position')">
+                                Pozisyon ${sortColumn === 'current_position' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="padding: 12px; text-align: left;">Şifre</th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('registration_date')">
+                                Kayıt Tarihi ${sortColumn === 'registration_date' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('test_completed')">
+                                Test Durumu ${sortColumn === 'test_completed' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('test_date')">
+                                Test Tarihi ${sortColumn === 'test_date' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('overall_score')">
+                                Genel Skor ${sortColumn === 'overall_score' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="cursor: pointer; padding: 12px; text-align: left;" onclick="sortUsers('is_active')">
+                                Durum ${sortColumn === 'is_active' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            </th>
+                            <th style="padding: 12px; text-align: center;">İşlemler</th>
                         </tr>
                     </thead>
                     <tbody>
             `;
 
-            allUsers.forEach(user => {
+            filteredUsers.forEach(user => {
                 const registrationDate = new Date(user.registration_date).toLocaleDateString('tr-TR');
                 const testDate = user.test_date ? new Date(user.test_date).toLocaleDateString('tr-TR') : '-';
                 const testStatus = user.test_completed ? 'Tamamlandı' : 'Bekliyor';
@@ -2404,19 +2527,19 @@ www.akcaprox.com
                 const toggleBtnText = isActive ? 'Pasif Yap' : 'Aktif Yap';
                 
                 html += `
-                    <tr style="${!isActive ? 'opacity: 0.6; background: #fff3cd;' : ''}">
-                        <td>${user.nickname}</td>
-                        <td>${user.phone}</td>
-                        <td>${user.education_level}</td>
-                        <td>${user.department}</td>
-                        <td>${user.current_position}</td>
-                        <td><strong>${user.password}</strong></td>
-                        <td>${registrationDate}</td>
-                        <td>${testStatus}</td>
-                        <td>${testDate}</td>
-                        <td>${user.overall_score}%</td>
-                        <td><strong style="color: ${statusColor};">${statusText}</strong></td>
-                        <td>
+                    <tr style="${!isActive ? 'opacity: 0.6; background: #fff3cd;' : 'background: white;'} border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px;">${user.nickname}</td>
+                        <td style="padding: 10px;">${user.phone}</td>
+                        <td style="padding: 10px;">${user.education_level}</td>
+                        <td style="padding: 10px;">${user.department}</td>
+                        <td style="padding: 10px;">${user.current_position}</td>
+                        <td style="padding: 10px;"><strong>${user.password}</strong></td>
+                        <td style="padding: 10px;">${registrationDate}</td>
+                        <td style="padding: 10px;">${testStatus}</td>
+                        <td style="padding: 10px;">${testDate}</td>
+                        <td style="padding: 10px;"><strong>${user.overall_score}%</strong></td>
+                        <td style="padding: 10px;"><strong style="color: ${statusColor};">${statusText}</strong></td>
+                        <td style="padding: 10px; text-align: center;">
                             <button onclick="toggleUserStatus('${user.user_id}')" 
                                     style="padding: 5px 10px; margin: 2px; background: #ffc107; color: #000; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
                                 ${toggleBtnText}
@@ -2430,8 +2553,33 @@ www.akcaprox.com
                 `;
             });
 
-            html += '</tbody></table>';
+            html += '</tbody></table></div>';
             content.innerHTML = html;
+            
+            // Arama inputuna mevcut değeri geri yükle
+            const searchInput = document.getElementById('adminSearchInput');
+            if (searchInput && typeof filterUsers.lastSearch !== 'undefined') {
+                searchInput.value = filterUsers.lastSearch;
+            }
+        }
+
+        // Admin panel güncelle
+        async function updateAdminPanel() {
+            const content = document.getElementById('adminContent');
+            
+            // Firebase'den güncel verileri çek
+            allUsers = await firebaseDB.getAll();
+            
+            if (allUsers.length === 0) {
+                content.innerHTML = '<p>Henüz kayıtlı üye bulunmuyor.</p>';
+                return;
+            }
+
+            // Filtrelenmiş listeyi başlat
+            filteredUsers = [...allUsers];
+            
+            // Tabloyu render et
+            renderAdminTable();
         }
 
         // Ekran yönetimi
