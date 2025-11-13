@@ -5215,8 +5215,17 @@ www.akcaprox.com
 
         // Türkçe karakter temizleme fonksiyonu (PDF için)
         function cleanTurkish(text) {
-            // jsPDF Türkçe karakterleri destekliyor, dönüştürme yapmıyoruz
-            return text || '';
+            if (!text) return '';
+            // jsPDF'in helvetica fontu Türkçe karakterleri desteklemiyor
+            // Bu yüzden en yakın ASCII karakterlere dönüştürüyoruz
+            const map = {
+                'ı': 'i', 'İ': 'I', 'ş': 's', 'Ş': 'S',
+                'ğ': 'g', 'Ğ': 'G', 'ü': 'u', 'Ü': 'U',
+                'ö': 'o', 'Ö': 'O', 'ç': 'c', 'Ç': 'C',
+                'â': 'a', 'Â': 'A', 'î': 'i', 'Î': 'I',
+                'û': 'u', 'Û': 'U'
+            };
+            return text.toString().replace(/[ıİşŞğĞüÜöÖçÇâÂîÎûÛ]/g, letter => map[letter] || letter);
         }
 
         // PDF Rapor Fonksiyonları
@@ -5806,7 +5815,7 @@ www.akcaprox.com
                     doc.setPage(i);
                     doc.setTextColor(150, 150, 150);
                     doc.setFontSize(8);
-                    doc.text('Sayfa ' + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    doc.text(cleanTurkish('Sayfa ') + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
                     doc.text(cleanTurkish('© 2025 Kariyer Gelişim Envanteri - AKÇA PRO X ANALİZİ'), pageWidth / 2, pageHeight - 5, { align: 'center' });
                 }
 
