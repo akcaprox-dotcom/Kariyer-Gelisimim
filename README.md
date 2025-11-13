@@ -2589,6 +2589,8 @@ www.akcaprox.com
             document.getElementById('welcomeScreen').classList.add('hidden');
             document.getElementById('quizContainer').style.display = 'none';
             document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('reportContainer').style.display = 'none';
+            document.getElementById('myReportsScreen').classList.add('hidden');
             document.getElementById('adminLoginScreen').classList.add('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
         }
@@ -2921,6 +2923,7 @@ www.akcaprox.com
             if (resultsActions) {
                 resultsActions.innerHTML = `
                     <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
+                    <button class="btn" onclick="downloadAveragePDFReport()">📄 PDF Rapor İndir</button>
                     <button class="btn" onclick="viewProgressChart()">📉 İlerleme Grafiği</button>
                     <button class="btn btn-secondary" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
@@ -3075,6 +3078,7 @@ www.akcaprox.com
                 
                 <div style="margin-top: 30px; text-align: center;">
                     <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
+                    <button class="btn" onclick="downloadProgressPDFReport()">📄 PDF Rapor İndir</button>
                     <button class="btn" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
                 </div>
@@ -3178,6 +3182,7 @@ www.akcaprox.com
                 </div>
                 <div style="margin-top: 30px; text-align: center;">
                     <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
+                    <button class="btn" onclick="downloadComparisonPDFReport(${oldIndex}, ${newIndex})">📄 PDF Rapor İndir</button>
                     <button class="btn btn-secondary" onclick="closeComparison()">← Geri Dön</button>
                 </div>
             `;
@@ -4247,7 +4252,10 @@ www.akcaprox.com
                 return;
             }
             
-            document.getElementById('welcomeScreen').classList.add('hidden');
+            // Tüm ekranları gizle
+            hideAllScreens();
+            
+            // Test ekranını aç
             document.getElementById('quizContainer').style.display = 'block';
             showQuestion();
         }
@@ -5971,6 +5979,384 @@ www.akcaprox.com
 
             } catch (error) {
                 console.error('Detaylı PDF oluşturma hatası:', error);
+                showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
+            }
+        }
+
+        // Ortalama Rapor PDF'i
+        async function downloadAveragePDFReport() {
+            try {
+                if (!currentUser || !currentUser.test_history || currentUser.test_history.length === 0) {
+                    showMessage("PDF oluşturmak için test geçmişi bulunamadı!", "error");
+                    return;
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+
+                // Ortalama skorları hesapla
+                const categoryAverages = {};
+                currentUser.test_history.forEach(test => {
+                    const results = JSON.parse(test.test_results);
+                    results.forEach(category => {
+                        if (!categoryAverages[category.name]) {
+                            categoryAverages[category.name] = { name: category.name, totalScore: 0, totalPercentage: 0, count: 0 };
+                        }
+                        categoryAverages[category.name].totalScore += category.score;
+                        categoryAverages[category.name].totalPercentage += category.percentage;
+                        categoryAverages[category.name].count++;
+                    });
+                });
+
+                const avgCategoryScores = Object.values(categoryAverages).map(cat => ({
+                    name: cat.name,
+                    score: Math.round(cat.totalScore / cat.count),
+                    percentage: cat.totalPercentage / cat.count
+                }));
+
+                const avgOverallScore = Math.round(
+                    currentUser.test_history.reduce((sum, test) => sum + test.overall_score, 0) / 
+                    currentUser.test_history.length
+                );
+
+                // Başlık
+                doc.setFillColor(102, 126, 234);
+                doc.rect(0, 0, pageWidth, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('ORTALAMA KARİYER GELİŞİM RAPORU'), pageWidth / 2, 15, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text(cleanTurkish('AKÇA PRO X ANALİZİ'), pageWidth / 2, 25, { align: 'center' });
+                doc.setFontSize(10);
+                doc.text(cleanTurkish(`${currentUser.test_history.length} Test Ortalaması`), pageWidth / 2, 33, { align: 'center' });
+
+                // Kullanıcı bilgileri
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                let yPos = 50;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Kullanıcı: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.nickname), 45, yPos);
+                yPos += 8;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Rapor Tarihi: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(new Date().toLocaleDateString('tr-TR'), 45, yPos);
+
+                // Genel Skor
+                yPos += 15;
+                doc.setFillColor(240, 244, 255);
+                doc.roundedRect(15, yPos, pageWidth - 30, 25, 5, 5, 'F');
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(102, 126, 234);
+                doc.text(cleanTurkish('ORTALAMA GENEL SKOR: ') + avgOverallScore + '%', pageWidth / 2, yPos + 16, { align: 'center' });
+
+                // Kategori ortalamaları
+                yPos += 35;
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('KATEGORİ ORTALAMALARI'), 15, yPos);
+                yPos += 8;
+
+                doc.setFontSize(9);
+                avgCategoryScores.forEach((category, index) => {
+                    if (yPos > pageHeight - 20) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(`${index + 1}. ${cleanTurkish(category.name)}`, 15, yPos);
+                    yPos += 4;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(cleanTurkish(`Ortalama Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`), 15, yPos);
+                    doc.setTextColor(0, 0, 0);
+                    yPos += 7;
+                });
+
+                // Footer
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    doc.setTextColor(150, 150, 150);
+                    doc.setFontSize(8);
+                    doc.text(cleanTurkish('Sayfa ') + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    doc.text(cleanTurkish('© 2025 Ortalama Kariyer Raporu - AKÇA PRO X'), pageWidth / 2, pageHeight - 5, { align: 'center' });
+                }
+
+                const fileName = `Ortalama_Kariyer_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                showMessage("Ortalama rapor PDF'i başarıyla indirildi!", "success");
+
+            } catch (error) {
+                console.error('Ortalama PDF oluşturma hatası:', error);
+                showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
+            }
+        }
+
+        // İlerleme Grafiği PDF'i
+        async function downloadProgressPDFReport() {
+            try {
+                if (!currentUser || !currentUser.test_history || currentUser.test_history.length === 0) {
+                    showMessage("PDF oluşturmak için test geçmişi bulunamadı!", "error");
+                    return;
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+
+                const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                    new Date(a.test_date) - new Date(b.test_date)
+                );
+
+                // Başlık
+                doc.setFillColor(102, 126, 234);
+                doc.rect(0, 0, pageWidth, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('KARİYER GELİŞİM İLERLEME GRAFİĞİ'), pageWidth / 2, 15, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text(cleanTurkish('AKÇA PRO X ANALİZİ'), pageWidth / 2, 25, { align: 'center' });
+                doc.setFontSize(10);
+                doc.text(cleanTurkish(`${sortedHistory.length} Test Sonucu`), pageWidth / 2, 33, { align: 'center' });
+
+                // Kullanıcı bilgileri
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                let yPos = 50;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Kullanıcı: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.nickname), 45, yPos);
+                yPos += 8;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Rapor Tarihi: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(new Date().toLocaleDateString('tr-TR'), 45, yPos);
+
+                // Test detayları tablosu
+                yPos += 15;
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('TEST DETAYLARI'), 15, yPos);
+                yPos += 8;
+
+                // Tablo başlıkları
+                doc.setFillColor(240, 244, 255);
+                doc.rect(15, yPos, pageWidth - 30, 8, 'F');
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'bold');
+                doc.text('#', 20, yPos + 6);
+                doc.text(cleanTurkish('Tarih'), 35, yPos + 6);
+                doc.text(cleanTurkish('Skor'), 90, yPos + 6);
+                doc.text(cleanTurkish('Değişim'), 120, yPos + 6);
+                yPos += 10;
+
+                // Test satırları
+                doc.setFont('helvetica', 'normal');
+                sortedHistory.forEach((test, index) => {
+                    if (yPos > pageHeight - 20) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    const testDate = new Date(test.test_date).toLocaleDateString('tr-TR', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric'
+                    });
+
+                    let change = '-';
+                    if (index > 0) {
+                        const diff = test.overall_score - sortedHistory[index - 1].overall_score;
+                        if (diff > 0) {
+                            change = `+${diff}%`;
+                        } else if (diff < 0) {
+                            change = `${diff}%`;
+                        } else {
+                            change = '0%';
+                        }
+                    }
+
+                    doc.text(`${index + 1}`, 20, yPos);
+                    doc.text(cleanTurkish(testDate), 35, yPos);
+                    doc.text(`${test.overall_score}%`, 90, yPos);
+                    doc.text(cleanTurkish(change), 120, yPos);
+                    yPos += 6;
+                });
+
+                // İstatistikler
+                yPos += 10;
+                if (yPos > pageHeight - 40) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('İSTATİSTİKLER'), 15, yPos);
+                yPos += 8;
+
+                const scores = sortedHistory.map(t => t.overall_score);
+                const minScore = Math.min(...scores);
+                const maxScore = Math.max(...scores);
+                const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+                const firstScore = scores[0];
+                const lastScore = scores[scores.length - 1];
+                const totalChange = lastScore - firstScore;
+
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(`En Düşük Skor: ${minScore}%`), 20, yPos);
+                yPos += 6;
+                doc.text(cleanTurkish(`En Yüksek Skor: ${maxScore}%`), 20, yPos);
+                yPos += 6;
+                doc.text(cleanTurkish(`Ortalama Skor: ${avgScore}%`), 20, yPos);
+                yPos += 6;
+                doc.text(cleanTurkish(`İlk Test Skoru: ${firstScore}%`), 20, yPos);
+                yPos += 6;
+                doc.text(cleanTurkish(`Son Test Skoru: ${lastScore}%`), 20, yPos);
+                yPos += 6;
+                doc.text(cleanTurkish(`Toplam Değişim: ${totalChange >= 0 ? '+' : ''}${totalChange}%`), 20, yPos);
+
+                // Footer
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    doc.setTextColor(150, 150, 150);
+                    doc.setFontSize(8);
+                    doc.text(cleanTurkish('Sayfa ') + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    doc.text(cleanTurkish('© 2025 İlerleme Raporu - AKÇA PRO X'), pageWidth / 2, pageHeight - 5, { align: 'center' });
+                }
+
+                const fileName = `Ilerleme_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                showMessage("İlerleme raporu PDF'i başarıyla indirildi!", "success");
+
+            } catch (error) {
+                console.error('İlerleme PDF oluşturma hatası:', error);
+                showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
+            }
+        }
+
+        // Karşılaştırma Rapor PDF'i
+        async function downloadComparisonPDFReport(oldIndex, newIndex) {
+            try {
+                if (!currentUser || !currentUser.test_history) {
+                    showMessage("PDF oluşturmak için test geçmişi bulunamadı!", "error");
+                    return;
+                }
+
+                const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                    new Date(b.test_date) - new Date(a.test_date)
+                );
+
+                const oldTest = sortedHistory[oldIndex];
+                const newTest = sortedHistory[newIndex];
+                const oldResults = JSON.parse(oldTest.test_results);
+                const newResults = JSON.parse(newTest.test_results);
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+
+                const oldDate = new Date(oldTest.test_date).toLocaleDateString('tr-TR');
+                const newDate = new Date(newTest.test_date).toLocaleDateString('tr-TR');
+
+                // Başlık
+                doc.setFillColor(102, 126, 234);
+                doc.rect(0, 0, pageWidth, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('TEST KARŞILAŞTIRMA RAPORU'), pageWidth / 2, 15, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text(cleanTurkish('AKÇA PRO X ANALİZİ'), pageWidth / 2, 25, { align: 'center' });
+                doc.setFontSize(10);
+                doc.text(cleanTurkish(`${oldDate} vs ${newDate}`), pageWidth / 2, 33, { align: 'center' });
+
+                // Kullanıcı bilgileri
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                let yPos = 50;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Kullanıcı: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.nickname), 45, yPos);
+                yPos += 8;
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('Rapor Tarihi: '), 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(new Date().toLocaleDateString('tr-TR'), 45, yPos);
+
+                // Genel Skor Karşılaştırması
+                yPos += 15;
+                doc.setFillColor(240, 244, 255);
+                doc.roundedRect(15, yPos, pageWidth - 30, 30, 5, 5, 'F');
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(102, 126, 234);
+                doc.text(cleanTurkish('GENEL SKOR DEĞİŞİMİ'), pageWidth / 2, yPos + 10, { align: 'center' });
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(12);
+                const scoreDiff = newTest.overall_score - oldTest.overall_score;
+                const scoreText = cleanTurkish(`${oldTest.overall_score}% → ${newTest.overall_score}% (${scoreDiff >= 0 ? '+' : ''}${scoreDiff}%)`);
+                doc.text(scoreText, pageWidth / 2, yPos + 22, { align: 'center' });
+
+                // Kategori Karşılaştırmaları
+                yPos += 40;
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(cleanTurkish('KATEGORİ KARŞILAŞTIRMALARI'), 15, yPos);
+                yPos += 8;
+
+                doc.setFontSize(9);
+                oldResults.forEach((oldCat, index) => {
+                    if (yPos > pageHeight - 25) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    const newCat = newResults[index];
+                    const change = newCat.percentage - oldCat.percentage;
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(`${index + 1}. ${cleanTurkish(oldCat.name)}`, 15, yPos);
+                    yPos += 4;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(cleanTurkish(`Eski: ${Math.round(oldCat.percentage)}% | Yeni: ${Math.round(newCat.percentage)}% | Fark: ${change >= 0 ? '+' : ''}${Math.round(change)}%`), 15, yPos);
+                    doc.setTextColor(0, 0, 0);
+                    yPos += 7;
+                });
+
+                // Footer
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    doc.setTextColor(150, 150, 150);
+                    doc.setFontSize(8);
+                    doc.text(cleanTurkish('Sayfa ') + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    doc.text(cleanTurkish('© 2025 Karşılaştırma Raporu - AKÇA PRO X'), pageWidth / 2, pageHeight - 5, { align: 'center' });
+                }
+
+                const fileName = `Karsilastirma_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                showMessage("Karşılaştırma raporu PDF'i başarıyla indirildi!", "success");
+
+            } catch (error) {
+                console.error('Karşılaştırma PDF oluşturma hatası:', error);
                 showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
             }
         }
