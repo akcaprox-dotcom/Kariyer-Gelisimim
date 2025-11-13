@@ -1,0 +1,4208 @@
+www.akcaprox.com
+<html lang="tr">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Kariyer Gelişim Envanteri</title>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .admin-gear {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.1;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            background: transparent;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .admin-gear:hover {
+            opacity: 0.6;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .admin-gear svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+        }
+
+        .login-screen, .register-screen, .welcome-screen, .admin-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .login-screen h1, .register-screen h1, .welcome-screen h1, .admin-panel h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            margin: 10px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 15px 30px rgba(108, 117, 125, 0.4);
+        }
+
+        .password-info {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .linkedin-link {
+            color: #0077b5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .linkedin-link:hover {
+            text-decoration: underline;
+        }
+
+        .quiz-container {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .question-counter {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .category-badge {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 2px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .option:active {
+            transform: translateY(0);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .option-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .option-text {
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .next-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .results-container, .report-container {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .overall-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .score-interpretation {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .category-results {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-result {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .category-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .category-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .score-bar {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .score-value {
+            font-weight: bold;
+            color: #667eea;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .admin-table th, .admin-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .admin-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .admin-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .chart-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .analysis-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .analysis-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            color: #856404;
+        }
+
+        .disclaimer-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #dc3545;
+        }
+
+        .category-analysis {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .category-analysis h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .category-analysis p {
+            line-height: 1.6;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .ai-analysis-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .ai-analysis-title {
+            color: #667eea;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .analysis-subsection {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .analysis-subsection h5 {
+            color: #764ba2;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .analysis-subsection ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .analysis-subsection li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .analysis-subsection li:before {
+            content: "▸";
+            position: absolute;
+            left: 5px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .score-excellent { background: #d4edda; color: #155724; }
+        .score-good { background: #d1ecf1; color: #0c5460; }
+        .score-average { background: #fff3cd; color: #856404; }
+        .score-needs-improvement { background: #f8d7da; color: #721c24; }
+
+        /* PDF Export Styles */
+        .pdf-container {
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pdf-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .pdf-header h1 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .pdf-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .pdf-info-item {
+            padding: 10px;
+        }
+
+        .pdf-info-label {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+
+        .pdf-info-value {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .pdf-section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+
+        .pdf-section-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .pdf-chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pdf-chart-item {
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .pdf-chart-item h4 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .pdf-container {
+                padding: 20px;
+            }
+            
+            .pdf-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+            
+            .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .login-screen h1, .register-screen h1, .welcome-screen h1 {
+                font-size: 1.8rem;
+            }
+
+            .admin-panel h1 {
+                font-size: 1.6rem;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+            
+            .option {
+                padding: 12px;
+            }
+
+            .option-label {
+                font-size: 1rem;
+            }
+
+            .option-text {
+                font-size: 0.9rem;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-btn, .btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .prev-btn, .next-btn {
+                padding: 10px 20px;
+            }
+
+            .admin-table {
+                font-size: 0.75rem;
+                overflow-x: auto;
+                display: block;
+            }
+
+            .admin-table th, .admin-table td {
+                padding: 6px;
+                white-space: nowrap;
+            }
+
+            .results-title {
+                font-size: 1.8rem;
+            }
+
+            .overall-score {
+                font-size: 2.5rem;
+            }
+
+            .score-interpretation {
+                font-size: 1rem;
+            }
+
+            .category-name {
+                font-size: 1rem;
+            }
+
+            .chart-title {
+                font-size: 1rem;
+            }
+
+            .analysis-title {
+                font-size: 1.5rem;
+            }
+
+            .category-analysis h4 {
+                font-size: 1.1rem;
+            }
+
+            .category-analysis p {
+                font-size: 0.9rem;
+            }
+
+            .form-group input, .form-group select {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            .question-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .question-counter, .category-badge {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+
+            .disclaimer {
+                padding: 15px;
+            }
+
+            .disclaimer-title {
+                font-size: 1rem;
+            }
+
+            .chart-canvas {
+                height: 250px;
+            }
+
+            .admin-gear {
+                top: 5px;
+                left: 5px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        /* Çok küçük ekranlar için ekstra optimizasyon */
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+
+            .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .login-screen h1, .register-screen h1, .welcome-screen h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .question-text {
+                font-size: 0.95rem;
+            }
+
+            .option {
+                padding: 10px;
+            }
+
+            .option-label {
+                font-size: 0.9rem;
+            }
+
+            .option-text {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+                margin: 5px 0;
+            }
+
+            .overall-score {
+                font-size: 2rem;
+            }
+
+            .results-title {
+                font-size: 1.5rem;
+            }
+
+            .analysis-title {
+                font-size: 1.3rem;
+            }
+
+            .category-analysis {
+                padding: 15px;
+            }
+
+            .chart-canvas {
+                height: 200px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Landscape mod için tablet optimizasyonu */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                max-width: 95%;
+                padding: 15px;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Touch-friendly özellikler */
+        @media (hover: none) and (pointer: coarse) {
+            .option {
+                min-height: 60px;
+                touch-action: manipulation;
+            }
+
+            .btn, .nav-btn {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            .form-group input, .form-group select {
+                min-height: 44px;
+            }
+
+            .admin-gear {
+                width: 30px;
+                height: 30px;
+                padding: 8px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/polyfills.umd.min.js"></script>
+ </head>
+ <body>
+  <div class="container"><!-- Admin Gear Button -->
+   <div class="admin-gear" onclick="showAdminLogin()">
+    <svg viewbox="0 0 24 24"><path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+    </svg>
+   </div><!-- Login Screen -->
+   <div class="login-screen" id="loginScreen">
+    <h1 id="loginTitle">Üye Girişi</h1>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+     <div class="form-group"><label for="loginNickname">Rumuz:</label> <input type="text" id="loginNickname" required>
+     </div>
+     <div class="form-group"><label for="loginPassword">Şifre:</label> <input type="password" id="loginPassword" required>
+     </div><button type="submit" class="btn" id="loginBtn"> <span class="btn-text">Giriş Yap</span> <span class="loading hidden"></span> </button> <button type="button" class="btn btn-secondary" onclick="showRegister()">Üye Ol</button>
+    </form>
+   </div><!-- Register Screen -->
+   <div class="register-screen hidden" id="registerScreen">
+    <h1>Üye Kayıt</h1>
+    <form id="registerForm" onsubmit="handleRegister(event)">
+     <div class="form-group"><label for="nickname">Rumuz:</label> <input type="text" id="nickname" required>
+      <div style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 6px; padding: 10px; margin-top: 8px; font-size: 0.9rem; color: #0c5460;"><strong>🔒 Gizlilik Notu:</strong> Lütfen kişisel bilgilerde isim-soyisim kullanmayınız. Rumuz sistemi kişiselliğinizi korumak için yapılmıştır.
+      </div>
+     </div>
+     <div class="form-group"><label for="phone">Telefon Numarası:</label> <input type="tel" id="phone" required>
+     </div>
+     <div class="form-group"><label for="education">Mezuniyet Durumu:</label> <select id="education" required> <option value="">Seçiniz</option> <option value="Lise">Lise</option> <option value="Ön Lisans">Ön Lisans</option> <option value="Lisans">Lisans</option> <option value="Yüksek Lisans">Yüksek Lisans</option> <option value="Doktora">Doktora</option> </select>
+     </div>
+     <div class="form-group"><label for="department">Bölüm:</label> <input type="text" id="department" required>
+     </div>
+     <div class="form-group"><label for="position">Şu Anki İş Pozisyonu:</label> <input type="text" id="position" required>
+     </div>
+     <div class="password-info">
+      <p><strong>Önemli:</strong> Kayıt işleminiz tamamlandıktan sonra sistem otomatik olarak 6 basamaklı bir şifre oluşturacaktır.</p>
+      <p>Bu şifreyi almak için aşağıdaki bağlantıdan yöneticiye ulaşın:</p><a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-ak%C3%A7a-46997593/" target="_blank" class="linkedin-link">Şifre almak için tıklayın</a>
+     </div><button type="submit" class="btn" id="registerBtn"> <span class="btn-text">Kayıt Ol</span> <span class="loading hidden"></span> </button> <button type="button" class="btn btn-secondary" onclick="showLogin()">Giriş Ekranına Dön</button>
+    </form>
+   </div><!-- Admin Login Screen -->
+   <div class="admin-panel hidden" id="adminLoginScreen">
+    <h1>Admin Girişi</h1>
+    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+     <div class="form-group"><label for="adminPassword">Admin Şifresi:</label> <input type="password" id="adminPassword" required>
+     </div><button type="submit" class="btn">Giriş Yap</button> <button type="button" class="btn btn-secondary" onclick="hideAdminLogin()">İptal</button>
+    </form>
+   </div><!-- Admin Panel -->
+   <div class="admin-panel hidden" id="adminPanel">
+    <h1>Süper Admin Paneli</h1><button class="btn btn-secondary" onclick="hideAdmin()" style="float: right;">Kapat</button>
+    <div id="adminContent">
+     <div class="loading"></div>
+     <p>Veriler yükleniyor...</p>
+    </div>
+   </div><!-- Welcome Screen -->
+   <div class="welcome-screen hidden" id="welcomeScreen">
+    <h1 id="mainTitle">Kariyer Gelişim Envanteri</h1>
+    <p id="subtitle">Profesyonel Yetkinlik Değerlendirme Sistemi</p>
+    <p>Bu envanter, kariyer gelişiminizde kritik olan 10 temel yetkinlik alanını değerlendirmenizi sağlar. Her alan için 10 soru olmak üzere toplam 100 soruyu yanıtlayarak, güçlü yönlerinizi ve gelişim alanlarınızı keşfedeceksiniz.</p>
+    <button class="btn" onclick="startQuiz()">Envanteri Başlat</button> 
+    <button class="btn" onclick="showMyReports()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">📊 Geçmiş Raporlarım</button>
+    <button class="btn btn-secondary" onclick="logout()">Çıkış Yap</button>
+   </div>
+   
+   <!-- My Reports Screen -->
+   <div class="welcome-screen hidden" id="myReportsScreen">
+    <h1>📊 Geçmiş Raporlarım</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">Test geçmişinizi görüntüleyin ve raporlarınızı karşılaştırın</p>
+    
+    <div id="reportsHistory" style="max-width: 1000px; margin: 0 auto;"></div>
+    
+    <div style="margin-top: 30px;">
+        <button class="btn btn-secondary" onclick="backToWelcomeFromReports()">← Ana Menüye Dön</button>
+    </div>
+   </div>
+   
+   <!-- Quiz Container -->
+   <div class="quiz-container" id="quizContainer">
+    <div class="progress-bar">
+     <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="question-header">
+     <div class="question-counter" id="questionCounter">
+      Soru 1 / 100
+     </div>
+     <div class="category-badge" id="categoryBadge">
+      Kategori
+     </div>
+    </div>
+    <div class="question-text" id="questionText"></div>
+    <div class="options-container" id="optionsContainer"></div>
+    <div class="navigation-buttons"><button class="nav-btn prev-btn" id="prevBtn" onclick="previousQuestion()">← Önceki</button> <button class="nav-btn next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Sonraki →</button>
+    </div>
+   </div><!-- Results Container -->
+   <div class="results-container" id="resultsContainer">
+    <div class="results-header">
+     <h2 class="results-title">Kariyer Gelişim Raporu</h2>
+     <div class="overall-score" id="overallScore">
+      0
+     </div>
+     <div class="score-interpretation" id="scoreInterpretation"></div>
+    </div>
+    <div class="category-results" id="categoryResults"></div><button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button> <button class="btn" onclick="downloadPDFReport()">📄 PDF Rapor İndir</button> <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+   </div><!-- Report Container -->
+   <div class="report-container" id="reportContainer">
+    <div class="disclaimer">
+     <div class="disclaimer-title">
+      ⚠️ Önemli Uyarı
+     </div>
+     <p><strong>Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız.</strong></p>
+     <p>Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir. Sonuçlar genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.</p>
+    </div>
+    <div class="results-header">
+     <h2 class="results-title">AKÇA PRO X ANALİZİ</h2>
+     <div class="overall-score" id="reportOverallScore">
+      0
+     </div>
+     <p style="text-align: center; color: #666; margin-bottom: 30px;">Detaylı Kariyer Yetkinlik Analizi</p>
+    </div>
+    <div class="chart-container">
+     <div class="chart-box">
+      <div class="chart-title">
+       Radar Analizi
+      </div>
+      <canvas class="chart-canvas" id="radarChart"></canvas>
+     </div>
+     <div class="chart-box">
+      <div class="chart-title">
+       Pasta Grafiği
+      </div>
+      <canvas class="chart-canvas" id="pieChart"></canvas>
+     </div>
+     <div class="chart-box">
+      <div class="chart-title">
+       Çubuk Grafiği
+      </div>
+      <canvas class="chart-canvas" id="barChart"></canvas>
+     </div>
+     <div class="chart-box">
+      <div class="chart-title">
+       Nokta Grafiği
+      </div>
+      <canvas class="chart-canvas" id="scatterChart"></canvas>
+     </div>
+    </div>
+    <div class="analysis-section">
+     <div class="analysis-title">
+      AKÇA PRO X ANALİZİ
+     </div>
+     <div id="categoryAnalyses"></div>
+    </div><button class="btn" onclick="downloadDetailedPDFReport()">📄 Detaylı PDF Rapor İndir (Grafiklerle)</button> <button class="btn btn-secondary" onclick="backToResults()">Özet Sonuçlara Dön</button> <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
+   </div>
+  </div>
+  <script>
+        // Global değişkenler
+        let currentUser = null;
+        let allUsers = [];
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let currentCategoryIndex = 0;
+        let currentQuestionInCategory = 0;
+
+        // LocalStorage Veri Yönetimi Sistemi
+        const STORAGE_KEY = 'kariyer_envanteri_users';
+        
+        // Veritabanı yönetimi
+        const localDB = {
+            // Tüm kullanıcıları getir
+            getAll() {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            },
+            
+            // Yeni kullanıcı ekle
+            create(user) {
+                const users = this.getAll();
+                users.push(user);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+                allUsers = users;
+                return { isOk: true, data: user };
+            },
+            
+            // Kullanıcı güncelle
+            update(updatedUser) {
+                let users = this.getAll();
+                const index = users.findIndex(u => u.user_id === updatedUser.user_id);
+                if (index !== -1) {
+                    users[index] = updatedUser;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+                    allUsers = users;
+                    return { isOk: true, data: updatedUser };
+                }
+                return { isOk: false, error: 'Kullanıcı bulunamadı' };
+            },
+            
+            // Kullanıcı sil
+            delete(userId) {
+                let users = this.getAll();
+                users = users.filter(u => u.user_id !== userId);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+                allUsers = users;
+                return { isOk: true };
+            }
+        };
+
+        // Sayfa yüklendiğinde kullanıcıları yükle
+        function initializeApp() {
+            allUsers = localDB.getAll();
+            console.log('Uygulama başlatıldı. Toplam kullanıcı:', allUsers.length);
+        }
+
+        // Sayfa yüklendiğinde SDK'ları başlat
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        // Backup olarak hemen de başlat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+
+        // Şifre üretici
+        function generatePassword() {
+            const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const allChars = upperChars + lowerChars + numbers;
+            
+            let password = '';
+            
+            // En az bir büyük harf
+            password += upperChars.charAt(Math.floor(Math.random() * upperChars.length));
+            
+            // En az bir küçük harf
+            password += lowerChars.charAt(Math.floor(Math.random() * lowerChars.length));
+            
+            // En az bir rakam
+            password += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            
+            // Kalan 3 karakter rastgele
+            for (let i = 0; i < 3; i++) {
+                password += allChars.charAt(Math.floor(Math.random() * allChars.length));
+            }
+            
+            // Karakterleri karıştır (shuffle)
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+            
+            return password;
+        }
+
+        // Kayıt işlemi
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            // Form verilerini kontrol et
+            const nickname = document.getElementById('nickname').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const education = document.getElementById('education').value;
+            const department = document.getElementById('department').value.trim();
+            const position = document.getElementById('position').value.trim();
+
+            // Boş alan kontrolü
+            if (!nickname || !phone || !education || !department || !position) {
+                showMessage("Lütfen tüm alanları doldurun.", "error");
+                return;
+            }
+
+            // Telefon numarası formatı kontrolü
+            if (phone.length < 10) {
+                showMessage("Lütfen geçerli bir telefon numarası girin.", "error");
+                return;
+            }
+
+            if (allUsers.length >= 999) {
+                showMessage("Maksimum 999 üye limitine ulaşıldı. Yeni kayıt yapılamaz.", "error");
+                return;
+            }
+
+            const btn = document.getElementById('registerBtn');
+            const btnText = btn.querySelector('.btn-text');
+            const loading = btn.querySelector('.loading');
+            
+            btnText.classList.add('hidden');
+            loading.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                // Rumuz kontrolü
+                const existingUser = allUsers.find(user => user.nickname === nickname);
+                if (existingUser) {
+                    showMessage("Bu rumuz zaten kullanılıyor. Lütfen farklı bir rumuz seçin.", "error");
+                    btnText.classList.remove('hidden');
+                    loading.classList.add('hidden');
+                    btn.disabled = false;
+                    return;
+                }
+
+                const formData = {
+                    user_id: Date.now().toString(),
+                    nickname: nickname,
+                    phone: phone,
+                    education_level: education,
+                    department: department,
+                    current_position: position,
+                    password: generatePassword(),
+                    registration_date: new Date().toISOString(),
+                    test_completed: false,
+                    test_date: "",
+                    test_results: "",
+                    overall_score: 0
+                };
+
+                // LocalStorage'a kaydet
+                const result = localDB.create(formData);
+                
+                btnText.classList.remove('hidden');
+                loading.classList.add('hidden');
+                btn.disabled = false;
+
+                if (result.isOk) {
+                    // Başarı mesajı (şifre gösterilmiyor, süper adminden isteyecekler)
+                    showMessage("Kayıt başarılı! Şifrenizi almak için lütfen süper yönetici ile iletişime geçin.", "success");
+                    
+                    // LinkedIn yönlendirme onayı
+                    setTimeout(() => {
+                        // Inline onay sistemi (alert yerine)
+                        const confirmDiv = document.createElement('div');
+                        confirmDiv.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: white;
+                            padding: 30px;
+                            border-radius: 15px;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                            z-index: 10001;
+                            text-align: center;
+                            max-width: 400px;
+                        `;
+                        confirmDiv.innerHTML = `
+                            <h3 style="margin-bottom: 15px; color: #667eea;">Şifre Alma</h3>
+                            <p style="margin-bottom: 20px;">Şifrenizi almak için LinkedIn bağlantısına tıklayarak süper yönetici ile iletişime geçmeniz gerekiyor.</p>
+                            <p style="margin-bottom: 25px;"><strong>Şimdi LinkedIn sayfasını açmak istiyor musunuz?</strong></p>
+                            <button onclick="window.open('https://www.linkedin.com/in/bar%C4%B1%C5%9F-ak%C3%A7a-46997593/', '_blank'); document.body.removeChild(this.parentElement);" 
+                                    style="background: #0077b5; color: white; border: none; padding: 12px 25px; border-radius: 8px; margin: 5px; cursor: pointer;">
+                                LinkedIn'i Aç
+                            </button>
+                            <button onclick="document.body.removeChild(this.parentElement);" 
+                                    style="background: #6c757d; color: white; border: none; padding: 12px 25px; border-radius: 8px; margin: 5px; cursor: pointer;">
+                                Daha Sonra
+                            </button>
+                        `;
+                        document.body.appendChild(confirmDiv);
+                    }, 1000);
+                    
+                    document.getElementById('registerForm').reset();
+                    setTimeout(() => showLogin(), 3000);
+                } else {
+                    console.error("Kayıt hatası:", result.error);
+                    showMessage(`Kayıt sırasında hata oluştu: ${result.error?.message || 'Bilinmeyen hata'}. Lütfen tekrar deneyin.`, "error");
+                }
+            } catch (error) {
+                console.error("Kayıt işlemi hatası:", error);
+                showMessage(`Sistem hatası: ${error.message}. Lütfen sayfayı yenileyip tekrar deneyin.`, "error");
+                
+                btnText.classList.remove('hidden');
+                loading.classList.add('hidden');
+                btn.disabled = false;
+            }
+        }
+
+        // Giriş işlemi
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            const btnText = btn.querySelector('.btn-text');
+            const loading = btn.querySelector('.loading');
+            
+            btnText.classList.add('hidden');
+            loading.classList.remove('hidden');
+            btn.disabled = true;
+
+            const nickname = document.getElementById('loginNickname').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            console.log('Giriş denemesi - Rumuz:', nickname);
+            console.log('Toplam kullanıcı sayısı:', allUsers.length);
+            
+            const user = allUsers.find(u => {
+                console.log('Kontrol ediliyor:', u.nickname, '===', nickname, '&&', u.password, '===', password);
+                return u.nickname === nickname && u.password === password;
+            });
+            
+            btnText.classList.remove('hidden');
+            loading.classList.add('hidden');
+            btn.disabled = false;
+
+            if (user) {
+                // Kullanıcı aktif mi kontrol et
+                const isActive = user.is_active === undefined ? true : user.is_active;
+                
+                if (!isActive) {
+                    console.log('Giriş reddedildi - Kullanıcı pasif');
+                    showMessage("Hesabınız pasif durumda! Lütfen yönetici ile iletişime geçin.", "error");
+                    return;
+                }
+                
+                currentUser = user;
+                console.log('Giriş başarılı:', user);
+                showWelcome();
+            } else {
+                console.log('Giriş başarısız - Kullanıcı bulunamadı');
+                showMessage("Rumuz veya şifre hatalı!", "error");
+            }
+        }
+
+        // Admin giriş
+        function showAdminLogin() {
+            hideAllScreens();
+            document.getElementById('adminLoginScreen').classList.remove('hidden');
+        }
+
+        // Admin giriş işlemi
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === "030714") {
+                showAdminPanel();
+            } else {
+                showMessage("Hatalı admin şifresi!", "error");
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        // Admin giriş ekranını gizle
+        function hideAdminLogin() {
+            document.getElementById('adminLoginScreen').classList.add('hidden');
+            showLogin();
+        }
+
+        // Admin panel göster
+        function showAdminPanel() {
+            hideAllScreens();
+            document.getElementById('adminPanel').classList.remove('hidden');
+            updateAdminPanel();
+        }
+
+        // Üye silme fonksiyonu
+        function deleteUser(userId, nickname) {
+            if (confirm(`"${nickname}" kullanıcısını silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz!`)) {
+                const result = localDB.delete(userId);
+                if (result.isOk) {
+                    showMessage(`"${nickname}" başarıyla silindi.`, "success");
+                    updateAdminPanel();
+                } else {
+                    showMessage("Kullanıcı silinirken hata oluştu!", "error");
+                }
+            }
+        }
+
+        // Üye aktif/pasif yapma
+        function toggleUserStatus(userId) {
+            let users = localDB.getAll();
+            const userIndex = users.findIndex(u => u.user_id === userId);
+            
+            if (userIndex !== -1) {
+                const user = users[userIndex];
+                user.is_active = user.is_active === undefined ? false : !user.is_active;
+                
+                const result = localDB.update(user);
+                if (result.isOk) {
+                    const status = user.is_active ? 'aktif' : 'pasif';
+                    showMessage(`"${user.nickname}" ${status} yapıldı.`, "success");
+                    updateAdminPanel();
+                } else {
+                    showMessage("Durum değiştirilemedi!", "error");
+                }
+            }
+        }
+
+        // Admin panel güncelle
+        function updateAdminPanel() {
+            const content = document.getElementById('adminContent');
+            
+            if (allUsers.length === 0) {
+                content.innerHTML = '<p>Henüz kayıtlı üye bulunmuyor.</p>';
+                return;
+            }
+
+            let html = `
+                <h3>Toplam Üye Sayısı: ${allUsers.length}</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Rumuz</th>
+                            <th>Telefon</th>
+                            <th>Mezuniyet</th>
+                            <th>Bölüm</th>
+                            <th>Pozisyon</th>
+                            <th>Şifre</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>Test Durumu</th>
+                            <th>Test Tarihi</th>
+                            <th>Genel Skor</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            allUsers.forEach(user => {
+                const registrationDate = new Date(user.registration_date).toLocaleDateString('tr-TR');
+                const testDate = user.test_date ? new Date(user.test_date).toLocaleDateString('tr-TR') : '-';
+                const testStatus = user.test_completed ? 'Tamamlandı' : 'Bekliyor';
+                const isActive = user.is_active === undefined ? true : user.is_active;
+                const statusText = isActive ? 'Aktif' : 'Pasif';
+                const statusColor = isActive ? 'green' : 'red';
+                const toggleBtnText = isActive ? 'Pasif Yap' : 'Aktif Yap';
+                
+                html += `
+                    <tr style="${!isActive ? 'opacity: 0.6; background: #fff3cd;' : ''}">
+                        <td>${user.nickname}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.education_level}</td>
+                        <td>${user.department}</td>
+                        <td>${user.current_position}</td>
+                        <td><strong>${user.password}</strong></td>
+                        <td>${registrationDate}</td>
+                        <td>${testStatus}</td>
+                        <td>${testDate}</td>
+                        <td>${user.overall_score}%</td>
+                        <td><strong style="color: ${statusColor};">${statusText}</strong></td>
+                        <td>
+                            <button onclick="toggleUserStatus('${user.user_id}')" 
+                                    style="padding: 5px 10px; margin: 2px; background: #ffc107; color: #000; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                ${toggleBtnText}
+                            </button>
+                            <button onclick="deleteUser('${user.user_id}', '${user.nickname}')" 
+                                    style="padding: 5px 10px; margin: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                Sil
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            content.innerHTML = html;
+        }
+
+        // Ekran yönetimi
+        function hideAllScreens() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('adminLoginScreen').classList.add('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+        }
+
+        function showLogin() {
+            hideAllScreens();
+            document.getElementById('loginScreen').classList.remove('hidden');
+        }
+
+        function showRegister() {
+            hideAllScreens();
+            document.getElementById('registerScreen').classList.remove('hidden');
+        }
+
+        function showWelcome() {
+            hideAllScreens();
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+
+        function hideAdmin() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            showLogin();
+        }
+
+        function logout() {
+            currentUser = null;
+            showLogin();
+        }
+
+        function backToWelcome() {
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('reportContainer').style.display = 'none';
+            showWelcome();
+        }
+
+        function backToWelcomeFromReports() {
+            document.getElementById('myReportsScreen').classList.add('hidden');
+            showWelcome();
+        }
+
+        function showMyReports() {
+            hideAllScreens();
+            document.getElementById('myReportsScreen').classList.remove('hidden');
+            loadReportsHistory();
+        }
+
+        function loadReportsHistory() {
+            const container = document.getElementById('reportsHistory');
+            
+            if (!currentUser || !currentUser.test_history || currentUser.test_history.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #999;">
+                        <p style="font-size: 18px;">📭 Henüz test geçmişiniz bulunmuyor.</p>
+                        <p>Envanter testini tamamladıktan sonra sonuçlarınızı burada görebilirsiniz.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div style="display: grid; gap: 20px;">';
+            
+            // Test geçmişini tarih sırasına göre sırala (en yeni önce)
+            const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                new Date(b.test_date) - new Date(a.test_date)
+            );
+
+            sortedHistory.forEach((test, index) => {
+                const testDate = new Date(test.test_date);
+                const dateStr = testDate.toLocaleDateString('tr-TR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                html += `
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0; color: #667eea; font-size: 18px;">
+                                    ${index === 0 ? '🆕 ' : ''}Test #${sortedHistory.length - index}
+                                </h3>
+                                <p style="margin: 5px 0; color: #666; font-size: 14px;">📅 ${dateStr}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 32px; font-weight: bold; color: #667eea;">
+                                    ${test.overall_score}%
+                                </div>
+                                <div style="font-size: 12px; color: #999;">Genel Skor</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <button class="btn" style="margin: 5px;" onclick="viewHistoricalReport(${index})">
+                                📊 Raporu Görüntüle
+                            </button>
+                            <button class="btn" style="margin: 5px; background: #43e97b;" onclick="downloadHistoricalPDF(${index})">
+                                📄 PDF İndir
+                            </button>
+                            ${index > 0 ? `
+                                <button class="btn" style="margin: 5px; background: #f5576c;" onclick="compareReports(${index}, 0)">
+                                    🔄 En Yeni ile Karşılaştır
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function viewHistoricalReport(index) {
+            if (!currentUser || !currentUser.test_history) return;
+            
+            const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                new Date(b.test_date) - new Date(a.test_date)
+            );
+            
+            const test = sortedHistory[index];
+            
+            // Global değişkene test sonuçlarını yükle
+            window.categoryScoresGlobal = JSON.parse(test.test_results);
+            
+            // Sonuç ekranını göster
+            hideAllScreens();
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Skorları göster
+            document.getElementById('overallScore').textContent = test.overall_score + '%';
+            
+            // Yorum oluştur
+            let interpretation = '';
+            if (test.overall_score >= 85) {
+                interpretation = 'Mükemmel! Kariyer gelişiminizde çok güçlü bir konumdasınız.';
+            } else if (test.overall_score >= 70) {
+                interpretation = 'Çok iyi! Güçlü yönleriniz var, bazı alanlarda gelişim fırsatları mevcut.';
+            } else if (test.overall_score >= 55) {
+                interpretation = 'İyi seviyede! Odaklanılması gereken gelişim alanları belirgin.';
+            } else {
+                interpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
+            }
+            document.getElementById('scoreInterpretation').textContent = interpretation;
+            
+            // Kategori sonuçlarını göster
+            const categoryResultsContainer = document.getElementById('categoryResults');
+            categoryResultsContainer.innerHTML = '';
+            
+            window.categoryScoresGlobal.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category-result';
+                
+                categoryDiv.innerHTML = `
+                    <div class="category-name">${category.name}</div>
+                    <div class="category-score">
+                        <span>${Math.round(category.percentage)}%</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${category.percentage}%"></div>
+                        </div>
+                        <span class="score-value">${category.score}/40</span>
+                    </div>
+                `;
+                
+                categoryResultsContainer.appendChild(categoryDiv);
+            });
+        }
+
+        function downloadHistoricalPDF(index) {
+            viewHistoricalReport(index);
+            setTimeout(() => {
+                downloadPDFReport();
+            }, 500);
+        }
+
+        function compareReports(oldIndex, newIndex) {
+            if (!currentUser || !currentUser.test_history) return;
+            
+            const sortedHistory = [...currentUser.test_history].sort((a, b) => 
+                new Date(b.test_date) - new Date(a.test_date)
+            );
+            
+            const oldTest = sortedHistory[oldIndex];
+            const newTest = sortedHistory[newIndex];
+            
+            const oldResults = JSON.parse(oldTest.test_results);
+            const newResults = JSON.parse(newTest.test_results);
+            
+            hideAllScreens();
+            
+            // Karşılaştırma ekranı oluştur
+            const container = document.createElement('div');
+            container.id = 'comparisonScreen';
+            container.className = 'results-container';
+            container.style.display = 'block';
+            
+            const oldDate = new Date(oldTest.test_date).toLocaleDateString('tr-TR');
+            const newDate = new Date(newTest.test_date).toLocaleDateString('tr-TR');
+            
+            let html = `
+                <div class="results-header">
+                    <h2 class="results-title">📊 Test Karşılaştırma</h2>
+                    <p style="text-align: center; color: #666;">
+                        <strong style="color: #f5576c;">${oldDate}</strong> 
+                        🔄 
+                        <strong style="color: #43e97b;">${newDate}</strong>
+                    </p>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 25px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Genel Skor Değişimi</h3>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Eski Test</div>
+                            <div style="font-size: 48px; font-weight: bold; color: #f5576c;">${oldTest.overall_score}%</div>
+                        </div>
+                        <div style="font-size: 48px; color: #667eea;">→</div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Yeni Test</div>
+                            <div style="font-size: 48px; font-weight: bold; color: #43e97b;">${newTest.overall_score}%</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 5px;">Değişim</div>
+                            <div style="font-size: 48px; font-weight: bold; color: ${newTest.overall_score >= oldTest.overall_score ? '#43e97b' : '#f5576c'};">
+                                ${newTest.overall_score >= oldTest.overall_score ? '+' : ''}${newTest.overall_score - oldTest.overall_score}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-results">
+            `;
+            
+            // Kategori bazlı karşılaştırma
+            oldResults.forEach((oldCat, index) => {
+                const newCat = newResults[index];
+                const change = newCat.percentage - oldCat.percentage;
+                
+                html += `
+                    <div class="category-result" style="padding: 20px;">
+                        <div class="category-name">${oldCat.name}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <div style="text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: #999;">Eski</div>
+                                <div style="font-size: 24px; font-weight: bold; color: #f5576c;">${Math.round(oldCat.percentage)}%</div>
+                            </div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="font-size: 32px;">→</div>
+                            </div>
+                            <div style="text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: #999;">Yeni</div>
+                                <div style="font-size: 24px; font-weight: bold; color: #43e97b;">${Math.round(newCat.percentage)}%</div>
+                            </div>
+                            <div style="text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: #999;">Fark</div>
+                                <div style="font-size: 24px; font-weight: bold; color: ${change >= 0 ? '#43e97b' : '#f5576c'};">
+                                    ${change >= 0 ? '+' : ''}${Math.round(change)}%
+                                    ${change > 0 ? '📈' : change < 0 ? '📉' : '➡️'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                </div>
+                <div style="margin-top: 30px; text-align: center;">
+                    <button class="btn btn-secondary" onclick="closeComparison()">← Geri Dön</button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Eski karşılaştırma ekranını kaldır
+            const oldComparison = document.getElementById('comparisonScreen');
+            if (oldComparison) {
+                oldComparison.remove();
+            }
+            
+            document.querySelector('.container').appendChild(container);
+        }
+
+        function closeComparison() {
+            const comparisonScreen = document.getElementById('comparisonScreen');
+            if (comparisonScreen) {
+                comparisonScreen.remove();
+            }
+            showMyReports();
+        }
+
+        function showDetailedReport() {
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('reportContainer').style.display = 'block';
+            
+            // Genel skoru rapor ekranına aktar
+            const overallScore = document.getElementById('overallScore').textContent;
+            document.getElementById('reportOverallScore').textContent = overallScore;
+            
+            // Grafikleri çiz
+            drawCharts();
+            
+            // Analizleri oluştur
+            generateAnalyses();
+        }
+
+        function backToResults() {
+            document.getElementById('reportContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+        }
+
+        // Mesaj gösterme
+        function showMessage(message, type) {
+            // Basit toast mesajı
+            const toast = document.createElement('div');
+            let backgroundColor;
+            
+            switch(type) {
+                case 'success':
+                    backgroundColor = '#28a745';
+                    break;
+                case 'info':
+                    backgroundColor = '#17a2b8';
+                    break;
+                case 'error':
+                default:
+                    backgroundColor = '#dc3545';
+                    break;
+            }
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                max-width: 90%;
+                width: auto;
+                min-width: 250px;
+                background: ${backgroundColor};
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                text-align: center;
+                animation: slideDown 0.3s ease-out;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (document.body.contains(toast)) {
+                    toast.style.animation = 'slideUp 0.3s ease-in';
+                    setTimeout(() => {
+                        if (document.body.contains(toast)) {
+                            document.body.removeChild(toast);
+                        }
+                    }, 300);
+                }
+            }, type === 'info' ? 3000 : 5000);
+        }
+
+        // Quiz verileri (D şıkları daha dengeli hale getirildi)
+        const quizData = {
+            categories: [
+                {
+                    name: "Stratejik Kariyer Planlaması",
+                    questions: [
+                        {
+                            text: "Kariyer hedeflerinizi belirlerken hangi yaklaşımı benimsersiniz?",
+                            options: [
+                                { text: "Mevcut durumdan memnunum, özel bir hedef belirlemem", score: 1 },
+                                { text: "Kısa vadeli hedefler belirler, duruma göre revize ederim", score: 2 },
+                                { text: "Orta ve uzun vadeli hedeflerimi net olarak tanımlarım", score: 3 },
+                                { text: "Kapsamlı kariyer planı yapar, düzenli olarak gözden geçiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer yol haritanızı oluştururken hangi faktörleri önceliklersiniz?",
+                            options: [
+                                { text: "Sadece maaş artışı ve pozisyon yükselmesini dikkate alırım", score: 1 },
+                                { text: "İş güvenliği ve sosyal hakları öncelik veririm", score: 2 },
+                                { text: "Kişisel gelişim fırsatları ve öğrenme imkanlarını değerlendiririm", score: 3 },
+                                { text: "Sektör trendleri ve gelecek becerileri dahil çok boyutlu analiz yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer geçişleri konusunda nasıl bir strateji izlersiniz?",
+                            options: [
+                                { text: "Geçiş yapmaktan kaçınır, mevcut pozisyonumda kalmayı tercih ederim", score: 1 },
+                                { text: "Zorunlu durumlar dışında geçiş yapmam", score: 2 },
+                                { text: "Fırsatları değerlendirerek planlı geçişler yaparım", score: 3 },
+                                { text: "Proaktif olarak yeni alanları keşfeder, esnek kariyer stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Profesyonel gelişiminizi nasıl ölçümlersiniz?",
+                            options: [
+                                { text: "Herhangi bir ölçüm yapmam, sezgisel olarak değerlendiririm", score: 1 },
+                                { text: "Yıllık performans değerlendirmelerini baz alırım", score: 2 },
+                                { text: "Belirli KPI'lar ve hedefler üzerinden takip ederim", score: 3 },
+                                { text: "Çok yönlü geri bildirim ve sürekli öz değerlendirme sistemi kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer riskleri karşısında nasıl bir yaklaşım sergilersiniz?",
+                            options: [
+                                { text: "Risk almaktan kaçınır, güvenli seçenekleri tercih ederim", score: 1 },
+                                { text: "Sadece hesaplanmış riskler alırım", score: 2 },
+                                { text: "Risk-fayda analizini yaparak bilinçli kararlar veririm", score: 3 },
+                                { text: "Dengeli risk portföyü oluşturarak çeşitlendirilmiş strateji uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sektörünüzdeki değişimleri kariyer planınıza nasıl entegre edersiniz?",
+                            options: [
+                                { text: "Değişimleri takip etmem, mevcut bilgilerimle devam ederim", score: 1 },
+                                { text: "Büyük değişimleri fark ettiğimde tepki veririm", score: 2 },
+                                { text: "Düzenli olarak sektör trendlerini takip eder, planımı güncellerim", score: 3 },
+                                { text: "Gelecek öngörüleri yaparak değişimlere proaktif hazırlanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer mentorluğu ve koçluk konusunda nasıl bir tutum sergilersiniz?",
+                            options: [
+                                { text: "Mentor veya koç desteği almam, kendi başıma ilerlerim", score: 1 },
+                                { text: "Sadece ihtiyaç duyduğumda danışmanlık alırım", score: 2 },
+                                { text: "Düzenli mentor ilişkileri kurar, geri bildirim alırım", score: 3 },
+                                { text: "Çok yönlü mentorluk ağı oluşturur, aynı zamanda başkalarına da mentor olurum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer hedeflerinizi gerçekleştirmek için kaynak planlaması nasıl yaparsınız?",
+                            options: [
+                                { text: "Kaynak planlaması yapmam, duruma göre hareket ederim", score: 1 },
+                                { text: "Temel ihtiyaçları karşılayacak kadar planlama yaparım", score: 2 },
+                                { text: "Zaman, para ve enerji kaynaklarımı sistematik olarak planlırım", score: 3 },
+                                { text: "Detaylı analiz yaparak optimal kaynak dağılımı stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer başarınızı nasıl tanımlarsınız?",
+                            options: [
+                                { text: "Başarıyı net olarak tanımlamamışım", score: 1 },
+                                { text: "Maddi kazanç ve pozisyon olarak görürüm", score: 2 },
+                                { text: "İş-yaşam dengesi ve kişisel tatmin odaklı tanımlarım", score: 3 },
+                                { text: "Çok boyutlu başarı kriterleri belirler, sürekli yeniden değerlendiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kariyer planınızda esneklik ve adaptasyon nasıl yer alır?",
+                            options: [
+                                { text: "Sabit bir plan yapar, değiştirmem", score: 1 },
+                                { text: "Büyük değişiklikler olduğunda planımı revize ederim", score: 2 },
+                                { text: "Düzenli olarak planımı gözden geçirir, güncellerim", score: 3 },
+                                { text: "Esnek kariyer yaklaşımı benimser, sürekli adaptasyon yaparım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Etkili İletişim ve Sunum",
+                    questions: [
+                        {
+                            text: "Karmaşık konuları farklı hedef kitlelerine nasıl aktarırsınız?",
+                            options: [
+                                { text: "Herkese aynı şekilde, teknik detaylarla anlatırım", score: 1 },
+                                { text: "Basitleştirmeye çalışır, genel ifadeler kullanırım", score: 2 },
+                                { text: "Hedef kitleye göre dil ve örnekleri uyarlarım", score: 3 },
+                                { text: "Hikaye anlatımı teknikleri kullanarak etkili iletişim kurarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Çatışmalı durumları nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Çatışmadan kaçınır, konuyu ertelemeye çalışırım", score: 1 },
+                                { text: "Kendi görüşümü savunur, karşı tarafı ikna etmeye çalışırım", score: 2 },
+                                { text: "Aktif dinleme yaparak ortak çözüm ararım", score: 3 },
+                                { text: "Çatışma dinamiklerini analiz ederek yapıcı çözümler üretirim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sunum yaparken hangi teknikleri kullanırsınız?",
+                            options: [
+                                { text: "Hazırladığım metni okur, slaytları takip ederim", score: 1 },
+                                { text: "Ana noktaları vurgular, görsel destekler kullanırım", score: 2 },
+                                { text: "İnteraktif öğeler ekler, dinleyici katılımını sağlarım", score: 3 },
+                                { text: "Etkili sunum teknikleri uygular, çok duyulu deneyim yaratırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Geri bildirim verirken hangi yaklaşımı benimsersiniz?",
+                            options: [
+                                { text: "Doğrudan eleştiri yapar, neyin yanlış olduğunu söylerim", score: 1 },
+                                { text: "Olumlu ve olumsuz noktaları dengeli şekilde aktarırım", score: 2 },
+                                { text: "Yapıcı geri bildirim teknikleri kullanırım", score: 3 },
+                                { text: "Gelişim odaklı yaklaşımla destekleyici diyalog kurarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Yazılı iletişimde hangi stratejileri uygularsınız?",
+                            options: [
+                                { text: "Düşündüklerimi doğrudan yazarım", score: 1 },
+                                { text: "Açık ve anlaşılır olmaya dikkat ederim", score: 2 },
+                                { text: "Yapılandırılmış format kullanır, önemli noktaları vurgularım", score: 3 },
+                                { text: "Etkili yazım teknikleri uygular, okuyucu odaklı yaklaşım benimserim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Dinleme becerilerinizi nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Konuşurken cevabımı hazırlarım", score: 1 },
+                                { text: "Dikkatli dinlemeye çalışır, ana mesajı anlarım", score: 2 },
+                                { text: "Aktif dinleme teknikleri kullanır, doğrulama soruları sorarım", score: 3 },
+                                { text: "Empatik dinleme yapar, söylenmeyenleri de algılarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Farklı kültürlerden insanlarla iletişim kurarken nasıl davranırsınız?",
+                            options: [
+                                { text: "Normal iletişim tarzımı sürdürürüm", score: 1 },
+                                { text: "Daha dikkatli ve saygılı olmaya çalışırım", score: 2 },
+                                { text: "Kültürel farklılıkları araştırır, uygun yaklaşım benimserim", score: 3 },
+                                { text: "Kültürlerarası iletişim becerileri uygular, köprü kurucu rol oynarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Dijital iletişim araçlarını nasıl kullanırsınız?",
+                            options: [
+                                { text: "Temel özellikleri kullanır, standart mesajlar gönderirim", score: 1 },
+                                { text: "Uygun platform seçimi yapar, mesajımı net iletmeye çalışırım", score: 2 },
+                                { text: "Her platformun özelliklerini dikkate alır, içeriği optimize ederim", score: 3 },
+                                { text: "Çok kanallı iletişim stratejisi uygular, dijital etki analizi yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "İkna etme becerilerinizi nasıl geliştirirsiniz?",
+                            options: [
+                                { text: "Doğal yeteneğime güvenir, özel çaba sarf etmem", score: 1 },
+                                { text: "Güçlü argümanlar hazırlar, mantıklı yaklaşım benimserim", score: 2 },
+                                { text: "Karşı tarafın motivasyonlarını anlar, ona göre strateji geliştiririm", score: 3 },
+                                { text: "Etkili ikna prensipleri uygular, etik persuasion teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Topluluk önünde konuşma kaygınızı nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Kaygı duyar, mümkün olduğunca kaçınırım", score: 1 },
+                                { text: "Hazırlık yaparak kaygımı azaltmaya çalışırım", score: 2 },
+                                { text: "Nefes teknikleri ve zihinsel hazırlık yaparım", score: 3 },
+                                { text: "Kaygıyı enerjiye dönüştürür, performans teknikleri uygularım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Problem Çözme ve Kritik Düşünme",
+                    questions: [
+                        {
+                            text: "Karmaşık problemlerle karşılaştığınızda ilk yaklaşımınız nedir?",
+                            options: [
+                                { text: "Hemen çözüm aramaya başlarım", score: 1 },
+                                { text: "Problemi tanımlamaya çalışır, temel nedenleri ararım", score: 2 },
+                                { text: "Sistematik analiz yapar, problemi parçalara ayırırım", score: 3 },
+                                { text: "Kök neden analizi ve sistem düşüncesi uygular, çok boyutlu değerlendirme yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Karar verme sürecinizde hangi faktörleri dikkate alırsınız?",
+                            options: [
+                                { text: "Sezgilerime güvenir, hızlı karar veririm", score: 1 },
+                                { text: "Temel artı-eksileri değerlendiririm", score: 2 },
+                                { text: "Veri analizi yapar, alternatifleri karşılaştırırım", score: 3 },
+                                { text: "Karar matrisi kullanır, senaryo analizi ve risk değerlendirmesi yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Yaratıcı çözümler geliştirmek için hangi yöntemleri kullanırsınız?",
+                            options: [
+                                { text: "Geleneksel yöntemleri tercih eder, denenmişi uygularım", score: 1 },
+                                { text: "Farklı bakış açıları denemeye çalışırım", score: 2 },
+                                { text: "Beyin fırtınası ve zihin haritası teknikleri kullanırım", score: 3 },
+                                { text: "Tasarım düşüncesi ve yaratıcı problem çözme metodolojileri uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Belirsizlik durumlarında nasıl hareket edersiniz?",
+                            options: [
+                                { text: "Belirsizlikten rahatsız olur, kesin bilgi beklerim", score: 1 },
+                                { text: "Mevcut bilgilerle en iyi tahmini yaparım", score: 2 },
+                                { text: "Senaryo planlama yaparak alternatif stratejiler geliştiririm", score: 3 },
+                                { text: "Çevik yaklaşım benimser, sürekli öğrenme ve adaptasyon stratejisi uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Analitik düşünme becerilerinizi nasıl kullanırsınız?",
+                            options: [
+                                { text: "Genel değerlendirmeler yapar, detaya inmem", score: 1 },
+                                { text: "Önemli verileri inceler, temel analizler yaparım", score: 2 },
+                                { text: "İstatistiksel analiz ve trend değerlendirmesi yaparım", score: 3 },
+                                { text: "Veri analizi ve örüntü tanıma teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Farklı görüşleri değerlendirirken nasıl bir yaklaşım benimsersiniz?",
+                            options: [
+                                { text: "Kendi görüşümü doğru bulur, diğerlerini dikkate almam", score: 1 },
+                                { text: "Farklı görüşleri dinler, kendi fikrimi korumaya çalışırım", score: 2 },
+                                { text: "Objektif değerlendirme yapar, en mantıklı olanı seçerim", score: 3 },
+                                { text: "Eleştirel değerlendirme yaklaşımı uygular, önyargıları minimize ederim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Problem çözme sürecinizde işbirliğini nasıl kullanırsınız?",
+                            options: [
+                                { text: "Bireysel çalışmayı tercih eder, kendi başıma çözmeye çalışırım", score: 1 },
+                                { text: "Gerektiğinde başkalarından yardım alırım", score: 2 },
+                                { text: "Ekip çalışması yapar, farklı uzmanlıkları bir araya getiririm", score: 3 },
+                                { text: "Kolektif zeka yaklaşımı benimser, işbirlikçi problem çözme teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Çözüm uygulaması sırasında nasıl bir strateji izlersiniz?",
+                            options: [
+                                { text: "Çözümü bulur, uygulamayı başkalarına bırakırım", score: 1 },
+                                { text: "Temel adımları planlayarak uygulamaya başlarım", score: 2 },
+                                { text: "Detaylı uygulama planı yapar, kilometre taşlarını takip ederim", score: 3 },
+                                { text: "Değişim yönetimi prensipleri uygular, sürekli optimizasyon yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Başarısız çözümlerden nasıl öğrenirsiniz?",
+                            options: [
+                                { text: "Başarısızlığı unutmaya çalışır, geçmişte bırakırım", score: 1 },
+                                { text: "Neyin yanlış gittiğini düşünür, bir daha yapmamaya çalışırım", score: 2 },
+                                { text: "Sistematik analiz yapar, dersleri çıkarırım", score: 3 },
+                                { text: "Hızlı başarısızlık yaklaşımı benimser, sürekli öğrenme döngüsü oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Etik ikilemlerle karşılaştığınızda nasıl karar verirsiniz?",
+                            options: [
+                                { text: "Kişisel çıkarlarımı önceleyerek karar veririm", score: 1 },
+                                { text: "Genel kabul görmüş kurallara uyarım", score: 2 },
+                                { text: "Paydaş analizi yaparak en az zarar verecek seçeneği bulurum", score: 3 },
+                                { text: "Etik çerçeveler kullanarak çok boyutlu değerlendirme yaparım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Zaman ve Enerji Yönetimi",
+                    questions: [
+                        {
+                            text: "Günlük önceliklerinizi nasıl belirlersiniz?",
+                            options: [
+                                { text: "Gelen işleri sırasıyla yaparım", score: 1 },
+                                { text: "Acil olanları önce tamamlarım", score: 2 },
+                                { text: "Önemli-acil analizi yaparak önceliklendiririm", score: 3 },
+                                { text: "Değer odaklı önceliklendirme ve enerji yönetimi prensipleri uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Dikkat dağınıklığı ile nasıl başa çıkarsınız?",
+                            options: [
+                                { text: "Dikkatim dağıldığında o işi bırakır, başka işe geçerim", score: 1 },
+                                { text: "Kendimi toplamaya çalışır, işe odaklanmaya çalışırım", score: 2 },
+                                { text: "Zaman blokları ve odaklanma teknikleri kullanırım", score: 3 },
+                                { text: "Derin çalışma prensipleri uygular, bilişsel yük yönetimi yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Çoklu görev konusunda nasıl bir yaklaşımınız var?",
+                            options: [
+                                { text: "Aynı anda birçok işi yapmaya çalışırım", score: 1 },
+                                { text: "Önemli işlerde tek odak, rutin işlerde çoklu görev yaparım", score: 2 },
+                                { text: "Görev değiştirme maliyetini dikkate alarak toplu işleme yaparım", score: 3 },
+                                { text: "Dikkat kalıntısı teorisini uygular, tek görev optimizasyonu yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Enerji seviyenizi nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Enerji yönetimi yapmam, sürekli aynı tempoda çalışırım", score: 1 },
+                                { text: "Yorulduğumda mola verir, dinlenmeye çalışırım", score: 2 },
+                                { text: "Günün farklı saatlerindeki enerji seviyemi takip ederim", score: 3 },
+                                { text: "Biyolojik ritim optimizasyonu yaparak enerji döngülerini kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Delegasyon konusunda nasıl bir strateji izlersiniz?",
+                            options: [
+                                { text: "Her işi kendim yapmayı tercih ederim", score: 1 },
+                                { text: "Sadece rutin işleri başkalarına veririm", score: 2 },
+                                { text: "Kişilerin yeteneklerine göre görev dağılımı yaparım", score: 3 },
+                                { text: "Güçlendirme yaklaşımı benimser, gelişim odaklı delegasyon yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Zaman planlaması yaparken hangi araçları kullanırsınız?",
+                            options: [
+                                { text: "Planlama yapmam, günü yaşarken karar veririm", score: 1 },
+                                { text: "Basit yapılacaklar listesi tutarım", score: 2 },
+                                { text: "Dijital takvim ve görev yönetimi uygulamaları kullanırım", score: 3 },
+                                { text: "Kapsamlı zaman yönetimi sistemi ve zaman bloklaması metodolojisi uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kesintilerle nasıl başa çıkarsınız?",
+                            options: [
+                                { text: "Her kesintiye anında cevap verir, işimi bırakırım", score: 1 },
+                                { text: "Acil olanları halleder, diğerlerini ertelerim", score: 2 },
+                                { text: "Kesinti yönetimi kuralları belirler, sınırlar koyarım", score: 3 },
+                                { text: "Proaktif iletişim ve paydaş beklenti yönetimi yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Erteleme eğiliminizi nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Erteleme eğilimim var, son dakikada yaparım", score: 1 },
+                                { text: "Kendimi motive etmeye çalışır, zorla başlarım", score: 2 },
+                                { text: "İşleri küçük parçalara böler, momentum yaratırım", score: 3 },
+                                { text: "Erteleme psikolojisini anlayarak davranışsal müdahale teknikleri uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "İş-yaşam dengesini nasıl sağlarsınız?",
+                            options: [
+                                { text: "İş her zaman öncelikli, özel hayatım ikinci planda", score: 1 },
+                                { text: "Mümkün olduğunca denge kurmaya çalışırım", score: 2 },
+                                { text: "Net sınırlar belirler, her alana zaman ayırırım", score: 3 },
+                                { text: "İş-yaşam entegrasyonu yaklaşımı benimser, bütüncül refah stratejisi uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Verimlilik ölçümünüzü nasıl yaparsınız?",
+                            options: [
+                                { text: "Verimlilik ölçümü yapmam, genel hissiyatla değerlendiririm", score: 1 },
+                                { text: "Tamamladığım iş miktarına bakarım", score: 2 },
+                                { text: "Hedef-gerçekleşme oranlarını takip ederim", score: 3 },
+                                { text: "Sonuç odaklı verimlilik ölçümü sistemi kullanırım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Öz Liderlik ve Sorumluluk",
+                    questions: [
+                        {
+                            text: "Kişisel gelişim hedeflerinizi nasıl belirlersiniz?",
+                            options: [
+                                { text: "Özel hedef belirlemem, doğal akışa bırakırım", score: 1 },
+                                { text: "Genel hedefler belirler, duruma göre ilerlerim", score: 2 },
+                                { text: "Akıllı hedefler koyar, düzenli takip ederim", score: 3 },
+                                { text: "Çok yönlü değerlendirme yaparak kanıt temelli gelişim planlaması uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Hatalarınızla karşılaştığınızda nasıl tepki verirsiniz?",
+                            options: [
+                                { text: "Hataları gizlemeye çalışır, sorumluluğu başkasına atarım", score: 1 },
+                                { text: "Hatamı kabul eder, özür dilerim", score: 2 },
+                                { text: "Hatayı analiz eder, tekrarlanmaması için önlem alırım", score: 3 },
+                                { text: "Büyüme zihniyeti yaklaşımı benimser, hatayı öğrenme fırsatına dönüştürürüm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Öz disiplin konusunda nasıl bir yaklaşımınız var?",
+                            options: [
+                                { text: "Disiplin konusunda zorlanır, motivasyona bağlı kalırım", score: 1 },
+                                { text: "Önemli konularda kendimi zorlar, disiplinli olmaya çalışırım", score: 2 },
+                                { text: "Sistemli rutinler oluşturur, alışkanlık takibi yaparım", score: 3 },
+                                { text: "Davranış psikolojisi prensipleri uygular, sürdürülebilir alışkanlık mimarisi oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Geri bildirim almaya nasıl yaklaşırsınız?",
+                            options: [
+                                { text: "Eleştiriyi kişisel saldırı olarak algılar, savunmaya geçerim", score: 1 },
+                                { text: "Geri bildirimi dinler, mümkünse dikkate alırım", score: 2 },
+                                { text: "Aktif olarak geri bildirim ister, yapıcı eleştirileri değerlendiririm", score: 3 },
+                                { text: "Sürekli geri bildirim döngüsü oluşturur, çok yönlü geri bildirim sistemi kurarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Değerleriniz ve davranışlarınız arasındaki uyumu nasıl sağlarsınız?",
+                            options: [
+                                { text: "Değerlerimi net tanımlamamışım, duruma göre hareket ederim", score: 1 },
+                                { text: "Temel değerlerim var, çoğunlukla uygun davranmaya çalışırım", score: 2 },
+                                { text: "Değer sistemimi belirler, karar verirken referans alırım", score: 3 },
+                                { text: "Değer temelli liderlik uygular, otantik liderlik prensipleri benimserim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kişisel marka oluşturma konusunda nasıl çalışırsınız?",
+                            options: [
+                                { text: "Kişisel marka konusunda düşünmem, doğal imajımla ilerlerim", score: 1 },
+                                { text: "Profesyonel görünmeye dikkat eder, olumlu izlenim bırakmaya çalışırım", score: 2 },
+                                { text: "Uzmanlık alanımı belirler, bu konuda tanınır olmaya çalışırım", score: 3 },
+                                { text: "Kişisel marka stratejisi geliştir, düşünce liderliği pozisyonu oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Stresli durumlarda öz kontrolünüzü nasıl sağlarsınız?",
+                            options: [
+                                { text: "Stres altında kontrolümü kaybeder, tepkisel davranırım", score: 1 },
+                                { text: "Sakinleşmeye çalışır, durumu kontrol etmeye çalışırım", score: 2 },
+                                { text: "Nefes teknikleri ve farkındalık uygulamaları yaparım", score: 3 },
+                                { text: "Duygusal düzenleme stratejileri uygular, dayanıklılık geliştirme teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Kişisel öğrenme stratejiniz nasıldır?",
+                            options: [
+                                { text: "Formal eğitim dışında özel öğrenme çabam yok", score: 1 },
+                                { text: "İhtiyaç duyduğumda araştırma yapar, öğrenmeye çalışırım", score: 2 },
+                                { text: "Düzenli okuma ve kurs alma alışkanlığım var", score: 3 },
+                                { text: "Yaşam boyu öğrenme zihniyeti benimser, kişiselleştirilmiş öğrenme ekosistemi oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Hedeflerinize ulaşmada kararlılığınızı nasıl sürdürürsünüz?",
+                            options: [
+                                { text: "Zorluklar karşısında kolayca vazgeçer, hedeflerimi değiştiririm", score: 1 },
+                                { text: "Motive olduğum zamanlarda ilerler, motivasyon düştüğünde duraklarım", score: 2 },
+                                { text: "Sistematik plan yapar, kilometre taşlarına odaklanırım", score: 3 },
+                                { text: "Azim ve sebat prensipleri uygular, engel-fırsat zihniyeti geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Etik karar verme süreciniz nasıldır?",
+                            options: [
+                                { text: "Kişisel çıkarlarımı önceleyerek karar veririm", score: 1 },
+                                { text: "Genel ahlak kurallarına uygun davranmaya çalışırım", score: 2 },
+                                { text: "Paydaş etkilerini değerlendirerek karar veririm", score: 3 },
+                                { text: "Etik çerçeveler kullanarak ilkeli karar verme yaparım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Ekip Çalışması ve Çatışma Yönetimi",
+                    questions: [
+                        {
+                            text: "Ekip içindeki rolünüzü nasıl tanımlarsınız?",
+                            options: [
+                                { text: "Sadece kendi işimi yapar, ekip dinamiklerine karışmam", score: 1 },
+                                { text: "Verilen görevleri yerine getirir, gerektiğinde yardım ederim", score: 2 },
+                                { text: "Proaktif olarak ekip başarısına katkı sağlarım", score: 3 },
+                                { text: "Ekip dinamikleri uzmanı olarak, kolektif zekayı optimize ederim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip içi çatışmalara nasıl yaklaşırsınız?",
+                            options: [
+                                { text: "Çatışmadan kaçınır, taraf olmamaya çalışırım", score: 1 },
+                                { text: "Kendi görüşümü savunur, haklı olduğumu kanıtlamaya çalışırım", score: 2 },
+                                { text: "Arabulucu rolü oynar, ortak çözüm ararım", score: 3 },
+                                { text: "Çatışma dönüşümü teknikleri uygular, çatışmayı büyüme fırsatına dönüştürürüm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Farklı çalışma stillerine nasıl adapte olursunuz?",
+                            options: [
+                                { text: "Kendi stilimi sürdürür, başkalarının uyum sağlamasını beklerim", score: 1 },
+                                { text: "Gerektiğinde esnek davranır, uyum sağlamaya çalışırım", score: 2 },
+                                { text: "Ekip üyelerinin stillerini öğrenir, buna göre yaklaşım geliştiririm", score: 3 },
+                                { text: "Kişilik araçları kullanarak davranışsal adaptasyon stratejileri uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip kararlarına nasıl katkı sağlarsınız?",
+                            options: [
+                                { text: "Çoğunluğun kararına uyar, özel görüş belirtmem", score: 1 },
+                                { text: "Fikrimi söyler, tartışmaya katılırım", score: 2 },
+                                { text: "Veri ve analiz sunarak karar kalitesini artırmaya çalışırım", score: 3 },
+                                { text: "Kolektif karar verme metodolojileri uygular, fikir birliği oluşturma teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip performansını nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Performans değerlendirmesi yapmam, genel hissiyatla yargılarım", score: 1 },
+                                { text: "Sonuçlara bakarak başarı-başarısızlık değerlendirmesi yaparım", score: 2 },
+                                { text: "Anahtar performans göstergeleri ve metrikler kullanarak objektif değerlendirme yaparım", score: 3 },
+                                { text: "Ekip etkinliği çerçeveleri uygular, sürekli iyileştirme döngüsü oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Yeni ekip üyelerinin adaptasyonunu nasıl desteklersiniz?",
+                            options: [
+                                { text: "Yeni üyelerin kendi başlarına adapte olmasını beklerim", score: 1 },
+                                { text: "Sorularını yanıtlar, temel bilgileri paylaşırım", score: 2 },
+                                { text: "Mentorluk yapar, sistematik uyum desteği sağlarım", score: 3 },
+                                { text: "Psikolojik güvenlik oluşturur, kapsayıcı uyum deneyimi tasarlarım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip içi iletişimi nasıl geliştirirsiniz?",
+                            options: [
+                                { text: "İletişim konusunda özel çaba sarf etmem", score: 1 },
+                                { text: "Açık ve net iletişim kurmaya çalışırım", score: 2 },
+                                { text: "Düzenli geri bildirim ve kontrol toplantıları yaparım", score: 3 },
+                                { text: "İletişim sözleşmesi oluşturur, ekip iletişimi optimizasyonu yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip motivasyonunu nasıl desteklersiniz?",
+                            options: [
+                                { text: "Motivasyon konusunda özel bir rolüm olduğunu düşünmem", score: 1 },
+                                { text: "Pozitif olmaya çalışır, ekip moralini yüksek tutmaya çalışırım", score: 2 },
+                                { text: "Başarıları kutlar, zorlu dönemlerde destek olurum", score: 3 },
+                                { text: "İçsel motivasyon teorileri uygular, amaç odaklı katılım stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Uzaktan çalışma ortamında ekip bağlılığını nasıl sürdürürsünüz?",
+                            options: [
+                                { text: "Uzaktan çalışmada ekip bağlılığı konusunda zorlanırım", score: 1 },
+                                { text: "Düzenli toplantılar yapar, iletişimi sürdürmeye çalışırım", score: 2 },
+                                { text: "Sanal ekip oluşturma aktiviteleri organize ederim", score: 3 },
+                                { text: "Sanal işbirliği en iyi uygulamaları uygular, dijital ekip kültürü oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Ekip içi çeşitliliği nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Çeşitlilik konusunda özel düşüncem yok, herkesi aynı şekilde görürüm", score: 1 },
+                                { text: "Farklılıklara saygı duyar, herkesi eşit şekilde karşılarım", score: 2 },
+                                { text: "Çeşitliliği güç olarak görür, farklı perspektifleri değerlendiririm", score: 3 },
+                                { text: "Kapsayıcı liderlik prensipleri uygular, çeşitlilik ve kapsayıcılık savunucusu rolü oynarım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Öğrenme Çevikliği",
+                    questions: [
+                        {
+                            text: "Yeni konuları öğrenirken hangi stratejileri kullanırsınız?",
+                            options: [
+                                { text: "Geleneksel yöntemlerle, kitap okuyarak öğrenirim", score: 1 },
+                                { text: "Çeşitli kaynakları kullanır, not alarak öğrenirim", score: 2 },
+                                { text: "Aktif öğrenme teknikleri uygular, pratik yaparak öğrenirim", score: 3 },
+                                { text: "Üst bilişsel stratejiler kullanır, kişiselleştirilmiş öğrenme sistemi oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Başarısızlıklardan nasıl öğrenirsiniz?",
+                            options: [
+                                { text: "Başarısızlığı unutmaya çalışır, üzerinde durmam", score: 1 },
+                                { text: "Neyin yanlış gittiğini düşünür, bir daha yapmamaya çalışırım", score: 2 },
+                                { text: "Sistematik analiz yapar, dersleri çıkarırım", score: 3 },
+                                { text: "Eylem sonrası değerlendirme metodolojisi uygular, başarısızlık-öğrenme dönüşümü yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Değişen koşullara nasıl adapte olursunuz?",
+                            options: [
+                                { text: "Değişime direnç gösterir, eski yöntemleri sürdürmeye çalışırım", score: 1 },
+                                { text: "Zorunlu kaldığımda değişime uyum sağlarım", score: 2 },
+                                { text: "Değişimi fırsat olarak görür, proaktif adaptasyon yaparım", score: 3 },
+                                { text: "Değişim çevikliği prensipleri benimser, sürekli adaptasyon zihniyeti geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Farklı perspektifleri nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Kendi bakış açımı doğru bulur, diğerlerini dikkate almam", score: 1 },
+                                { text: "Farklı görüşleri dinler, kendi fikrimi korumaya çalışırım", score: 2 },
+                                { text: "Açık fikirli yaklaşım sergiler, farklı perspektifleri değerlendiririm", score: 3 },
+                                { text: "Perspektif alma yeteneği geliştir, bilişsel esnekliği maksimize ederim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Belirsizlik durumlarında nasıl öğrenirsiniz?",
+                            options: [
+                                { text: "Belirsizlikten rahatsız olur, kesin bilgi beklerim", score: 1 },
+                                { text: "Mevcut bilgilerle hareket eder, zamanla öğrenirim", score: 2 },
+                                { text: "Deneme-yanılma yöntemiyle öğrenmeye çalışırım", score: 3 },
+                                { text: "Belirsizlik toleransı geliştir, deneysel öğrenme yaklaşımı benimserim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Geri bildirimden nasıl yararlanırsınız?",
+                            options: [
+                                { text: "Geri bildirimi kişisel eleştiri olarak algılar, savunmaya geçerim", score: 1 },
+                                { text: "Yapıcı eleştirileri dinler, dikkate almaya çalışırım", score: 2 },
+                                { text: "Aktif olarak geri bildirim ister, öğrenme fırsatı olarak görürüm", score: 3 },
+                                { text: "Çok yönlü geri bildirim sistemi oluşturur, sürekli öğrenme döngüsü yaratırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Yeni teknolojileri nasıl öğrenirsiniz?",
+                            options: [
+                                { text: "Teknoloji öğrenmekten kaçınır, mevcut bilgilerimle yetinirim", score: 1 },
+                                { text: "Zorunlu kaldığımda temel seviyede öğrenirim", score: 2 },
+                                { text: "Proaktif olarak yeni teknolojileri takip eder, öğrenirim", score: 3 },
+                                { text: "Dijital akıcılık geliştir, gelişmekte olan teknoloji benimseme stratejisi uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Öğrenme hızınızı nasıl artırırsınız?",
+                            options: [
+                                { text: "Doğal öğrenme hızımla yetinir, özel teknik kullanmam", score: 1 },
+                                { text: "Daha fazla zaman ayırarak öğrenme hızımı artırmaya çalışırım", score: 2 },
+                                { text: "Etkili öğrenme teknikleri araştırır, uygularım", score: 3 },
+                                { text: "Hızlandırılmış öğrenme metodolojileri uygular, bilişsel geliştirme teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Karmaşık konuları nasıl öğrenirsiniz?",
+                            options: [
+                                { text: "Karmaşık konulardan kaçınır, basit olanları tercih ederim", score: 1 },
+                                { text: "Adım adım öğrenmeye çalışır, sabırlı olurum", score: 2 },
+                                { text: "Konuyu parçalara böler, sistematik yaklaşım benimserim", score: 3 },
+                                { text: "Parçalama ve iskele kurma teknikleri kullanır, karmaşıklık yönetimi yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Öğrendiklerinizi nasıl uygularsınız?",
+                            options: [
+                                { text: "Teorik bilgiyi öğrenir, uygulamaya geçmekte zorlanırım", score: 1 },
+                                { text: "Fırsat buldukça öğrendiklerimi uygulamaya çalışırım", score: 2 },
+                                { text: "Sistematik olarak uygulama planı yapar, pratik yaparım", score: 3 },
+                                { text: "Öğrenme transferi prensipleri uygular, bilgi-eylem köprüsü oluştururum", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Duygusal Zeka ve Stres Toleransı",
+                    questions: [
+                        {
+                            text: "Kendi duygularınızı nasıl tanırsınız?",
+                            options: [
+                                { text: "Duygularımı fark etmem, tepkisel davranırım", score: 1 },
+                                { text: "Güçlü duygular yaşadığımda fark ederim", score: 2 },
+                                { text: "Duygularımı tanır, nedenlerini anlamaya çalışırım", score: 3 },
+                                { text: "Duygusal ayrıntı geliştir, üst duygusal farkındalık uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Stresli durumlarla nasıl başa çıkarsınız?",
+                            options: [
+                                { text: "Stres altında kontrolümü kaybeder, panik yaparım", score: 1 },
+                                { text: "Stresli durumları atlatmaya çalışır, dayanırım", score: 2 },
+                                { text: "Stres yönetimi teknikleri kullanır, sakin kalmaya çalışırım", score: 3 },
+                                { text: "Dayanıklılık geliştirme stratejileri uygular, stres-güç dönüşümü yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Başkalarının duygularını nasıl algılarsınız?",
+                            options: [
+                                { text: "Başkalarının duygularını fark etmem, kendi işime odaklanırım", score: 1 },
+                                { text: "Açık duygusal ifadeleri fark eder, tepki veririm", score: 2 },
+                                { text: "Sözsüz iletişimi okur, empati kurmaya çalışırım", score: 3 },
+                                { text: "Duygusal bulaşma dinamiklerini anlayarak, ileri empati becerileri uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Çatışmalı durumlarda duygusal kontrolünüzü nasıl sağlarsınız?",
+                            options: [
+                                { text: "Çatışmada duygusal olur, kontrolümü kaybederim", score: 1 },
+                                { text: "Sakin kalmaya çalışır, tepkimi kontrol etmeye çalışırım", score: 2 },
+                                { text: "Nefes teknikleri kullanır, objektif kalmaya çalışırım", score: 3 },
+                                { text: "Duygusal düzenleme stratejileri uygular, çatışma azaltma teknikleri kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Motivasyonunuzu nasıl sürdürürsünüz?",
+                            options: [
+                                { text: "Motivasyonum dış faktörlere bağlı, dalgalanma yaşarım", score: 1 },
+                                { text: "Kendimi motive etmeye çalışır, pozitif düşünmeye çalışırım", score: 2 },
+                                { text: "İçsel motivasyon kaynaklarımı belirler, bunlara odaklanırım", score: 3 },
+                                { text: "Öz belirleme teorisi uygular, içsel motivasyon optimizasyonu yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Olumsuz duygularla nasıl başa çıkarsınız?",
+                            options: [
+                                { text: "Olumsuz duyguları bastırır, yok saymaya çalışırım", score: 1 },
+                                { text: "Olumsuz duygulardan kaçınır, dikkatimi başka yöne çeviririm", score: 2 },
+                                { text: "Olumsuz duyguları kabul eder, sağlıklı yollarla ifade ederim", score: 3 },
+                                { text: "Bilişsel yeniden çerçeveleme teknikleri uygular, duygusal simya yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sosyal ilişkilerde duygusal zekanızı nasıl kullanırsınız?",
+                            options: [
+                                { text: "Sosyal ilişkilerde duygusal boyutu dikkate almam", score: 1 },
+                                { text: "İnsanlarla iyi geçinmeye çalışır, uyumlu olmaya çalışırım", score: 2 },
+                                { text: "Karşımdakinin duygusal durumunu dikkate alarak yaklaşırım", score: 3 },
+                                { text: "Sosyal duygusal zeka uygular, ilişki optimizasyonu yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Baskı altında karar verirken nasıl davranırsınız?",
+                            options: [
+                                { text: "Baskı altında panik yapar, yanlış kararlar veririm", score: 1 },
+                                { text: "Stresli olsam da karar vermeye çalışır, elimden geleni yaparım", score: 2 },
+                                { text: "Sakin kalmaya çalışır, mümkün olduğunca objektif değerlendirme yaparım", score: 3 },
+                                { text: "Baskıya dayanıklı karar verme teknikleri uygular, baskı altında zarafet sergilerim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Duygusal iyileşme sürecinizi nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Duygusal yaralarım uzun süre iyileşmez, etkisinde kalırım", score: 1 },
+                                { text: "Zamanla iyileşir, unutmaya çalışırım", score: 2 },
+                                { text: "Aktif olarak iyileşme sürecini destekler, yardım alırım", score: 3 },
+                                { text: "Travma sonrası büyüme prensipleri uygular, zorluk sonrası gelişim stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Empati kurma becerinizi nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Empati kurmakta zorlanır, kendi perspektifimde kalırım", score: 1 },
+                                { text: "İnsanları anlamaya çalışır, onların yerine kendimi koymaya çalışırım", score: 2 },
+                                { text: "Aktif dinleme yaparak empati kurar, duygusal destek sağlarım", score: 3 },
+                                { text: "Bilişsel ve duygusal empati dengesi kurar, şefkatli liderlik uygularım", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Profesyonel Marka ve Ağ Yönetimi",
+                    questions: [
+                        {
+                            text: "Kişisel markanızı nasıl tanımlarsınız?",
+                            options: [
+                                { text: "Kişisel marka konusunda düşünmem, doğal imajımla ilerlerim", score: 1 },
+                                { text: "Profesyonel görünmeye dikkat eder, olumlu izlenim bırakmaya çalışırım", score: 2 },
+                                { text: "Uzmanlık alanımı belirler, bu konuda tanınır olmaya çalışırım", score: 3 },
+                                { text: "Stratejik kişisel marka yapar, otantik değer önerisi oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Profesyonel ağınızı nasıl geliştirirsiniz?",
+                            options: [
+                                { text: "Ağ oluşturma yapmam, mevcut çevremle yetinirim", score: 1 },
+                                { text: "Etkinliklere katılır, yeni insanlarla tanışmaya çalışırım", score: 2 },
+                                { text: "Sistematik ağ oluşturma yapar, ilişkileri sürdürmeye çalışırım", score: 3 },
+                                { text: "Stratejik ilişki kurma uygular, karşılıklı değer yaratma odaklı ağ oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sosyal medyada profesyonel varlığınızı nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Sosyal medyayı profesyonel amaçla kullanmam", score: 1 },
+                                { text: "Temel profil bilgilerimi güncel tutar, ara sıra paylaşım yaparım", score: 2 },
+                                { text: "Düzenli içerik paylaşır, sektörümle ilgili konularda aktif olurum", score: 3 },
+                                { text: "Dijital düşünce liderliği stratejisi uygular, içerik pazarlama ile uzmanlık sergilerim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Mentorluk ilişkilerini nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Mentor veya mentee olmam, kendi başıma ilerlerim", score: 1 },
+                                { text: "İhtiyaç duyduğumda danışmanlık alır, bazen başkalarına yardım ederim", score: 2 },
+                                { text: "Aktif mentor ilişkileri kurar, aynı zamanda başkalarına mentor olurum", score: 3 },
+                                { text: "Mentorluk ekosistemi oluşturur, karşılıklı mentorluk ve akran mentorluğu uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sektörünüzdeki görünürlüğünüzü nasıl artırırsınız?",
+                            options: [
+                                { text: "Görünürlük konusunda özel çaba sarf etmem", score: 1 },
+                                { text: "İyi iş çıkararak doğal olarak tanınmaya çalışırım", score: 2 },
+                                { text: "Konferanslara katılır, sunum yapar, makale yazarım", score: 3 },
+                                { text: "Düşünce liderliği stratejisi geliştir, sektör etkisi oluşturma yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Profesyonel itibarınızı nasıl korursunuz?",
+                            options: [
+                                { text: "İtibar yönetimi konusunda özel düşüncem yok", score: 1 },
+                                { text: "Etik davranmaya dikkat eder, sözümü tutmaya çalışırım", score: 2 },
+                                { text: "Tutarlı davranış sergiler, güvenilir olmaya odaklanırım", score: 3 },
+                                { text: "İtibar yönetimi stratejileri uygular, paydaş algı optimizasyonu yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "İş fırsatlarını nasıl yaratırsınız?",
+                            options: [
+                                { text: "Fırsatların kendiliğinden gelmesini beklerim", score: 1 },
+                                { text: "Aktif olarak iş ararım, başvurular yaparım", score: 2 },
+                                { text: "Ağımı kullanır, referanslar alırım", score: 3 },
+                                { text: "Fırsat yaratma zihniyeti benimser, değer öncelikli yaklaşım uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Profesyonel gelişim hikayenizi nasıl anlatırsınız?",
+                            options: [
+                                { text: "Hikaye anlatımı yapmam, özgeçmişimdeki bilgileri aktarırım", score: 1 },
+                                { text: "Temel deneyimlerimi kronolojik olarak anlatırım", score: 2 },
+                                { text: "Başarılarımı ve öğrendiklerimi vurgulayarak anlatırım", score: 3 },
+                                { text: "Etkileyici anlatı oluşturur, kahraman yolculuğu çerçevesi uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Sektör etkinliklerindeki rolünüz nasıldır?",
+                            options: [
+                                { text: "Etkinliklere katılmam, gerekli görmem", score: 1 },
+                                { text: "Önemli etkinliklere katılır, dinleyici olarak yer alırım", score: 2 },
+                                { text: "Aktif katılım gösterir, soru sorar, ağ oluşturma yaparım", score: 3 },
+                                { text: "Etkinlik liderliği rolü oynar, topluluk oluşturma ve ekosistem geliştirme yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Profesyonel referanslarınızı nasıl yönetirsiniz?",
+                            options: [
+                                { text: "Referans yönetimi yapmam, gerektiğinde isimleri veririm", score: 1 },
+                                { text: "Güvendiğim kişilerin isimlerini referans olarak kullanırım", score: 2 },
+                                { text: "Referanslarımla düzenli iletişim kurar, güncel tutarım", score: 3 },
+                                { text: "Stratejik referans yönetimi yapar, karşılıklı savunuculuk ağı oluştururum", score: 4 }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Yenilikçilik ve Geliştirme Odaklılık",
+                    questions: [
+                        {
+                            text: "Yeni fikirler geliştirirken hangi yaklaşımı benimsersiniz?",
+                            options: [
+                                { text: "Geleneksel yöntemleri tercih eder, denenmişi uygularım", score: 1 },
+                                { text: "Mevcut çözümleri geliştirmeye çalışırım", score: 2 },
+                                { text: "Yaratıcı düşünme teknikleri kullanır, farklı yaklaşımlar denerim", score: 3 },
+                                { text: "Tasarım düşüncesi metodolojisi uygular, yıkıcı inovasyon stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Değişim önerilerinizi nasıl geliştirirsiniz?",
+                            options: [
+                                { text: "Değişim önerisi geliştirmem, mevcut durumu kabul ederim", score: 1 },
+                                { text: "Gözlemlediğim sorunlar için basit çözümler önerrim", score: 2 },
+                                { text: "Sistematik analiz yaparak iyileştirme önerileri geliştiririm", score: 3 },
+                                { text: "Değişim yönetimi çerçeveleri kullanır, dönüşüm yol haritası oluştururum", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Teknolojik yenilikleri nasıl takip edersiniz?",
+                            options: [
+                                { text: "Teknolojik yenilikleri takip etmem, mevcut araçlarla yetinirim", score: 1 },
+                                { text: "Popüler olan teknolojileri öğrenmeye çalışırım", score: 2 },
+                                { text: "Sektörümle ilgili teknolojik gelişmeleri düzenli takip ederim", score: 3 },
+                                { text: "Gelişmekte olan teknoloji keşfi yapar, erken benimseme stratejileri geliştiririm", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Süreç iyileştirme konusunda nasıl yaklaşırsınız?",
+                            options: [
+                                { text: "Mevcut süreçleri olduğu gibi takip ederim", score: 1 },
+                                { text: "Sorun yaşadığımda o anki çözümler ararım", score: 2 },
+                                { text: "Düzenli olarak süreçleri gözden geçirir, iyileştirme fırsatları ararım", score: 3 },
+                                { text: "Sürekli iyileştirme kültürü oluşturur, yalın metodoloji ve kaizen uygularım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Yaratıcılığınızı nasıl geliştirirsiniz?",
+                            options: [
+                                { text: "Yaratıcılık konusunda özel çaba sarf etmem", score: 1 },
+                                { text: "Farklı kaynaklardan ilham almaya çalışırım", score: 2 },
+                                { text: "Yaratıcılık egzersizleri yapar, farklı aktiviteler denerim", score: 3 },
+                                { text: "Yaratıcı düşünme çerçeveleri kullanır, inovasyon laboratuvarı yaklaşımı benimserim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Risk alma konusunda nasıl bir tutumunuz var?",
+                            options: [
+                                { text: "Risk almaktan kaçınır, güvenli seçenekleri tercih ederim", score: 1 },
+                                { text: "Sadece hesaplanmış riskler alırım", score: 2 },
+                                { text: "İnovasyon için gerekli riskleri almaya hazırım", score: 3 },
+                                { text: "Akıllı risk alma stratejileri uygular, portföy yaklaşımı benimserim", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Başarısız denemelere nasıl yaklaşırsınız?",
+                            options: [
+                                { text: "Başarısızlıktan kaçınır, deneme yapmaktan çekinirim", score: 1 },
+                                { text: "Başarısızlığı kötü bir deneyim olarak görürüm", score: 2 },
+                                { text: "Başarısızlığı öğrenme fırsatı olarak değerlendiririm", score: 3 },
+                                { text: "Hızlı başarısızlık metodolojisi uygular, hızlı prototipleme ve tekrarlı öğrenme yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "İnovasyon projelerini nasıl yönetirsiniz?",
+                            options: [
+                                { text: "İnovasyon projesi yönetimi konusunda deneyimim yok", score: 1 },
+                                { text: "Temel proje yönetimi teknikleri kullanırım", score: 2 },
+                                { text: "Çevik metodoloji uygular, tekrarlı geliştirme yaparım", score: 3 },
+                                { text: "İnovasyon hattı yönetimi uygular, aşama-kapı süreci kullanırım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "Gelecek trendlerini nasıl değerlendirirsiniz?",
+                            options: [
+                                { text: "Gelecek trendleri konusunda düşünmem, bugüne odaklanırım", score: 1 },
+                                { text: "Genel trendleri takip eder, haberlerden öğrenmeye çalışırım", score: 2 },
+                                { text: "Sektörümle ilgili trend analizleri yapar, gelecek planlaması yaparım", score: 3 },
+                                { text: "Gelecek öngörü metodolojileri uygular, senaryo planlama ve zayıf sinyal tespiti yaparım", score: 4 }
+                            ]
+                        },
+                        {
+                            text: "İnovatif çözümlerinizi nasıl hayata geçirirsiniz?",
+                            options: [
+                                { text: "Fikirlerim genelde teoride kalır, uygulamaya geçirmekte zorlanırım", score: 1 },
+                                { text: "Basit fikirlerimi uygulamaya çalışırım", score: 2 },
+                                { text: "Sistematik uygulama planı yaparak fikirlerimi hayata geçiririm", score: 3 },
+                                { text: "İnovasyon-pazara hattı oluşturur, ticarileştirme stratejisi geliştiririm", score: 4 }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Quiz fonksiyonları
+        function startQuiz() {
+            if (!currentUser) {
+                showMessage("Lütfen önce giriş yapın!", "error");
+                return;
+            }
+            
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizContainer').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const category = quizData.categories[currentCategoryIndex];
+            const question = category.questions[currentQuestionInCategory];
+            
+            // Progress güncelleme
+            const progress = ((currentQuestionIndex) / 100) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Soru bilgileri güncelleme
+            document.getElementById('questionCounter').textContent = `Soru ${currentQuestionIndex + 1} / 100`;
+            document.getElementById('categoryBadge').textContent = category.name;
+            document.getElementById('questionText').textContent = question.text;
+            
+            // Seçenekleri oluşturma
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(index);
+                
+                optionDiv.innerHTML = `
+                    <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option.text}</div>
+                `;
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Navigasyon butonları güncelleme
+            document.getElementById('prevBtn').style.display = currentQuestionIndex === 0 ? 'none' : 'block';
+            document.getElementById('nextBtn').disabled = true;
+            
+            // Önceki cevabı gösterme
+            if (answers[currentQuestionIndex] !== undefined) {
+                selectOption(answers[currentQuestionIndex], false);
+            }
+        }
+
+        function selectOption(optionIndex, updateAnswer = true) {
+            // Önceki seçimi temizle
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Yeni seçimi işaretle
+            document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+            
+            // Cevabı kaydet
+            if (updateAnswer) {
+                answers[currentQuestionIndex] = optionIndex;
+            }
+            
+            // Sonraki butonunu aktif et
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestionIndex] === undefined) return;
+            
+            currentQuestionIndex++;
+            currentQuestionInCategory++;
+            
+            // Kategori değişimi kontrolü
+            if (currentQuestionInCategory >= 10) {
+                currentCategoryIndex++;
+                currentQuestionInCategory = 0;
+            }
+            
+            if (currentQuestionIndex >= 100) {
+                showResults();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex === 0) return;
+            
+            currentQuestionIndex--;
+            currentQuestionInCategory--;
+            
+            // Kategori değişimi kontrolü (geriye)
+            if (currentQuestionInCategory < 0) {
+                currentCategoryIndex--;
+                currentQuestionInCategory = 9;
+            }
+            
+            showQuestion();
+        }
+
+        async function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Kategori skorlarını hesapla
+            const categoryScores = [];
+            let totalScore = 0;
+            
+            quizData.categories.forEach((category, categoryIndex) => {
+                let categoryScore = 0;
+                const startIndex = categoryIndex * 10;
+                
+                for (let i = 0; i < 10; i++) {
+                    const questionIndex = startIndex + i;
+                    const answerIndex = answers[questionIndex];
+                    const score = category.questions[i].options[answerIndex].score;
+                    categoryScore += score;
+                }
+                
+                categoryScores.push({
+                    name: category.name,
+                    score: categoryScore,
+                    percentage: (categoryScore / 40) * 100
+                });
+                
+                totalScore += categoryScore;
+            });
+            
+            // Genel skor gösterimi
+            const overallPercentage = (totalScore / 400) * 100;
+            document.getElementById('overallScore').textContent = Math.round(overallPercentage) + '%';
+            
+            // Skor yorumu
+            let interpretation = '';
+            if (overallPercentage >= 85) {
+                interpretation = 'Mükemmel! Kariyer gelişiminizde çok güçlü bir konumdasınız.';
+            } else if (overallPercentage >= 70) {
+                interpretation = 'Çok iyi! Güçlü yönleriniz var, bazı alanlarda gelişim fırsatları mevcut.';
+            } else if (overallPercentage >= 55) {
+                interpretation = 'İyi seviyede! Odaklanılması gereken gelişim alanları belirgin.';
+            } else {
+                interpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
+            }
+            
+            document.getElementById('scoreInterpretation').textContent = interpretation;
+            
+            // Kategori sonuçlarını global değişkene kaydet
+            window.categoryScoresGlobal = categoryScores;
+            
+            // Kategori sonuçlarını göster
+            const categoryResultsContainer = document.getElementById('categoryResults');
+            categoryResultsContainer.innerHTML = '';
+            
+            categoryScores.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category-result';
+                
+                categoryDiv.innerHTML = `
+                    <div class="category-name">${category.name}</div>
+                    <div class="category-score">
+                        <span>${Math.round(category.percentage)}%</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${category.percentage}%"></div>
+                        </div>
+                        <span class="score-value">${category.score}/40</span>
+                    </div>
+                `;
+                
+                categoryResultsContainer.appendChild(categoryDiv);
+            });
+
+            // Test sonucunu veritabanına kaydet
+            if (currentUser) {
+                // Mevcut test geçmişini al veya yeni dizi oluştur
+                const testHistory = currentUser.test_history || [];
+                
+                // Yeni test sonucunu ekle
+                testHistory.push({
+                    test_date: new Date().toISOString(),
+                    test_results: JSON.stringify(categoryScores),
+                    overall_score: Math.round(overallPercentage)
+                });
+
+                const updatedUser = {
+                    ...currentUser,
+                    test_completed: true,
+                    test_date: new Date().toISOString(), // En son test tarihi
+                    test_results: JSON.stringify(categoryScores), // En son test sonucu (geriye dönük uyumluluk için)
+                    overall_score: Math.round(overallPercentage), // En son skor
+                    test_history: testHistory // Tüm test geçmişi
+                };
+
+                const result = localDB.update(updatedUser);
+                if (result.isOk) {
+                    currentUser = updatedUser;
+                }
+            }
+        }
+
+        // Grafik çizim fonksiyonları
+        function drawCharts() {
+            if (!window.categoryScoresGlobal) return;
+            
+            // Canvas boyutlarını ayarla
+            setCanvasSize();
+            
+            drawRadarChart();
+            drawPieChart();
+            drawBarChart();
+            drawScatterChart();
+        }
+
+        function setCanvasSize() {
+            const canvases = ['radarChart', 'pieChart', 'barChart', 'scatterChart'];
+            const isMobile = window.innerWidth <= 768;
+            const size = isMobile ? 250 : 300;
+            
+            canvases.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    canvas.width = size;
+                    canvas.height = size;
+                }
+            });
+        }
+
+        function drawRadarChart() {
+            const canvas = document.getElementById('radarChart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const isMobile = window.innerWidth <= 768;
+            const radius = Math.min(centerX, centerY) - (isMobile ? 50 : 60);
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Arka plan çizgileri
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 5; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, (radius * i) / 5, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+            
+            // Eksen çizgileri
+            const angleStep = (2 * Math.PI) / 10;
+            for (let i = 0; i < 10; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+            
+            // Veri çizimi
+            ctx.strokeStyle = '#667eea';
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.3)';
+            ctx.lineWidth = isMobile ? 2 : 3;
+            ctx.beginPath();
+            
+            window.categoryScoresGlobal.forEach((category, index) => {
+                const angle = index * angleStep - Math.PI / 2;
+                const value = (category.percentage / 100) * radius;
+                const x = centerX + Math.cos(angle) * value;
+                const y = centerY + Math.sin(angle) * value;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Etiketler
+            ctx.fillStyle = '#333';
+            ctx.font = isMobile ? '9px Arial' : '12px Arial';
+            ctx.textAlign = 'center';
+            window.categoryScoresGlobal.forEach((category, index) => {
+                const angle = index * angleStep - Math.PI / 2;
+                const labelRadius = radius + (isMobile ? 25 : 30);
+                const x = centerX + Math.cos(angle) * labelRadius;
+                const y = centerY + Math.sin(angle) * labelRadius;
+                
+                const words = category.name.split(' ');
+                const lineHeight = isMobile ? 10 : 15;
+                words.forEach((word, wordIndex) => {
+                    ctx.fillText(word, x, y + wordIndex * lineHeight);
+                });
+            });
+        }
+
+        function drawPieChart() {
+            const canvas = document.getElementById('pieChart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const isMobile = window.innerWidth <= 768;
+            const radius = Math.min(centerX, centerY) - (isMobile ? 30 : 40);
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const colors = [
+                '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe',
+                '#43e97b', '#fa709a', '#fee140', '#a8edea', '#d299c2'
+            ];
+            
+            let currentAngle = -Math.PI / 2;
+            const total = window.categoryScoresGlobal.reduce((sum, cat) => sum + cat.score, 0);
+            
+            window.categoryScoresGlobal.forEach((category, index) => {
+                const sliceAngle = (category.score / total) * 2 * Math.PI;
+                
+                ctx.fillStyle = colors[index % colors.length];
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Yüzde etiketi - DOĞRU HESAPLAMA: Pastadaki gerçek payı
+                const piePercentage = (category.score / total) * 100;
+                const labelAngle = currentAngle + sliceAngle / 2;
+                const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
+                const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
+                
+                ctx.fillStyle = 'white';
+                ctx.font = isMobile ? 'bold 11px Arial' : 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(Math.round(piePercentage) + '%', labelX, labelY);
+                
+                currentAngle += sliceAngle;
+            });
+        }
+
+        function drawBarChart() {
+            const canvas = document.getElementById('barChart');
+            const ctx = canvas.getContext('2d');
+            const isMobile = window.innerWidth <= 768;
+            const padding = isMobile ? 40 : 50;
+            const bottomPadding = isMobile ? 80 : 100; // Alt için daha fazla alan
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - padding - bottomPadding;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Eksenler
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - bottomPadding);
+            ctx.lineTo(canvas.width - padding, canvas.height - bottomPadding);
+            ctx.stroke();
+            
+            // Çubuklar
+            const barWidth = chartWidth / window.categoryScoresGlobal.length - (isMobile ? 5 : 10);
+            const maxScore = Math.max(...window.categoryScoresGlobal.map(cat => cat.percentage));
+            
+            window.categoryScoresGlobal.forEach((category, index) => {
+                const barHeight = (category.percentage / 100) * chartHeight;
+                const x = padding + index * (chartWidth / window.categoryScoresGlobal.length) + (isMobile ? 2.5 : 5);
+                const y = canvas.height - bottomPadding - barHeight;
+                
+                const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, y, barWidth, barHeight);
+                
+                // Değer etiketi (üstte)
+                ctx.fillStyle = '#333';
+                ctx.font = isMobile ? 'bold 10px Arial' : 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(Math.round(category.percentage) + '%', x + barWidth / 2, y - 5);
+                
+                // Kategori ismi (altta, dikey ve kısa)
+                ctx.save();
+                ctx.translate(x + barWidth / 2, canvas.height - bottomPadding + 10);
+                ctx.rotate(-Math.PI / 4); // 45 derece döndür
+                ctx.fillStyle = '#555';
+                ctx.font = isMobile ? '9px Arial' : '10px Arial';
+                ctx.textAlign = 'right';
+                
+                // İsmi kısalt (ilk 3 kelime veya 25 karakter)
+                let shortName = category.name;
+                const words = category.name.split(' ');
+                if (words.length > 3) {
+                    shortName = words.slice(0, 3).join(' ') + '...';
+                } else if (shortName.length > 25) {
+                    shortName = shortName.substring(0, 25) + '...';
+                }
+                
+                ctx.fillText(shortName, 0, 0);
+                ctx.restore();
+            });
+        }
+
+        function drawScatterChart() {
+            const canvas = document.getElementById('scatterChart');
+            const ctx = canvas.getContext('2d');
+            const isMobile = window.innerWidth <= 768;
+            const padding = isMobile ? 30 : 40;
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - 2 * padding;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Eksenler
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Grid çizgileri
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 4; i++) {
+                const y = padding + (chartHeight * i) / 5;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+            }
+            
+            // Noktalar
+            const dotRadius = isMobile ? 6 : 8;
+            window.categoryScoresGlobal.forEach((category, index) => {
+                const x = padding + (index / (window.categoryScoresGlobal.length - 1)) * chartWidth;
+                const y = canvas.height - padding - (category.percentage / 100) * chartHeight;
+                
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, dotRadius);
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(x, y, dotRadius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Çizgi bağlantısı
+                if (index > 0) {
+                    const prevX = padding + ((index - 1) / (window.categoryScoresGlobal.length - 1)) * chartWidth;
+                    const prevY = canvas.height - padding - (window.categoryScoresGlobal[index - 1].percentage / 100) * chartHeight;
+                    
+                    ctx.strokeStyle = '#667eea';
+                    ctx.lineWidth = isMobile ? 1.5 : 2;
+                    ctx.beginPath();
+                    ctx.moveTo(prevX, prevY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        // Analiz oluşturma fonksiyonu
+        function generateAnalyses() {
+            if (!window.categoryScoresGlobal) return;
+            
+            const analysesContainer = document.getElementById('categoryAnalyses');
+            analysesContainer.innerHTML = '';
+            
+            window.categoryScoresGlobal.forEach(category => {
+                const analysisDiv = document.createElement('div');
+                analysisDiv.className = 'category-analysis';
+                
+                const scoreClass = getScoreClass(category.percentage);
+                
+                // Gelişmiş AI analiz metni oluştur
+                const aiAnalysis = generateAdvancedAIAnalysis(category.name, category.percentage, category.score);
+                
+                analysisDiv.innerHTML = `
+                    <h4>${category.name} <span class="score-badge ${scoreClass}">${Math.round(category.percentage)}%</span></h4>
+                    ${aiAnalysis}
+                `;
+                
+                analysesContainer.appendChild(analysisDiv);
+            });
+        }
+
+        // Gelişmiş AI Analiz Motoru
+        function generateAdvancedAIAnalysis(categoryName, percentage, rawScore) {
+            const scoreLevel = getScoreLevel(percentage);
+            const userInfo = {
+                education: currentUser.education_level,
+                department: currentUser.department,
+                position: currentUser.current_position
+            };
+
+            // Her kategori için özel analiz parametreleri
+            const categoryContext = getCategoryContext(categoryName, percentage, rawScore, userInfo);
+            
+            return `
+                <div class="ai-analysis-box">
+                    <div class="ai-analysis-title">
+                        🤖 AKÇA PRO X AI ANALİZİ 
+                        <span class="ai-badge">Yapay Zeka Destekli</span>
+                    </div>
+                    
+                    <div class="analysis-subsection">
+                        <h5>📊 Performans Değerlendirmesi</h5>
+                        <p>${categoryContext.performanceEvaluation}</p>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>🎯 Mevcut Durum Analizi</h5>
+                        <p>${categoryContext.currentSituation}</p>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>💡 Gelişim Potansiyeli</h5>
+                        <p>${categoryContext.developmentPotential}</p>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>🚀 Önerilen Eylem Planı</h5>
+                        <ul>
+                            ${categoryContext.actionPlan.map(action => `<li>${action}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>📚 Öğrenme Kaynakları ve Araçlar</h5>
+                        <ul>
+                            ${categoryContext.resources.map(resource => `<li>${resource}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>⏱️ Tahmini Gelişim Süresi</h5>
+                        <p>${categoryContext.timeframe}</p>
+                    </div>
+
+                    <div class="analysis-subsection">
+                        <h5>🎓 Kariyer Etkisi</h5>
+                        <p>${categoryContext.careerImpact}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Skor seviyesi belirleme
+        function getScoreLevel(percentage) {
+            if (percentage >= 90) return 'outstanding';
+            if (percentage >= 85) return 'excellent';
+            if (percentage >= 75) return 'veryGood';
+            if (percentage >= 65) return 'good';
+            if (percentage >= 55) return 'average';
+            if (percentage >= 45) return 'belowAverage';
+            return 'needsImprovement';
+        }
+
+        // Kategori bağlamı oluşturma - Ana analiz motoru
+        function getCategoryContext(categoryName, percentage, rawScore, userInfo) {
+            const scoreLevel = getScoreLevel(percentage);
+            const contexts = {
+                "Stratejik Kariyer Planlaması": generateStrategicPlanningAnalysis(percentage, scoreLevel, userInfo),
+                "Etkili İletişim ve Sunum": generateCommunicationAnalysis(percentage, scoreLevel, userInfo),
+                "Problem Çözme ve Kritik Düşünme": generateProblemSolvingAnalysis(percentage, scoreLevel, userInfo),
+                "Zaman ve Enerji Yönetimi": generateTimeManagementAnalysis(percentage, scoreLevel, userInfo),
+                "Öz Liderlik ve Sorumluluk": generateSelfLeadershipAnalysis(percentage, scoreLevel, userInfo),
+                "Ekip Çalışması ve Çatışma Yönetimi": generateTeamworkAnalysis(percentage, scoreLevel, userInfo),
+                "Öğrenme Çevikliği": generateLearningAgilityAnalysis(percentage, scoreLevel, userInfo),
+                "Duygusal Zeka ve Stres Toleransı": generateEmotionalIntelligenceAnalysis(percentage, scoreLevel, userInfo),
+                "Profesyonel Marka ve Ağ Yönetimi": generateNetworkingAnalysis(percentage, scoreLevel, userInfo),
+                "Yenilikçilik ve Geliştirme Odaklılık": generateInnovationAnalysis(percentage, scoreLevel, userInfo)
+            };
+
+            return contexts[categoryName] || generateDefaultAnalysis(percentage, scoreLevel, userInfo);
+        }
+
+        // Stratejik Kariyer Planlaması Analizi
+        function generateStrategicPlanningAnalysis(percentage, level, userInfo) {
+            const analyses = {
+                outstanding: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz mükemmel seviyede. Stratejik planlama konusunda çok güçlüsünüz.`,
+                    currentSituation: `Uzun vadeli planlama, risk analizi ve hedef belirleme becerileriniz oldukça gelişmiş durumda.`,
+                    developmentPotential: `Liderlik ve mentorluk rolleri için hazırsınız. Stratejik projelerde sorumluluk alabilirsiniz.`,
+                    actionPlan: [
+                        "Sektör etkinliklerinde sunum yapın",
+                        "LinkedIn'de içerik paylaşarak görünürlük kazanın",
+                        "Mentorluk yaparak deneyim aktarın"
+                    ],
+                    resources: [
+                        "HBR Türkiye - Stratejik makaleler",
+                        "Coursera, Udemy - Online kurslar",
+                        "LinkedIn Learning"
+                    ],
+                    timeframe: `12-18 ayda takım liderliği ve yöneticilik pozisyonlarına hazır olabilirsiniz.`,
+                    careerImpact: `Bu yetkinlik terfi ve kariyer gelişimi için önemli bir avantaj sağlar.`
+                },
+                excellent: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz çok iyi seviyede. Stratejik düşünme becerileriniz güçlü.`,
+                    currentSituation: `Planlama, analiz ve hedef belirleme konularında yetkinsiniz.`,
+                    developmentPotential: `Kıdemli uzman ve takım liderliği için uygun bir temel var.`,
+                    actionPlan: [
+                        "Vaka çalışmaları yapın",
+                        "Farklı departmanlarda proje deneyimi kazanın",
+                        "Mentorluk desteği alın"
+                    ],
+                    resources: [
+                        "Coursera - Stratejik Düşünme",
+                        "LinkedIn Learning",
+                        "SWOT, PESTEL analiz araçları"
+                    ],
+                    timeframe: `12-24 ay içinde yöneticilik pozisyonlarına hazır olabilirsiniz.`,
+                    careerImpact: `Kariyer gelişiminizi hızlandırma potansiyeliniz yüksek.`
+                },
+                veryGood: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz iyi seviyede. Gelişime açık bir profiliniz var.`,
+                    currentSituation: `Temel planlama ve analiz becerileri mevcut, derinleştirilebilir.`,
+                    developmentPotential: `Sistematik çalışmayla yönetim pozisyonlarına geçiş yapabilirsiniz.`,
+                    actionPlan: [
+                        "Stratejik planlama eğitimleri alın",
+                        "SWOT analizi yapma pratiği kazanın",
+                        "Kariyer planı oluşturun ve takip edin"
+                    ],
+                    resources: [
+                        "Udemy - Stratejik Planlama",
+                        "HBR makaleleri",
+                        "Planlama araçları ve şablonlar"
+                    ],
+                    timeframe: `18-24 ayda önemli gelişim gösterebilirsiniz.`,
+                    careerImpact: `Bu alanda gelişim terfi şansınızı artırır.`
+                },
+                good: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz orta seviyede. Gelişim potansiyeliniz var.`,
+                    currentSituation: `Kısa vadeli planlama yapabiliyorsunuz, stratejik düşünme gelişmeli.`,
+                    developmentPotential: `Eğitim ve pratikle 12-18 ayda önemli ilerleme kaydedebilirsiniz.`,
+                    actionPlan: [
+                        "Temel stratejik düşünme eğitimleri alın",
+                        "SMART hedefler belirleyin",
+                        "Mentorluk desteği alın"
+                    ],
+                    resources: [
+                        "YouTube - Ücretsiz kurslar",
+                        "Coursera başlangıç seviyesi",
+                        "Kariyer planlama araçları"
+                    ],
+                    timeframe: `6-12 ayda temel becerileri kazanabilirsiniz.`,
+                    careerImpact: `Bu alana yatırım yapmanız kariyer gelişiminiz için önemli.`
+                },
+                average: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz düşük seviyede. Acil gelişim gerekli.`,
+                    currentSituation: `Uzun vadeli planlama yapamıyorsunuz, reaktif yaklaşım sergiliyorsunuz.`,
+                    developmentPotential: `Koçluk desteği ile 6-12 ayda temel becerileri kazanabilirsiniz.`,
+                    actionPlan: [
+                        "Kariyer koçu ile çalışın",
+                        "Hedef belirleme eğitimleri alın",
+                        "Kısa vadeli planlar yapın"
+                    ],
+                    resources: [
+                        "Kariyer danışmanlığı",
+                        "LinkedIn Learning temel kursları",
+                        "Basit planlama araçları"
+                    ],
+                    timeframe: `6-12 ayda temel becerileri kazanmayı hedefleyin.`,
+                    careerImpact: `Bu eksiklik kariyer gelişiminizi engelliyor, acil çalışma gerekli.`
+                }
+            };
+
+            return analyses[level] || analyses.average;
+        }
+
+        // Diğer kategoriler için benzer detaylı analiz fonksiyonları...
+        // (Karakter limiti nedeniyle sadece bir örnek gösterildi, diğerleri benzer yapıda olacak)
+
+        function generateCommunicationAnalysis(percentage, level, userInfo) {
+            const baseAnalyses = {
+                outstanding: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz mükemmel. İletişim ve sunum becerileriniz çok güçlü.`,
+                    currentSituation: `Etkili sunum, aktif dinleme ve net ifade yetenekleriniz gelişmiş durumda.`,
+                    developmentPotential: `Eğitim verme, proje sunumları ve paydaş yönetiminde liderlik yapabilirsiniz.`,
+                    actionPlan: ["Etkinliklerde sunum yapın", "Toastmasters'a katılın", "LinkedIn'de içerik paylaşın"],
+                    resources: ["Coursera/Udemy - İletişim kursları", "Toastmasters", "LinkedIn Learning"],
+                    timeframe: `12-18 ayda sektörünüzde tanınırlık kazanabilirsiniz.`,
+                    careerImpact: `İletişim gücünüz kariyer gelişiminde büyük avantaj sağlar.`
+                },
+                excellent: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz çok iyi. Etkili iletişim kuruyorsunuz.`,
+                    currentSituation: `Net ifade, empati ve sunum becerileriniz gelişmiş.`,
+                    developmentPotential: `Ekip liderliği ve proje yönetiminde başarılı olabilirsiniz.`,
+                    actionPlan: ["Sunum atölyelerine katılın", "Çatışma yönetimi eğitimi alın", "Yazılı iletişimi geliştirin"],
+                    resources: ["Coursera İletişim", "Toastmasters", "LinkedIn Learning"],
+                    timeframe: `12-18 ayda yöneticilik için hazır olabilirsiniz.`,
+                    careerImpact: `İletişim yetkinliği terfi kararlarında önemli rol oynar.`
+                },
+                veryGood: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz iyi. Gelişim potansiyeli var.`,
+                    currentSituation: `Günlük iletişimde iyisiniz, sunum becerileri geliştirilebilir.`,
+                    developmentPotential: `Eğitim ve pratikle liderlik düzeyine ulaşabilirsiniz.`,
+                    actionPlan: ["Sunum eğitimleri alın", "Toastmasters pratiği yapın", "Geri bildirim becerisi geliştirin"],
+                    resources: ["Udemy Sunum Kursları", "TED Masterclass", "Coursera"],
+                    timeframe: `12-18 ayda önemli gelişim gösterebilirsiniz.`,
+                    careerImpact: `İletişim becerisi kariyer gelişimini hızlandırır.`
+                },
+                good: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz orta. Gelişim gerekli.`,
+                    currentSituation: `Birebir iletişimde rahat, grup sunumlarında gelişim şart.`,
+                    developmentPotential: `6-12 ayda önemli ilerleme kaydedebilirsiniz.`,
+                    actionPlan: ["Temel sunum eğitimi alın", "Email yazma kursları", "Küçük gruplarla pratik yapın"],
+                    resources: ["LinkedIn Learning", "Coursera Başlangıç", "YouTube ücretsiz"],
+                    timeframe: `6-12 ayda profesyonel seviyeye ulaşabilirsiniz.`,
+                    careerImpact: `Bu alana yatırım yapmanız kritik önemde.`
+                },
+                average: {
+                    performanceEvaluation: `%${Math.round(percentage)} skorunuz düşük. Acil gelişim gerekli.`,
+                    currentSituation: `İletişimde güven eksikliği ve sunum kaygısı yaşıyorsunuz.`,
+                    developmentPotential: `Koçluk desteği ile 6-12 ayda temel becerileri kazanabilirsiniz.`,
+                    actionPlan: ["İletişim koçu ile çalışın", "Özgüven geliştirme", "Küçük gruplarda pratik"],
+                    resources: ["İletişim koçluğu", "Dale Carnegie kitapları", "Toastmasters"],
+                    timeframe: `6-12 ayda temel seviyeye ulaşmayı hedefleyin.`,
+                    careerImpact: `İletişim eksikliği kariyer gelişimini engelliyor, acil çalışma şart.`
+                }
+            };
+            return baseAnalyses[level] || baseAnalyses.average;
+        }
+
+        // Kısa versiyonları ekleyelim (diğer 8 kategori için)
+        function generateProblemSolvingAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Problem Çözme ve Kritik Düşünme', percentage, level, userInfo, {
+                keySkills: ['analitik düşünme', 'kök neden analizi', 'yaratıcı çözüm geliştirme', 'veri analizi'],
+                careerRelevance: 'Stratejik roller, proje yönetimi, danışmanlık'
+            });
+        }
+
+        function generateTimeManagementAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Zaman ve Enerji Yönetimi', percentage, level, userInfo, {
+                keySkills: ['önceliklendirme', 'verimlilik', 'delegasyon', 'enerji optimizasyonu'],
+                careerRelevance: 'Tüm yönetim seviyeleri, liderlik rolleri'
+            });
+        }
+
+        function generateSelfLeadershipAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Öz Liderlik ve Sorumluluk', percentage, level, userInfo, {
+                keySkills: ['öz disiplin', 'sorumluluk alma', 'sürekli gelişim', 'değer temelli liderlik'],
+                careerRelevance: 'Executive roller, girişimcilik, takım liderliği'
+            });
+        }
+
+        function generateTeamworkAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Ekip Çalışması ve Çatışma Yönetimi', percentage, level, userInfo, {
+                keySkills: ['işbirliği', 'çatışma çözme', 'ekip dinamikleri', 'kapsayıcı liderlik'],
+                careerRelevance: 'Takım liderliği, proje yönetimi, cross-functional roller'
+            });
+        }
+
+        function generateLearningAgilityAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Öğrenme Çevikliği', percentage, level, userInfo, {
+                keySkills: ['hızlı öğrenme', 'adaptasyon', 'bilgi transferi', 'sürekli gelişim'],
+                careerRelevance: 'Teknoloji rolleri, değişim yönetimi, inovasyon'
+            });
+        }
+
+        function generateEmotionalIntelligenceAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Duygusal Zeka ve Stres Toleransı', percentage, level, userInfo, {
+                keySkills: ['empati', 'duygusal düzenleme', 'stres yönetimi', 'sosyal farkındalık'],
+                careerRelevance: 'Liderlik, müşteri ilişkileri, insan kaynakları'
+            });
+        }
+
+        function generateNetworkingAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Profesyonel Marka ve Ağ Yönetimi', percentage, level, userInfo, {
+                keySkills: ['networking', 'kişisel marka', 'ilişki yönetimi', 'görünürlük'],
+                careerRelevance: 'Business development, liderlik, girişimcilik'
+            });
+        }
+
+        function generateInnovationAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Yenilikçilik ve Geliştirme Odaklılık', percentage, level, userInfo, {
+                keySkills: ['yaratıcılık', 'inovasyon', 'sürekli iyileştirme', 'trend analizi'],
+                careerRelevance: 'İnovasyon rolleri, R&D, stratejik planlama'
+            });
+        }
+
+        // Genel kategori analizi oluşturucu
+        function getGenericCategoryAnalysis(categoryName, percentage, level, userInfo, specs) {
+            const performanceDescriptors = {
+                outstanding: 'seçkin', excellent: 'mükemmel', veryGood: 'çok iyi',
+                good: 'iyi', average: 'gelişmeye açık', belowAverage: 'yetersiz', needsImprovement: 'acil gelişim gerektiren'
+            };
+
+            return {
+                performanceEvaluation: `${categoryName} alanında %${Math.round(percentage)}'lik performansınız, ${performanceDescriptors[level]} bir seviyeyi temsil etmektedir. ${userInfo.position} pozisyonunuzda bu yetkinlik, ${userInfo.department} alanındaki profesyonel gelişiminiz için ${level === 'outstanding' || level === 'excellent' ? 'güçlü bir avantaj' : 'önemli bir gelişim alanı'} oluşturmaktadır.`,
+                
+                currentSituation: `Mevcut durumunuz ${specs.keySkills.join(', ')} gibi temel becerilerde ${level === 'outstanding' || level === 'excellent' ? 'üstün bir performans' : level === 'veryGood' || level === 'good' ? 'gelişmeye açık bir yapı' : 'sistematik gelişim ihtiyacı'} sergilemektedir. ${userInfo.education} mezuniyetinizin sağladığı akademik altyapı ile birleştiğinde, bu yetkinlik ${specs.careerRelevance} alanlarında belirleyici olmaktadır.`,
+                
+                developmentPotential: `${level === 'outstanding' || level === 'excellent' ? 'Bu üstün performansınızı sürdürerek, sektörünüzde düşünce lideri konumuna ulaşabilir ve mentorship rolleri üstlenebilirsiniz.' : level === 'veryGood' || level === 'good' ? 'Yapılandırılmış gelişim programları ile 12-18 ay içinde bu alanda üst seviye yetkinliğe ulaşabilirsiniz.' : 'Profesyonel destek ve yoğun çalışma ile 6-12 ay içinde temel yetkinlikleri kazanmanız mümkündür.'}`,
+                
+                actionPlan: level === 'outstanding' || level === 'excellent' ? [
+                    `${categoryName} alanında sertifikasyon ve ileri eğitim programları tamamlayın`,
+                    `Sektör konferanslarında ${specs.keySkills[0]} konusunda sunumlar yapın`,
+                    `Genç profesyonellere mentorluk yaparak bilginizi paylaşın`,
+                    `Akademik makaleler ve blog yazıları yayımlayarak thought leadership konumunuzu güçlendirin`,
+                    `International networking ve knowledge sharing platformlarında aktif olun`
+                ] : level === 'veryGood' || level === 'good' ? [
+                    `${specs.keySkills[0]} ve ${specs.keySkills[1]} becerileri üzerine eğitimler alın`,
+                    `Pratik projeler ve case study'ler üzerinde çalışarak deneyim kazanın`,
+                    `Professional development programlarına düzenli katılın`,
+                    `Mentor desteği alarak hızlı gelişim sağlayın`,
+                    `Online kurslar ve sertifikasyonlarla bilginizi güncel tutun`
+                ] : [
+                    `Temel ${specs.keySkills[0]} eğitimlerinden başlayın`,
+                    `Profesyonel koçluk veya danışmanlık desteği alın`,
+                    `Küçük projelerle pratik deneyim kazanmaya başlayın`,
+                    `Peer learning gruplarına katılın`,
+                    `Düzenli öz değerlendirme yaparak ilerlemenizi takip edin`
+                ],
+                
+                resources: level === 'outstanding' || level === 'excellent' ? [
+                    `Executive education programs - Harvard, Stanford, INSEAD`,
+                    `Professional certification: ${specs.careerRelevance} alanında ileri seviye`,
+                    `Industry-leading masterclasses ve workshops`,
+                    `McKinsey, BCG, Deloitte research publications`,
+                    `Global professional associations ve thought leadership platforms`
+                ] : level === 'veryGood' || level === 'good' ? [
+                    `Coursera/edX: ${categoryName} konusunda specialized courses`,
+                    `LinkedIn Learning professional development paths`,
+                    `Industry-specific certifications ve training programs`,
+                    `Professional books ve HBR articles`,
+                    `Networking events ve professional meetups`
+                ] : [
+                    `Temel online kurslar - Udemy, Coursera fundamentals`,
+                    `YouTube educational channels (ücretsiz kaynaklar)`,
+                    `Introductory books ve beginner guides`,
+                    `Local workshops ve community learning groups`,
+                    `Professional coaching sessions`
+                ],
+                
+                timeframe: level === 'outstanding' || level === 'excellent' ? 
+                    `Bu üstün seviyenizi sürdürmek ve global recognition kazanmak için 12-24 aylık stratejik visibility ve thought leadership planı önerilir. Executive education ve international exposure'a öncelik verilmelidir.` :
+                    level === 'veryGood' || level === 'good' ?
+                    `Senior specialist veya management pozisyonları için gereken yetkinlik seviyesine 12-18 ay içinde ulaşabilirsiniz. İlk 6 ayda temel becerileri pekiştirmeye, sonraki 6-12 ayda ileri tekniklere odaklanılmalıdır.` :
+                    `İlk 3-6 ayda temel becerileri kazanmak, 6-12 ay içinde profesyonel ortamlarda rahat çalışabilir seviyeye ulaşmak hedeflenmelidir. Düzenli koçluk ve mentorluk desteği kritik öneme sahiptir.`,
+                
+                careerImpact: level === 'outstanding' || level === 'excellent' ?
+                    `${categoryName} alanındaki bu üstün performansınız, C-suite ve executive pozisyonlara geçişte %60-70 avantaj sağlamaktadır. Bu yetkinlik, headhunter'lar ve executive search firmalarının en çok aradığı özelliklerdendir. Global şirketlerde leadership rolleri için ideal profile sahipsiniz.` :
+                    level === 'veryGood' || level === 'good' ?
+                    `Bu yetkinlik seviyeniz, middle management ve senior specialist rollerine geçişte %40-50 avantaj sağlar. Sistematik gelişim ile 2-3 yıl içinde leadership pozisyonlarına ulaşma olasılığınız yüksektir. ${specs.careerRelevance} alanlarında belirgin fırsatlar yaratır.` :
+                    `${categoryName} becerilerindeki eksiklik, kariyer ilerlemenizi doğrudan etkilemektedir. Bu alan modern iş dünyasında ${specs.careerRelevance} için kritik öneme sahip olduğundan, acil ve yoğun gelişim programına ihtiyaç vardır. 6-12 aylık yapılandırılmış eğitim ile önemli ilerleme kaydetmeniz mümkündür.`
+            };
+        }
+
+        function generateDefaultAnalysis(percentage, level, userInfo) {
+            return getGenericCategoryAnalysis('Bu Kategori', percentage, level, userInfo, {
+                keySkills: ['temel beceriler', 'profesyonel yetkinlikler'],
+                careerRelevance: 'Genel kariyer gelişimi'
+            });
+        }
+
+        function getScoreClass(percentage) {
+            if (percentage >= 85) return 'score-excellent';
+            if (percentage >= 70) return 'score-good';
+            if (percentage >= 55) return 'score-average';
+            return 'score-needs-improvement';
+        }
+
+        function getCategoryAnalysis(categoryName, percentage) {
+            const analyses = {
+                "Stratejik Kariyer Planlaması": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Kariyer planlamanızda stratejik düşünce ve uzun vadeli vizyon sahibisiniz. Hedeflerinizi net olarak tanımlayabilir ve bu hedeflere ulaşmak için sistematik yaklaşımlar geliştirebilirsiniz.</p><p><strong>Güçlü Yönler:</strong> Risk-fayda analizi, kaynak planlaması ve adaptif strateji geliştirme konularında üst düzey yetkinlik.</p><p><strong>Öneriler:</strong> Bu güçlü yönünüzü başkalarına mentorluk yaparak paylaşabilir, sektörünüzde düşünce liderliği pozisyonu geliştirebilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Kariyer planlamanızda sistematik yaklaşım benimsiyor, orta ve uzun vadeli hedefler belirleyebiliyorsunuz. Çoğu durumda etkili stratejiler geliştirebilirsiniz.</p><p><strong>Gelişim Alanları:</strong> Belirsizlik yönetimi ve değişken koşullara adaptasyon konularında iyileştirme fırsatları mevcut.</p><p><strong>Öneriler:</strong> Senaryo planlama teknikleri öğrenerek, daha esnek kariyer stratejileri geliştirebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel kariyer planlama becerileriniz mevcut ancak daha sistematik ve stratejik yaklaşım geliştirme ihtiyacınız var.</p><p><strong>Gelişim Alanları:</strong> Uzun vadeli vizyon oluşturma, risk değerlendirme ve kaynak planlaması konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Kariyer koçluğu alarak, SMART hedef belirleme ve stratejik planlama eğitimleri almanızı öneririz.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Kariyer planlamanızda daha proaktif ve sistematik yaklaşım geliştirmeniz kritik önemde.</p><p><strong>Acil Gelişim Alanları:</strong> Hedef belirleme, strateji geliştirme ve uzun vadeli düşünme becerilerinin güçlendirilmesi gerekli.</p><p><strong>Öneriler:</strong> Profesyonel kariyer danışmanlığı alarak, temel planlama becerilerini geliştirmeye odaklanın.</p>"
+                },
+                "Etkili İletişim ve Sunum": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> İletişim becerileriniz üst düzeyde. Farklı hedef kitlelerle etkili iletişim kurabilir, karmaşık konuları anlaşılır şekilde aktarabilirsiniz.</p><p><strong>Güçlü Yönler:</strong> Aktif dinleme, empati kurma, çatışma yönetimi ve ikna etme becerilerinde uzman seviye.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi liderlik rollerinde kullanarak, ekip iletişimini optimize edebilir ve organizasyonel etkinliği artırabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> İletişim becerileriniz güçlü, çoğu durumda etkili iletişim kurabiliyorsunuz. Sunum ve yazılı iletişimde yetkin seviyedesiniz.</p><p><strong>Gelişim Alanları:</strong> Çatışmalı durumlarda iletişim ve farklı kültürlerle etkileşim konularında iyileştirme fırsatları var.</p><p><strong>Öneriler:</strong> Çatışma çözme teknikleri ve kültürlerarası iletişim eğitimleri alarak becerilerinizi geliştirebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel iletişim becerileriniz mevcut ancak daha etkili ve profesyonel iletişim için gelişim gerekli.</p><p><strong>Gelişim Alanları:</strong> Sunum teknikleri, yazılı iletişim ve geri bildirim verme konularında çalışma ihtiyacı var.</p><p><strong>Öneriler:</strong> İletişim becerileri eğitimleri alarak, günlük pratikte bu teknikleri uygulayın.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> İletişim becerilerinizin güçlendirilmesi kariyer gelişiminiz için kritik öneme sahip.</p><p><strong>Acil Gelişim Alanları:</strong> Temel iletişim becerileri, dinleme teknikleri ve net ifade etme yeteneği.</p><p><strong>Öneriler:</strong> Temel iletişim eğitimleri alarak, günlük yaşamda bilinçli iletişim pratiği yapın.</p>"
+                },
+                "Problem Çözme ve Kritik Düşünme": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Analitik düşünme ve problem çözme becerileriniz üst düzeyde. Karmaşık problemleri sistematik olarak analiz edebilir ve yaratıcı çözümler geliştirebilirsiniz.</p><p><strong>Güçlü Yönler:</strong> Kök neden analizi, sistem düşüncesi ve eleştirel değerlendirme konularında uzman seviye.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi stratejik projelerde kullanarak, organizasyonel problem çözme kapasitesini artırabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Problem çözme yaklaşımınız sistematik ve etkili. Çoğu durumda uygun çözümler geliştirebiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Belirsizlik durumlarında karar verme ve yaratıcı çözüm geliştirme konularında iyileştirme fırsatları mevcut.</p><p><strong>Öneriler:</strong> Tasarım düşüncesi ve yaratıcı problem çözme metodolojileri öğrenerek becerilerinizi geliştirebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel problem çözme becerileriniz var ancak daha sistematik ve yaratıcı yaklaşımlar geliştirme ihtiyacınız bulunuyor.</p><p><strong>Gelişim Alanları:</strong> Analitik düşünme, veri analizi ve alternatif çözüm geliştirme konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Problem çözme teknikleri eğitimleri alarak, günlük problemlerde bu yöntemleri uygulayın.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Problem çözme ve kritik düşünme becerilerinizin geliştirilmesi acil öncelik taşıyor.</p><p><strong>Acil Gelişim Alanları:</strong> Temel analiz becerileri, mantıklı düşünme ve sistematik yaklaşım geliştirme.</p><p><strong>Öneriler:</strong> Temel mantık ve analitik düşünme eğitimleri alarak, günlük karar verme süreçlerinizi iyileştirin.</p>"
+                },
+                "Zaman ve Enerji Yönetimi": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Zaman ve enerji yönetiminiz üst düzeyde. Önceliklendirme, planlama ve verimlilik konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> Değer odaklı önceliklendirme, enerji optimizasyonu ve iş-yaşam entegrasyonu konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu becerilerinizi ekip yönetiminde kullanarak, organizasyonel verimliliği artırabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Zaman yönetiminiz etkili, çoğu durumda verimli çalışabiliyorsunuz. Planlama ve önceliklendirme konularında yetkinsiniz.</p><p><strong>Gelişim Alanları:</strong> Enerji yönetimi ve kesinti kontrolü konularında iyileştirme fırsatları var.</p><p><strong>Öneriler:</strong> Derin çalışma teknikleri ve enerji optimizasyonu yöntemleri öğrenerek verimliliğinizi artırabilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel zaman yönetimi becerileriniz mevcut ancak daha etkili ve sistematik yaklaşımlar geliştirme ihtiyacınız var.</p><p><strong>Gelişim Alanları:</strong> Önceliklendirme, planlama ve dikkat yönetimi konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Zaman yönetimi teknikleri eğitimleri alarak, günlük rutinlerinizi optimize edin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Zaman ve enerji yönetiminizin iyileştirilmesi verimliliğiniz için kritik önemde.</p><p><strong>Acil Gelişim Alanları:</strong> Temel planlama becerileri, öncelik belirleme ve odaklanma teknikleri.</p><p><strong>Öneriler:</strong> Temel zaman yönetimi eğitimleri alarak, günlük alışkanlıklarınızı yeniden düzenleyin.</p>"
+                },
+                "Öz Liderlik ve Sorumluluk": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Öz liderlik becerileriniz üst düzeyde. Kişisel gelişim, sorumluluk alma ve otantik liderlik konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> Değer temelli liderlik, sürekli öğrenme zihniyeti ve dayanıklılık geliştirme konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu güçlü yönlerinizi mentorluk ve liderlik rollerinde kullanarak başkalarının gelişimine katkı sağlayabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Öz liderlik becerileriniz güçlü, kişisel gelişim konusunda bilinçli yaklaşım sergiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Öz disiplin ve stres yönetimi konularında iyileştirme fırsatları mevcut.</p><p><strong>Öneriler:</strong> Dayanıklılık geliştirme teknikleri ve alışkanlık oluşturma yöntemleri öğrenerek kendinizi geliştirebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel öz liderlik becerileriniz var ancak daha sistematik kişisel gelişim yaklaşımı geliştirme ihtiyacınız bulunuyor.</p><p><strong>Gelişim Alanları:</strong> Hedef belirleme, öz disiplin ve geri bildirim alma konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Kişisel gelişim planı oluşturarak, düzenli öz değerlendirme yapın.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Öz liderlik becerilerinizin geliştirilmesi kişisel ve profesyonel başarınız için kritik öneme sahip.</p><p><strong>Acil Gelişim Alanları:</strong> Sorumluluk alma, öz farkındalık ve temel liderlik becerileri.</p><p><strong>Öneriler:</strong> Kişisel gelişim koçluğu alarak, temel liderlik becerilerini geliştirmeye odaklanın.</p>"
+                },
+                "Ekip Çalışması ve Çatışma Yönetimi": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Ekip çalışması ve çatışma yönetimi becerileriniz üst düzeyde. Kolektif zeka oluşturma ve çatışma dönüşümü konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> Kapsayıcı liderlik, çeşitlilik yönetimi ve ekip dinamikleri optimizasyonu konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi ekip liderliği rollerinde kullanarak, yüksek performanslı ekipler oluşturabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Ekip çalışması becerileriniz güçlü, çoğu durumda etkili işbirliği kurabiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Çatışma yönetimi ve uzaktan ekip çalışması konularında iyileştirme fırsatları var.</p><p><strong>Öneriler:</strong> Çatışma çözme teknikleri ve sanal ekip yönetimi becerileri geliştirerek etkinliğinizi artırabilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel ekip çalışması becerileriniz mevcut ancak daha etkili işbirliği ve çatışma yönetimi için gelişim gerekli.</p><p><strong>Gelişim Alanları:</strong> Ekip iletişimi, çatışma çözme ve çeşitlilik yönetimi konularında çalışma ihtiyacı var.</p><p><strong>Öneriler:</strong> Ekip çalışması eğitimleri alarak, işbirliği becerilerinizi geliştirin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Ekip çalışması ve çatışma yönetimi becerilerinizin geliştirilmesi profesyonel başarınız için kritik önemde.</p><p><strong>Acil Gelişim Alanları:</strong> Temel işbirliği becerileri, iletişim ve çatışma önleme teknikleri.</p><p><strong>Öneriler:</strong> Temel ekip çalışması eğitimleri alarak, günlük işbirliği deneyimlerinizi iyileştirin.</p>"
+                },
+                "Öğrenme Çevikliği": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Öğrenme çevikliğiniz üst düzeyde. Hızlı adaptasyon, sürekli öğrenme ve bilgi transferi konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> Üst bilişsel stratejiler, deneysel öğrenme ve değişim çevikliği konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi inovasyon projelerinde kullanarak, organizasyonel öğrenme kapasitesini artırabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Öğrenme becerileriniz güçlü, yeni konulara hızlı adaptasyon sağlayabiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Belirsizlik toleransı ve teknoloji öğrenme hızı konularında iyileştirme fırsatları mevcut.</p><p><strong>Öneriler:</strong> Hızlandırılmış öğrenme teknikleri ve dijital akıcılık geliştirme yöntemleri öğrenebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel öğrenme becerileriniz var ancak daha çevik ve etkili öğrenme stratejileri geliştirme ihtiyacınız bulunuyor.</p><p><strong>Gelişim Alanları:</strong> Öğrenme hızı, adaptasyon yeteneği ve bilgi uygulama konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Etkili öğrenme teknikleri eğitimleri alarak, öğrenme stratejilerinizi optimize edin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Öğrenme çevikliğinizin geliştirilmesi değişen iş dünyasında başarılı olmanız için kritik öneme sahip.</p><p><strong>Acil Gelişim Alanları:</strong> Temel öğrenme becerileri, adaptasyon yeteneği ve sürekli gelişim zihniyeti.</p><p><strong>Öneriler:</strong> Temel öğrenme becerileri eğitimleri alarak, günlük öğrenme alışkanlıkları geliştirin.</p>"
+                },
+                "Duygusal Zeka ve Stres Toleransı": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Duygusal zeka ve stres toleransınız üst düzeyde. Duygusal düzenleme, empati ve dayanıklılık konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> İleri empati becerileri, stres-güç dönüşümü ve duygusal liderlik konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi liderlik ve mentorluk rollerinde kullanarak, pozitif çalışma ortamları oluşturabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Duygusal zeka becerileriniz güçlü, çoğu durumda etkili duygusal yönetim sergileyebiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Stres yönetimi ve olumsuz duygularla başa çıkma konularında iyileştirme fırsatları var.</p><p><strong>Öneriler:</strong> Dayanıklılık geliştirme teknikleri ve duygusal düzenleme stratejileri öğrenerek kendinizi geliştirebilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel duygusal zeka becerileriniz mevcut ancak daha etkili duygusal yönetim için gelişim gerekli.</p><p><strong>Gelişim Alanları:</strong> Öz farkındalık, empati kurma ve stres yönetimi konularında çalışma ihtiyacı var.</p><p><strong>Öneriler:</strong> Duygusal zeka eğitimleri alarak, günlük duygusal deneyimlerinizi iyileştirin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Duygusal zeka ve stres toleransınızın geliştirilmesi kişisel refahınız ve profesyonel başarınız için kritik önemde.</p><p><strong>Acil Gelişim Alanları:</strong> Temel duygusal farkındalık, stres yönetimi ve empati becerileri.</p><p><strong>Öneriler:</strong> Duygusal zeka ve stres yönetimi eğitimleri alarak, temel becerileri geliştirmeye odaklanın.</p>"
+                },
+                "Profesyonel Marka ve Ağ Yönetimi": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Profesyonel marka ve ağ yönetimi becerileriniz üst düzeyde. Düşünce liderliği ve stratejik ilişki kurma konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> Kişisel marka stratejisi, dijital düşünce liderliği ve karşılıklı değer yaratma konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi sektör liderliği rollerinde kullanarak, geniş etki alanları oluşturabilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Profesyonel marka ve ağ oluşturma becerileriniz güçlü, etkili ilişkiler kurabiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Dijital varlık yönetimi ve sektör görünürlüğü konularında iyileştirme fırsatları mevcut.</p><p><strong>Öneriler:</strong> Dijital pazarlama teknikleri ve içerik stratejileri öğrenerek görünürlüğünüzü artırabilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel ağ oluşturma becerileriniz var ancak daha stratejik marka yönetimi için gelişim gerekli.</p><p><strong>Gelişim Alanları:</strong> Kişisel marka stratejisi, profesyonel ağ genişletme ve görünürlük artırma konularında çalışma ihtiyacı var.</p><p><strong>Öneriler:</strong> Kişisel marka geliştirme eğitimleri alarak, profesyonel varlığınızı güçlendirin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Profesyonel marka ve ağ yönetiminizin geliştirilmesi kariyer ilerlemesi için kritik öneme sahip.</p><p><strong>Acil Gelişim Alanları:</strong> Temel ağ oluşturma becerileri, profesyonel iletişim ve marka farkındalığı.</p><p><strong>Öneriler:</strong> Temel ağ oluşturma eğitimleri alarak, profesyonel ilişki kurma becerilerinizi geliştirin.</p>"
+                },
+                "Yenilikçilik ve Geliştirme Odaklılık": {
+                    excellent: "<p><strong>Mükemmel Seviye:</strong> Yenilikçilik ve geliştirme odaklılığınız üst düzeyde. Tasarım düşüncesi ve yıkıcı inovasyon konularında uzman seviyedesiniz.</p><p><strong>Güçlü Yönler:</strong> İnovasyon metodolojileri, gelecek öngörü ve ticarileştirme stratejileri konularında mükemmel yetkinlik.</p><p><strong>Öneriler:</strong> Bu yeteneklerinizi inovasyon liderliği rollerinde kullanarak, organizasyonel dönüşüm projelerine öncülük edebilirsiniz.</p>",
+                    good: "<p><strong>İyi Seviye:</strong> Yenilikçilik becerileriniz güçlü, yaratıcı çözümler geliştirebiliyorsunuz.</p><p><strong>Gelişim Alanları:</strong> Risk alma stratejileri ve inovasyon proje yönetimi konularında iyileştirme fırsatları var.</p><p><strong>Öneriler:</strong> İnovasyon metodolojileri ve proje yönetimi teknikleri öğrenerek etkinliğinizi artırabilirsiniz.</p>",
+                    average: "<p><strong>Orta Seviye:</strong> Temel yaratıcılık becerileriniz mevcut ancak daha sistematik inovasyon yaklaşımı geliştirme ihtiyacınız bulunuyor.</p><p><strong>Gelişim Alanları:</strong> Yaratıcı düşünme, trend analizi ve süreç iyileştirme konularında çalışma gerekli.</p><p><strong>Öneriler:</strong> Yaratıcılık ve inovasyon eğitimleri alarak, yenilikçi düşünce becerilerinizi geliştirin.</p>",
+                    needs_improvement: "<p><strong>Gelişim Gereken Alan:</strong> Yenilikçilik ve geliştirme odaklılığınızın artırılması değişen iş dünyasında rekabet avantajı için kritik önemde.</p><p><strong>Acil Gelişim Alanları:</strong> Temel yaratıcılık becerileri, değişime açıklık ve sürekli iyileştirme zihniyeti.</p><p><strong>Öneriler:</strong> Temel yaratıcılık eğitimleri alarak, günlük çalışma rutinlerinizde yenilikçi yaklaşımlar deneyin.</p>"
+                }
+            };
+            
+            const categoryAnalysis = analyses[categoryName];
+            if (!categoryAnalysis) return "<p>Bu kategori için analiz mevcut değil.</p>";
+            
+            if (percentage >= 85) return categoryAnalysis.excellent;
+            if (percentage >= 70) return categoryAnalysis.good;
+            if (percentage >= 55) return categoryAnalysis.average;
+            return categoryAnalysis.needs_improvement;
+        }
+
+        // Global değişken tanımlaması
+        let categoryScoresGlobal = [];
+
+        // Türkçe karakter temizleme fonksiyonu (PDF için)
+        function cleanTurkish(text) {
+            if (!text) return '';
+            const map = {
+                'ı': 'i', 'İ': 'I', 'ş': 's', 'Ş': 'S',
+                'ğ': 'g', 'Ğ': 'G', 'ü': 'u', 'Ü': 'U',
+                'ö': 'o', 'Ö': 'O', 'ç': 'c', 'Ç': 'C',
+                'â': 'a', 'Â': 'A', 'î': 'i', 'Î': 'I',
+                'û': 'u', 'Û': 'U'
+            };
+            return text.toString().replace(/[ıİşŞğĞüÜöÖçÇâÂîÎûÛ]/g, letter => map[letter] || letter);
+        }
+
+        // PDF Rapor Fonksiyonları
+        async function downloadPDFReport() {
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                showMessage("PDF kütüphanesi yüklenemedi, lütfen sayfayı yenileyin.", "error");
+                return;
+            }
+
+            showMessage("PDF hazırlanıyor, lütfen bekleyin...", "info");
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4',
+                    putOnlyUsedFonts: true,
+                    compress: true
+                });
+                
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+                let yPos = 20;
+
+                // Türkçe karakter desteği için encoding ayarla
+                doc.setCharSpace(0);
+
+                // Başlık
+                doc.setFillColor(102, 126, 234);
+                doc.rect(0, 0, pageWidth, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(24);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KARIYER GELISIM ENVANTERI', pageWidth / 2, 20, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text('Profesyonel Yetkinlik Degerlendirme Raporu', pageWidth / 2, 30, { align: 'center' });
+
+                yPos = 50;
+
+                // Katılımcı Bilgileri
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                const reportDate = new Date().toLocaleDateString('tr-TR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                doc.setFont('helvetica', 'bold');
+                doc.text('Katilimci:', 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.nickname), 50, yPos);
+                yPos += 7;
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('Rapor Tarihi:', 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(reportDate), 50, yPos);
+                yPos += 7;
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('Mezuniyet:', 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.education_level), 50, yPos);
+                yPos += 7;
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('Bolum:', 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.department), 50, yPos);
+                yPos += 7;
+
+                doc.setFont('helvetica', 'bold');
+                doc.text('Pozisyon:', 15, yPos);
+                doc.setFont('helvetica', 'normal');
+                doc.text(cleanTurkish(currentUser.current_position), 50, yPos);
+                yPos += 12;
+
+                // Genel Skor
+                const overallScore = document.getElementById('overallScore').textContent;
+                doc.setFillColor(102, 126, 234);
+                doc.roundedRect(15, yPos, pageWidth - 30, 20, 3, 3, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.text('GENEL SKOR: ' + overallScore, pageWidth / 2, yPos + 12, { align: 'center' });
+                yPos += 30;
+
+                // Kategori Sonuçları
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KATEGORI SONUCLARI', 15, yPos);
+                yPos += 10;
+
+                if (!window.categoryScoresGlobal || window.categoryScoresGlobal.length === 0) {
+                    showMessage("Kategori sonuçları bulunamadı!", "error");
+                    return;
+                }
+
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    if (yPos > pageHeight - 30) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    // Kategori adı
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(cleanTurkish(category.name), 15, yPos);
+                    
+                    // Skor
+                    const scoreText = Math.round(category.percentage) + '% (' + category.score + '/40)';
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(scoreText, pageWidth - 15, yPos, { align: 'right' });
+                    yPos += 2;
+
+                    // Progress bar
+                    doc.setDrawColor(200, 200, 200);
+                    doc.setLineWidth(0.5);
+                    doc.rect(15, yPos, pageWidth - 30, 5);
+                    
+                    const barWidth = ((pageWidth - 30) * category.percentage) / 100;
+                    doc.setFillColor(102, 126, 234);
+                    doc.rect(15, yPos, barWidth, 5, 'F');
+                    yPos += 12;
+                });
+
+                // Yorum ekle
+                yPos += 5;
+                if (yPos > pageHeight - 50) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text('DEGERLENDIRME', 15, yPos);
+                yPos += 8;
+
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                const interpretation = document.getElementById('scoreInterpretation').textContent;
+                const splitInterpretation = doc.splitTextToSize(cleanTurkish(interpretation), pageWidth - 30);
+                doc.text(splitInterpretation, 15, yPos);
+                yPos += splitInterpretation.length * 5 + 10;
+
+                // Uyarı
+                if (yPos > pageHeight - 40) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+
+                doc.setFillColor(255, 243, 205);
+                doc.roundedRect(15, yPos, pageWidth - 30, 35, 3, 3, 'F');
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(133, 100, 4);
+                doc.text('ONEMLI UYARI', 20, yPos + 8);
+                doc.setFont('helvetica', 'normal');
+                const warningText = 'Bu analizin yorumlanmasi icin mutlaka profesyonel bir destek ve danismanlik aliniz. Bu rapor uzerinden yaptiginiz bireysel cikarimlar sizi hatali degerlendirmelere sevk edebilir.';
+                const splitWarning = doc.splitTextToSize(warningText, pageWidth - 40);
+                doc.text(splitWarning, 20, yPos + 15);
+
+                // Footer
+                doc.setTextColor(150, 150, 150);
+                doc.setFontSize(8);
+                doc.text('(c) 2025 Kariyer Gelisim Envanteri - AKCA PRO X ANALIZI', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+                // PDF'i kaydet
+                const fileName = `Kariyer_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                showMessage("PDF rapor başarıyla indirildi!", "success");
+
+            } catch (error) {
+                console.error('PDF oluşturma hatası:', error);
+                showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
+            }
+        }
+
+        async function downloadDetailedPDFReport() {
+            if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) {
+                showMessage("PDF kütüphaneleri yüklenemedi, lütfen sayfayı yenileyin.", "error");
+                return;
+            }
+
+            showMessage("Detaylı PDF hazırlanıyor, bu biraz zaman alabilir...", "info");
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4',
+                    putOnlyUsedFonts: true,
+                    compress: true
+                });
+                
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+                let yPos = 20;
+
+                // Türkçe karakter desteği için encoding ayarla
+                doc.setCharSpace(0);
+
+                // Başlık
+                doc.setFillColor(102, 126, 234);
+                doc.rect(0, 0, pageWidth, 45, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(22);
+                doc.setFont('helvetica', 'bold');
+                doc.text('AKCA PRO X ANALIZI', pageWidth / 2, 18, { align: 'center' });
+                doc.setFontSize(16);
+                doc.text('Detayli Kariyer Yetkinlik Analizi', pageWidth / 2, 28, { align: 'center' });
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                const reportDate = new Date().toLocaleDateString('tr-TR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                doc.text('Rapor Tarihi: ' + cleanTurkish(reportDate), pageWidth / 2, 38, { align: 'center' });
+
+                yPos = 55;
+
+                // Katılımcı Bilgileri
+                doc.setTextColor(0, 0, 0);
+                doc.setFillColor(248, 249, 250);
+                doc.roundedRect(15, yPos, pageWidth - 30, 35, 3, 3, 'F');
+                yPos += 8;
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KATILIMCI BILGILERI', 20, yPos);
+                yPos += 7;
+
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text('Rumuz: ' + cleanTurkish(currentUser.nickname), 20, yPos);
+                yPos += 6;
+                doc.text('Mezuniyet: ' + cleanTurkish(currentUser.education_level), 20, yPos);
+                yPos += 6;
+                doc.text('Bolum: ' + cleanTurkish(currentUser.department), 20, yPos);
+                yPos += 6;
+                doc.text('Pozisyon: ' + cleanTurkish(currentUser.current_position), 20, yPos);
+                yPos += 12;
+
+                // Genel Skor
+                const overallScore = document.getElementById('reportOverallScore').textContent;
+                doc.setFillColor(102, 126, 234);
+                doc.roundedRect(15, yPos, pageWidth - 30, 25, 3, 3, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text('GENEL SKOR: ' + overallScore, pageWidth / 2, yPos + 16, { align: 'center' });
+                yPos += 35;
+
+                // Grafikleri ekle
+                doc.addPage();
+                yPos = 20;
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('GRAFIK ANALIZLER', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+
+                // Grafikleri canvas'tan al ve PDF'e ekle
+                const charts = ['radarChart', 'pieChart', 'barChart', 'scatterChart'];
+                const chartTitles = ['Radar Analizi', 'Pasta Grafigi', 'Cubuk Grafigi', 'Nokta Grafigi'];
+                
+                for (let i = 0; i < charts.length; i++) {
+                    const canvas = document.getElementById(charts[i]);
+                    if (canvas) {
+                        const imgData = canvas.toDataURL('image/png');
+                        const imgWidth = 80;
+                        const imgHeight = 80;
+                        const xPos = (i % 2 === 0) ? 15 : pageWidth / 2 + 5;
+                        const currentYPos = yPos + Math.floor(i / 2) * 90;
+
+                        if (currentYPos + imgHeight > pageHeight - 20) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+
+                        doc.setFontSize(11);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(chartTitles[i], xPos + imgWidth / 2, currentYPos, { align: 'center' });
+                        doc.addImage(imgData, 'PNG', xPos, currentYPos + 5, imgWidth, imgHeight);
+                    }
+                }
+
+                // Kategori analizleri
+                doc.addPage();
+                yPos = 20;
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KATEGORI ANALIZLERI', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+
+                window.categoryScoresGlobal.forEach((category, index) => {
+                    if (yPos > pageHeight - 60) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+
+                    // Kategori başlığı
+                    doc.setFillColor(240, 244, 255);
+                    doc.roundedRect(15, yPos, pageWidth - 30, 10, 2, 2, 'F');
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(102, 126, 234);
+                    doc.text(cleanTurkish(category.name), 20, yPos + 7);
+                    
+                    // Skor badge
+                    const scoreText = Math.round(category.percentage) + '%';
+                    doc.text(scoreText, pageWidth - 20, yPos + 7, { align: 'right' });
+                    yPos += 15;
+
+                    // Analiz metni
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(9);
+                    doc.setFont('helvetica', 'normal');
+                    const analysis = getCategoryAnalysis(category.name, category.percentage);
+                    
+                    // HTML etiketlerini temizle ve Türkçe karakterleri dönüştür
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = analysis;
+                    const cleanText = cleanTurkish(tempDiv.textContent || tempDiv.innerText || '');
+                    
+                    const lines = doc.splitTextToSize(cleanText, pageWidth - 40);
+                    lines.forEach((line, lineIndex) => {
+                        if (yPos > pageHeight - 15) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                        doc.text(line, 20, yPos);
+                        yPos += 5;
+                    });
+                    yPos += 8;
+                });
+
+                // Uyarı sayfası
+                doc.addPage();
+                yPos = 40;
+                doc.setFillColor(255, 243, 205);
+                doc.roundedRect(15, yPos, pageWidth - 30, 60, 5, 5, 'F');
+                
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(220, 53, 69);
+                doc.text('ONEMLI UYARI', pageWidth / 2, yPos + 12, { align: 'center' });
+                
+                yPos += 22;
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(133, 100, 4);
+                const warningTitle = 'Bu analizin yorumlanmasi icin mutlaka profesyonel bir destek ve danismanlik aliniz.';
+                const splitTitle = doc.splitTextToSize(warningTitle, pageWidth - 50);
+                doc.text(splitTitle, pageWidth / 2, yPos, { align: 'center' });
+                
+                yPos += splitTitle.length * 5 + 5;
+                doc.setFont('helvetica', 'normal');
+                const warningText = 'Bu rapor uzerinden yaptiginiz bireysel cikarimlar sizi hatali degerlendirmelere sevk edebilir. Sonuclar genel bir degerlendirme niteligindedir ve profesyonel kariyer danismanliginin yerini tutmaz.';
+                const splitWarning = doc.splitTextToSize(warningText, pageWidth - 50);
+                doc.text(splitWarning, pageWidth / 2, yPos, { align: 'center' });
+
+                // Footer - tüm sayfalara
+                const totalPages = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    doc.setPage(i);
+                    doc.setTextColor(150, 150, 150);
+                    doc.setFontSize(8);
+                    doc.text('Sayfa ' + i + ' / ' + totalPages, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                    doc.text('(c) 2025 Kariyer Gelisim Envanteri - AKCA PRO X ANALIZI', pageWidth / 2, pageHeight - 5, { align: 'center' });
+                }
+
+                // PDF'i kaydet
+                const fileName = `Detayli_Kariyer_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                showMessage("Detaylı PDF rapor başarıyla indirildi!", "success");
+
+            } catch (error) {
+                console.error('Detaylı PDF oluşturma hatası:', error);
+                showMessage("PDF oluşturulurken hata oluştu: " + error.message, "error");
+            }
+        }
+
+        // Window resize event listener - grafikleri yeniden çiz
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                if (window.categoryScoresGlobal && window.categoryScoresGlobal.length > 0) {
+                    const reportContainer = document.getElementById('reportContainer');
+                    if (reportContainer.style.display === 'block') {
+                        drawCharts();
+                    }
+                }
+            }, 250);
+        });
+
+        // Sayfa yüklendiğinde login ekranını göster
+        showLogin();
+    </script>
+</body>
+</html>
