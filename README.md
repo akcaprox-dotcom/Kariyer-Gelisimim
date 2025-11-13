@@ -25,7 +25,7 @@ www.akcaprox.com
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 10px 20px;
             min-height: 100vh;
@@ -66,7 +66,7 @@ www.akcaprox.com
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            max-width: 550px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -328,7 +328,7 @@ www.akcaprox.com
             display: none;
             background: white;
             border-radius: 20px;
-            padding: 20px 30px;
+            padding: 20px 35px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
@@ -637,7 +637,7 @@ www.akcaprox.com
         .pdf-container {
             background: white;
             padding: 40px;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -1310,7 +1310,7 @@ www.akcaprox.com
     <h1>📊 Geçmiş Raporlarım</h1>
     <p style="text-align: center; color: #666; margin-bottom: 30px;">Test geçmişinizi görüntüleyin ve raporlarınızı karşılaştırın</p>
     
-    <div id="reportsHistory" style="max-width: 900px; margin: 0 auto;"></div>
+    <div id="reportsHistory" style="max-width: 1000px; margin: 0 auto;"></div>
     
     <div style="margin-top: 30px;">
         <button class="btn btn-secondary" onclick="backToWelcomeFromReports()">← Ana Menüye Dön</button>
@@ -5312,7 +5312,7 @@ www.akcaprox.com
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(16);
                 doc.setFont('helvetica', 'bold');
-                doc.text('GENEL SKOR: ' + overallScore, pageWidth / 2, yPos + 12, { align: 'center' });
+                doc.text(cleanTurkish('GENEL SKOR: ') + overallScore, pageWidth / 2, yPos + 12, { align: 'center' });
                 yPos += 30;
 
                 // Açıklama metni
@@ -5509,7 +5509,7 @@ www.akcaprox.com
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(20);
                 doc.setFont('helvetica', 'bold');
-                doc.text('GENEL SKOR: ' + overallScore, pageWidth / 2, yPos + 16, { align: 'center' });
+                doc.text(cleanTurkish('GENEL SKOR: ') + overallScore, pageWidth / 2, yPos + 16, { align: 'center' });
                 yPos += 35;
 
                 // Açıklama metni
@@ -5641,7 +5641,7 @@ www.akcaprox.com
 
                     const pieShare = Math.round((category.score / totalScore) * 100);
                     const categoryText = `${index + 1}. ${cleanTurkish(category.name)}`;
-                    const scoreInfo = `Pasta Payi: ${pieShare}% | Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`;
+                    const scoreInfo = cleanTurkish(`Pasta Payi: ${pieShare}% | Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`);
                     
                     doc.setFont('helvetica', 'bold');
                     doc.text(categoryText, 15, yPos);
@@ -5675,7 +5675,7 @@ www.akcaprox.com
                     }
 
                     const categoryText = `${index + 1}. ${cleanTurkish(category.name)}`;
-                    const scoreInfo = `Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`;
+                    const scoreInfo = cleanTurkish(`Skor: ${category.score}/40 (${Math.round(category.percentage)}%)`);
                     
                     doc.setFont('helvetica', 'bold');
                     doc.text(categoryText, 15, yPos);
