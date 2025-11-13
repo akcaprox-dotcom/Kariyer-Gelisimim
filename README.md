@@ -2645,8 +2645,10 @@ www.akcaprox.com
                 interpretation = 'Mükemmel! Kariyer gelişiminizde çok güçlü bir konumdasınız.';
             } else if (test.overall_score >= 70) {
                 interpretation = 'Çok iyi! Güçlü yönleriniz var, bazı alanlarda gelişim fırsatları mevcut.';
-            } else if (test.overall_score >= 55) {
-                interpretation = 'İyi seviyede! Odaklanılması gereken gelişim alanları belirgin.';
+            } else if (test.overall_score >= 60) {
+                interpretation = 'İyi seviyede! Belirli alanlarda odaklanarak daha da güçlenebilirsiniz.';
+            } else if (test.overall_score >= 45) {
+                interpretation = 'Orta seviyede. Gelişim için net yol haritası belirlenebilir.';
             } else {
                 interpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
             }
@@ -2758,8 +2760,10 @@ www.akcaprox.com
                 interpretation += 'kariyer gelişiminizde sürekli güçlü bir performans sergiliyorsunuz!';
             } else if (avgOverallScore >= 70) {
                 interpretation += 'genel olarak iyi bir performans gösteriyorsunuz. Bazı alanlarda tutarlı gelişim fırsatları var.';
-            } else if (avgOverallScore >= 55) {
-                interpretation += 'dengeli bir gelişim gösteriyorsunuz. Odaklanılması gereken alanlar belirgin.';
+            } else if (avgOverallScore >= 60) {
+                interpretation += 'dengeli bir gelişim gösteriyorsunuz. Belirli alanlarda odaklanarak daha da güçlenebilirsiniz.';
+            } else if (avgOverallScore >= 45) {
+                interpretation += 'orta seviyede bir performans gösteriyorsunuz. Gelişim için net yol haritası belirlenebilir.';
             } else {
                 interpretation += 'sürekli gelişim potansiyeliniz yüksek. Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
             }
@@ -4249,8 +4253,10 @@ www.akcaprox.com
                 interpretation = 'Mükemmel! Kariyer gelişiminizde çok güçlü bir konumdasınız.';
             } else if (overallPercentage >= 70) {
                 interpretation = 'Çok iyi! Güçlü yönleriniz var, bazı alanlarda gelişim fırsatları mevcut.';
-            } else if (overallPercentage >= 55) {
-                interpretation = 'İyi seviyede! Odaklanılması gereken gelişim alanları belirgin.';
+            } else if (overallPercentage >= 60) {
+                interpretation = 'İyi seviyede! Belirli alanlarda odaklanarak daha da güçlenebilirsiniz.';
+            } else if (overallPercentage >= 45) {
+                interpretation = 'Orta seviyede. Gelişim için net yol haritası belirlenebilir.';
             } else {
                 interpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
             }
@@ -4469,17 +4475,23 @@ www.akcaprox.com
                 ctx.closePath();
                 ctx.fill();
                 
-                // Numara etiketi - pasta dilimindeki kategori numarası
+                // Numara ve yüzde etiketi - pasta dilimindeki kategori numarası ve payı
                 const piePercentage = (category.score / total) * 100;
                 const labelAngle = currentAngle + sliceAngle / 2;
                 const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
                 const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
                 
                 ctx.fillStyle = 'white';
-                ctx.font = isMobile ? 'bold 14px Arial' : 'bold 18px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText((index + 1).toString(), labelX, labelY);
+                
+                // Numara (üstte)
+                ctx.font = isMobile ? 'bold 16px Arial' : 'bold 20px Arial';
+                ctx.fillText((index + 1).toString(), labelX, labelY - (isMobile ? 6 : 8));
+                
+                // Yüzde (altta)
+                ctx.font = isMobile ? 'bold 10px Arial' : 'bold 12px Arial';
+                ctx.fillText(Math.round(piePercentage) + '%', labelX, labelY + (isMobile ? 6 : 8));
                 
                 currentAngle += sliceAngle;
             });
@@ -5722,6 +5734,45 @@ www.akcaprox.com
                     });
                     yPos += 8;
                 });
+
+                // Genel Değerlendirme
+                if (yPos > pageHeight - 50) {
+                    doc.addPage();
+                    yPos = 20;
+                } else {
+                    yPos += 10;
+                }
+
+                doc.setFillColor(240, 244, 255);
+                doc.roundedRect(15, yPos, pageWidth - 30, 8, 2, 2, 'F');
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(102, 126, 234);
+                doc.text(cleanTurkish('GENEL DEĞERLENDİRME'), 20, yPos + 6);
+                yPos += 14;
+
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                
+                // Puana göre yorum oluştur
+                const currentScore = parseFloat(overallScore);
+                let generalInterpretation = '';
+                if (currentScore >= 85) {
+                    generalInterpretation = 'Mükemmel! Kariyer gelişiminizde çok güçlü bir konumdasınız.';
+                } else if (currentScore >= 70) {
+                    generalInterpretation = 'Çok iyi! Güçlü yönleriniz var, bazı alanlarda gelişim fırsatları mevcut.';
+                } else if (currentScore >= 60) {
+                    generalInterpretation = 'İyi seviyede! Belirli alanlarda odaklanarak daha da güçlenebilirsiniz.';
+                } else if (currentScore >= 45) {
+                    generalInterpretation = 'Orta seviyede. Gelişim için net yol haritası belirlenebilir.';
+                } else {
+                    generalInterpretation = 'Gelişim potansiyeli yüksek! Sistematik çalışmayla büyük ilerleme kaydedebilirsiniz.';
+                }
+                
+                const splitGeneral = doc.splitTextToSize(cleanTurkish(generalInterpretation), pageWidth - 40);
+                doc.text(splitGeneral, 20, yPos);
+                yPos += splitGeneral.length * 6 + 10;
 
                 // Uyarı sayfası
                 doc.addPage();
