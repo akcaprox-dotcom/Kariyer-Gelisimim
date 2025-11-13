@@ -1242,7 +1242,7 @@ www.akcaprox.com
      <div class="password-info">
       <p><strong>Önemli:</strong> Kayıt işleminiz tamamlandıktan sonra sistem otomatik olarak 6 basamaklı bir şifre oluşturacaktır.</p>
       <p>Bu şifreyi almak için aşağıdaki bağlantıdan yöneticiye ulaşın:</p><a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-ak%C3%A7a-46997593/" target="_blank" class="linkedin-link">Şifre almak için tıklayın</a>
-     </div><button type="submit" class="btn" id="registerBtn"> <span class="btn-text">Kayıt Ol</span> <span class="loading hidden"></span> </button> <button type="button" class="btn btn-secondary" onclick="showLogin()">Giriş Ekranına Dön</button>
+     </div><button type="submit" class="btn" id="submitRegisterBtn"> <span class="btn-text">Kayıt Ol</span> <span class="loading hidden"></span> </button> <button type="button" class="btn btn-secondary" onclick="showLogin()">Giriş Ekranına Dön</button>
     </form>
    </div><!-- Admin Login Screen -->
    <div class="admin-panel hidden" id="adminLoginScreen">
@@ -1783,16 +1783,9 @@ www.akcaprox.com
                     return firebaseAuthUser;
                 }
 
-                // Anonim giriş yap
-                console.log('🔐 Firebase Auth - Anonim giriş yapılıyor...');
-                const userCredential = await auth.signInAnonymously();
-                firebaseAuthUser = userCredential.user;
-                console.log('✅ Firebase Auth - Anonim giriş başarılı! UID:', firebaseAuthUser.uid);
-                
-                // Anonim giriş bildirimini göster
-                showAuthStatus('Anonim Kullanıcı (UID: ' + firebaseAuthUser.uid.substring(0, 8) + '...)', 'Anonim');
-                
-                return firebaseAuthUser;
+                // Anonim giriş yapmıyoruz - sadece database erişimi için gerekli değil
+                console.log('⚠️ Firebase Auth - Kullanıcı giriş yapmamış, database sadece okuma modunda.');
+                return null;
             } catch (error) {
                 console.error('❌ Firebase Auth hatası:', error);
                 throw error;
@@ -1998,7 +1991,11 @@ www.akcaprox.com
                 return;
             }
 
-            const btn = document.getElementById('registerBtn');
+            const btn = document.getElementById('submitRegisterBtn');
+            if (!btn) {
+                showMessage("Kayıt butonu bulunamadı!", "error");
+                return;
+            }
             const btnText = btn.querySelector('.btn-text');
             const loading = btn.querySelector('.loading');
             
