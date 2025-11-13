@@ -1148,7 +1148,8 @@ www.akcaprox.com
     </svg>
    </div><!-- Login Screen -->
    <div class="login-screen" id="loginScreen">
-    <h1 id="loginTitle">Üye Girişi</h1>
+    <h1 id="loginTitle">Kariyer Gelişim Performansı ve İlerleme Paneli</h1>
+    <p style="text-align: center; color: #666; font-size: 0.95rem; margin-top: -10px; margin-bottom: 25px;">Üye Girişi</p>
     
     <!-- Firebase Auth Status Box -->
     <div id="firebaseAuthStatus" class="firebase-auth-status hidden">
@@ -1219,12 +1220,15 @@ www.akcaprox.com
     <h1>🔐 Admin Girişi</h1>
     
     <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border: 2px solid #ff4757; border-radius: 10px; padding: 15px; margin-bottom: 20px; color: white; box-shadow: 0 4px 15px rgba(255, 75, 87, 0.3);">
-        <h3 style="margin: 0 0 10px 0; font-size: 16px;">⚠️ GÜVENLİK UYARISI</h3>
+        <h3 style="margin: 0 0 10px 0; font-size: 16px;">⚠️ SÜPER ADMIN GÜVENLİK UYARISI</h3>
         <p style="margin: 5px 0; font-size: 14px; line-height: 1.5;">
-            Admin paneline erişim için <strong>Google ile kimlik doğrulama yapmanız zorunludur</strong>.
+            Admin paneline <strong>sadece "analizprox@gmail.com" hesabı</strong> erişebilir.
         </p>
         <p style="margin: 5px 0; font-size: 13px; opacity: 0.9;">
-            🔒 Bu güvenlik önlemi, yetkisiz erişimleri engeller ve tüm admin işlemlerini kayıt altına alır.
+            🔒 Google ile kimlik doğrulaması yapmanız zorunludur.
+        </p>
+        <p style="margin: 5px 0; font-size: 13px; opacity: 0.9;">
+            ⚡ Yetkisiz giriş denemeleri otomatik olarak kaydedilir ve engellenir.
         </p>
     </div>
 
@@ -1234,7 +1238,7 @@ www.akcaprox.com
             ✅ Google Kimlik Doğrulaması Başarılı
         </h3>
         <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 6px; margin-top: 10px;">
-            <strong>Admin:</strong> <span id="adminGoogleEmail"></span>
+            <strong>Süper Admin:</strong> <span id="adminGoogleEmail"></span>
         </div>
         <p style="margin: 10px 0 0 0; font-size: 13px; opacity: 0.9;">
             Şimdi admin şifrenizi girerek panele erişebilirsiniz.
@@ -1257,7 +1261,7 @@ www.akcaprox.com
     </form>
    </div><!-- Admin Panel -->
    <div class="admin-panel hidden" id="adminPanel">
-    <h1>Süper Admin Paneli</h1><button class="btn btn-secondary" onclick="hideAdmin()" style="float: right;">Kapat</button>
+    <h1>Kariyer Gelişim Performansı ve İlerleme Paneli</h1><button class="btn btn-secondary" onclick="hideAdmin()" style="float: right;">Kapat</button>
     <div id="adminContent">
      <div class="loading"></div>
      <p>Veriler yükleniyor...</p>
@@ -1388,6 +1392,8 @@ www.akcaprox.com
         let currentCategoryIndex = 0;
         let currentQuestionInCategory = 0;
         let firebaseAuthUser = null; // Firebase Authentication kullanıcısı
+        window.googleUser = null; // Google ile giriş yapan kullanıcı (global)
+        const SUPER_ADMIN_EMAIL = "analizprox@gmail.com"; // Süper admin email
 
         // Google ile Giriş
         async function signInWithGoogle() {
@@ -1400,6 +1406,7 @@ www.akcaprox.com
                 
                 const result = await auth.signInWithPopup(provider);
                 firebaseAuthUser = result.user;
+                window.googleUser = result.user; // Global olarak sakla
                 
                 console.log('✅ Google girişi başarılı!');
                 console.log('Kullanıcı:', firebaseAuthUser.displayName);
@@ -1461,11 +1468,6 @@ www.akcaprox.com
             
             statusBox.classList.remove('hidden');
             statusBox.classList.add('rainbow-border');
-            
-            // 8 saniye sonra otomatik kapat
-            setTimeout(() => {
-                statusBox.classList.add('hidden');
-            }, 8000);
         }
 
         // Auth Status'u kapat
@@ -1582,7 +1584,8 @@ www.akcaprox.com
                     const snapshot = await database.ref('users').once('value');
                     const usersObj = snapshot.val() || {};
                     const users = Object.values(usersObj);
-                    return users.find(u => u.nickname === nickname && u.phone === phone);
+                    // Büyük/küçük harf duyarsız rumuz karşılaştırması
+                    return users.find(u => u.nickname.toLowerCase() === nickname.toLowerCase() && (!phone || u.phone === phone));
                 } catch (error) {
                     console.error('Kullanıcı araması başarısız:', error);
                     return null;
@@ -1856,7 +1859,8 @@ www.akcaprox.com
                 
                 const user = allUsers.find(u => {
                     console.log('Kontrol ediliyor:', u.nickname, '===', nickname);
-                    return u.nickname === nickname && u.password === password;
+                    // Büyük/küçük harf duyarsız rumuz karşılaştırması
+                    return u.nickname.toLowerCase() === nickname.toLowerCase() && u.password === password;
                 });
                 
                 btnText.classList.remove('hidden');
@@ -1920,10 +1924,31 @@ www.akcaprox.com
                 
                 const result = await auth.signInWithPopup(provider);
                 firebaseAuthUser = result.user;
+                window.googleUser = result.user; // Global olarak sakla
                 
                 console.log('✅ Admin Google girişi başarılı!');
                 console.log('Admin:', firebaseAuthUser.displayName);
                 console.log('Email:', firebaseAuthUser.email);
+                
+                // SÜPER ADMIN KONTROLÜ
+                if (firebaseAuthUser.email !== SUPER_ADMIN_EMAIL) {
+                    console.warn('⚠️ Yetkisiz admin girişi denemesi:', firebaseAuthUser.email);
+                    
+                    // Oturumu kapat
+                    await auth.signOut();
+                    firebaseAuthUser = null;
+                    window.googleUser = null;
+                    
+                    showMessage(`❌ Admin paneline erişim yetkiniz yok!\n\nSadece "${SUPER_ADMIN_EMAIL}" hesabı admin paneline erişebilir.`, 'error');
+                    
+                    // Analytics - Yetkisiz giriş denemesi
+                    firebase.analytics().logEvent('unauthorized_admin_attempt', {
+                        attempted_email: result.user.email,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    return;
+                }
                 
                 // Admin bilgilerini göster
                 document.getElementById('adminGoogleAuthStatus').style.display = 'block';
@@ -1931,7 +1956,7 @@ www.akcaprox.com
                 document.getElementById('adminGoogleBtn').style.display = 'none';
                 document.getElementById('adminLoginForm').style.display = 'block';
                 
-                showMessage(`Merhaba ${firebaseAuthUser.displayName}! Şimdi admin şifrenizi girin.`, 'success');
+                showMessage(`✅ Merhaba ${firebaseAuthUser.displayName}! Şimdi admin şifrenizi girin.`, 'success');
                 
                 // Analytics
                 firebase.analytics().logEvent('admin_google_login', {
@@ -1958,6 +1983,24 @@ www.akcaprox.com
             // Google authentication kontrolü
             if (!firebaseAuthUser || !firebaseAuthUser.email) {
                 showMessage("⚠️ Önce Google ile kimlik doğrulaması yapmalısınız!", "error");
+                return;
+            }
+            
+            // SÜPER ADMIN EMAIL KONTROLÜ (Ekstra güvenlik katmanı)
+            if (firebaseAuthUser.email !== SUPER_ADMIN_EMAIL) {
+                showMessage(`❌ Yetkisiz erişim!\n\nSadece "${SUPER_ADMIN_EMAIL}" hesabı admin paneline erişebilir.`, "error");
+                
+                // Analytics - Yetkisiz giriş denemesi
+                firebase.analytics().logEvent('unauthorized_admin_password_attempt', {
+                    email: firebaseAuthUser.email,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Güvenlik için oturumu kapat
+                auth.signOut();
+                firebaseAuthUser = null;
+                window.googleUser = null;
+                hideAdminLogin();
                 return;
             }
             
@@ -4555,14 +4598,14 @@ www.akcaprox.com
                 doc.setTextColor(133, 100, 4);
                 doc.text('ONEMLI UYARI', 20, yPos + 8);
                 doc.setFont('helvetica', 'normal');
-                const warningText = 'Bu analizin yorumlanmasi icin mutlaka profesyonel bir destek ve danismanlik aliniz. Bu rapor uzerinden yaptiginiz bireysel cikarimlar sizi hatali degerlendirmelere sevk edebilir.';
+                const warningText = 'Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.';
                 const splitWarning = doc.splitTextToSize(warningText, pageWidth - 40);
                 doc.text(splitWarning, 20, yPos + 15);
 
                 // Footer
                 doc.setTextColor(150, 150, 150);
                 doc.setFontSize(8);
-                doc.text('(c) 2025 Kariyer Gelisim Envanteri - AKCA PRO X ANALIZI', pageWidth / 2, pageHeight - 10, { align: 'center' });
+                doc.text('(c) 2025 Kariyer Gelişim Envanteri - AKCA PRO X ANALİZİ', pageWidth / 2, pageHeight - 10, { align: 'center' });
 
                 // PDF'i kaydet
                 const fileName = `Kariyer_Raporu_${cleanTurkish(currentUser.nickname)}_${new Date().toISOString().split('T')[0]}.pdf`;
@@ -4753,13 +4796,13 @@ www.akcaprox.com
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(133, 100, 4);
-                const warningTitle = 'Bu analizin yorumlanmasi icin mutlaka profesyonel bir destek ve danismanlik aliniz.';
+                const warningTitle = 'Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız.';
                 const splitTitle = doc.splitTextToSize(warningTitle, pageWidth - 50);
                 doc.text(splitTitle, pageWidth / 2, yPos, { align: 'center' });
                 
                 yPos += splitTitle.length * 5 + 5;
                 doc.setFont('helvetica', 'normal');
-                const warningText = 'Bu rapor uzerinden yaptiginiz bireysel cikarimlar sizi hatali degerlendirmelere sevk edebilir. Sonuclar genel bir degerlendirme niteligindedir ve profesyonel kariyer danismanliginin yerini tutmaz.';
+                const warningText = 'Bu rapor üzerinden yaptığınız bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir. Sonuçlar genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.';
                 const splitWarning = doc.splitTextToSize(warningText, pageWidth - 50);
                 doc.text(splitWarning, pageWidth / 2, yPos, { align: 'center' });
 
