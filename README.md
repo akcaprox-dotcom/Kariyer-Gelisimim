@@ -2636,6 +2636,7 @@ www.akcaprox.com
             const resultsActions = document.getElementById('resultsActions');
             if (resultsActions) {
                 resultsActions.innerHTML = `
+                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn" onclick="downloadHistoricalPDF(${index})">📄 PDF Rapor İndir</button>
                     <button class="btn btn-secondary" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
@@ -2748,6 +2749,7 @@ www.akcaprox.com
             const resultsActions = document.getElementById('resultsActions');
             if (resultsActions) {
                 resultsActions.innerHTML = `
+                    <button class="btn" onclick="showDetailedReport()">Detaylı Raporu Görüntüle</button>
                     <button class="btn" onclick="viewProgressChart()">📉 İlerleme Grafiği</button>
                     <button class="btn btn-secondary" onclick="showMyReports()">← Raporlara Dön</button>
                     <button class="btn btn-secondary" onclick="backToWelcome()">Ana Menüye Dön</button>
