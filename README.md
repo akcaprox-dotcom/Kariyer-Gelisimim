@@ -750,20 +750,25 @@ www.akcaprox.com
         @media (max-width: 768px) {
             body {
                 font-size: 14px;
+                padding: 0;
             }
 
             .container {
-                padding: 10px;
+                padding: 5px;
+                margin: 0;
             }
             
             .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
-                padding: 20px;
-                border-radius: 15px;
+                padding: 15px;
+                border-radius: 12px;
+                margin: 5px;
+                width: calc(100% - 10px);
             }
 
             .chart-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
+                padding: 10px 0;
             }
             
             .login-screen h1, .register-screen h1, .welcome-screen h1 {
@@ -807,14 +812,25 @@ www.akcaprox.com
             }
 
             .admin-table {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 overflow-x: auto;
                 display: block;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
             }
 
             .admin-table th, .admin-table td {
-                padding: 6px;
+                padding: 8px 4px;
                 white-space: nowrap;
+                font-size: 11px;
+                min-width: 80px;
+            }
+            
+            .admin-table thead {
+                position: sticky;
+                top: 0;
+                background: white;
+                z-index: 10;
             }
 
             .results-title {
@@ -875,6 +891,7 @@ www.akcaprox.com
 
             .chart-canvas {
                 height: 250px;
+                max-width: 100%;
             }
 
             .admin-gear {
@@ -883,17 +900,29 @@ www.akcaprox.com
                 width: 18px;
                 height: 18px;
             }
+            
+            .pdf-info {
+                grid-template-columns: 1fr !important;
+                gap: 10px;
+            }
+            
+            .pdf-chart-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         /* Çok küçük ekranlar için ekstra optimizasyon */
         @media (max-width: 480px) {
             .container {
-                padding: 5px;
+                padding: 3px;
+                max-width: 100%;
             }
 
             .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
-                padding: 15px;
-                border-radius: 12px;
+                padding: 12px;
+                border-radius: 10px;
+                margin: 3px;
+                width: calc(100% - 6px);
             }
 
             .login-screen h1, .register-screen h1, .welcome-screen h1 {
@@ -941,10 +970,44 @@ www.akcaprox.com
 
             .chart-canvas {
                 height: 200px;
+                max-width: 100%;
             }
 
             .form-group {
-                margin-bottom: 15px;
+                margin-bottom: 12px;
+            }
+            
+            .form-group input,
+            .form-group select {
+                font-size: 16px !important;
+                min-height: 44px;
+            }
+            
+            .pdf-info {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .pdf-chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            #disclaimerModal > div {
+                margin: 10px;
+                padding: 20px;
+                max-width: calc(100% - 20px);
+            }
+            
+            #disclaimerModal h2 {
+                font-size: 1.2rem;
+            }
+            
+            #disclaimerModal h3 {
+                font-size: 1rem;
+            }
+            
+            #disclaimerModal p {
+                font-size: 0.9rem;
             }
         }
 
@@ -965,21 +1028,31 @@ www.akcaprox.com
             .option {
                 min-height: 60px;
                 touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
             }
 
             .btn, .nav-btn {
-                min-height: 44px;
+                min-height: 48px;
                 touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                font-size: 16px;
             }
 
             .form-group input, .form-group select {
-                min-height: 44px;
+                min-height: 48px;
+                font-size: 16px;
             }
 
             .admin-gear {
-                width: 30px;
-                height: 30px;
-                padding: 8px;
+                width: 35px;
+                height: 35px;
+                padding: 10px;
+                top: 5px;
+                left: 5px;
+            }
+            
+            a, button, input, select, textarea {
+                -webkit-tap-highlight-color: transparent;
             }
         }
     </style>
@@ -1144,11 +1217,33 @@ www.akcaprox.com
     /* Mobile responsive */
     @media (max-width: 768px) {
         .firebase-auth-status {
-            top: 10px;
-            right: 10px;
-            left: 10px;
+            top: 5px;
+            right: 5px;
+            left: 5px;
             min-width: auto;
-            padding: 15px;
+            max-width: calc(100% - 10px);
+            padding: 12px;
+            font-size: 13px;
+        }
+        
+        .firebase-auth-status h3 {
+            font-size: 14px;
+        }
+        
+        .firebase-auth-status .email {
+            font-size: 12px;
+            word-break: break-all;
+            padding: 6px 8px;
+        }
+        
+        .google-auth-btn {
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+        
+        .google-auth-btn svg {
+            width: 20px;
+            height: 20px;
         }
     }
   </style>
@@ -1327,6 +1422,59 @@ www.akcaprox.com
     <button class="btn btn-secondary" onclick="logout()">Çıkış Yap</button>
    </div>
    
+   <!-- Sorumluluk Reddi Modal -->
+   <div id="disclaimerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; overflow-y: auto;">
+    <div style="max-width: 800px; margin: 30px auto; background: white; border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 10px 50px rgba(0,0,0,0.3);">
+        <button class="disclaimer-close-btn" onclick="closeDisclaimerModal()" style="position: absolute; top: 15px; right: 15px; background: #f44336; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center;">×</button>
+        
+        <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">⚖️ Sorumluluk Reddi ve Gizlilik Beyanı</h2>
+        
+        <div style="max-height: 60vh; overflow-y: auto; padding: 20px; background: #f9f9f9; border-radius: 10px; margin-bottom: 20px;">
+            <h3 style="color: #333; margin-top: 0;">1. Genel Bilgilendirme</h3>
+            <p style="line-height: 1.6;">Bu Kariyer Gelişim Envanteri, kişisel değerlendirme ve gelişim amaçlı bir araçtır. Test sonuçları genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.</p>
+            
+            <h3 style="color: #333;">2. Profesyonel Danışmanlık Gereksinimi</h3>
+            <p style="line-height: 1.6;"><strong>ÖNEMLİ:</strong> Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.</p>
+            
+            <h3 style="color: #333;">3. Gizlilik ve Veri Güvenliği</h3>
+            <p style="line-height: 1.6;">Verileriniz Firebase Realtime Database'de güvenli bir şekilde saklanmaktadır. Kişisel bilgileriniz hiçbir şekilde üçüncü şahıslarla paylaşılmayacaktır. Rumuz sistemi, gizliliğinizi korumak için tasarlanmıştır - lütfen gerçek isim-soyisim kullanmayınız.</p>
+            
+            <h3 style="color: #333;">4. Google Authentication</h3>
+            <p style="line-height: 1.6;">Güvenlik nedeniyle sisteme giriş için Google kimlik doğrulaması zorunludur. Google hesabınız sadece kimlik doğrulama için kullanılır ve email adresiniz kayıt işlemi sırasında kaydedilir.</p>
+            
+            <h3 style="color: #333;">5. Test Sonuçları</h3>
+            <p style="line-height: 1.6;">Test sonuçları, belirli bir zamandaki durumunuzu yansıtır ve zaman içinde değişebilir. Sonuçlar, kariyer kararlarınızda tek başına belirleyici olmamalıdır.</p>
+            
+            <h3 style="color: #333;">6. Sorumluluk Reddi</h3>
+            <p style="line-height: 1.6;">Bu envanter sonuçlarına dayanarak alınan kararlardan ve bunların sonuçlarından platform geliştiricisi sorumlu değildir. Tüm kararlarınızı profesyonel danışmanlık eşliğinde almanızı tavsiye ederiz.</p>
+            
+            <h3 style="color: #333;">7. Veri Saklama</h3>
+            <p style="line-height: 1.6;">Test geçmişiniz ve sonuçlarınız Firebase'de güvenli bir şekilde saklanır. Hesabınızı silmek isterseniz, sistem yöneticisi ile iletişime geçebilirsiniz.</p>
+        </div>
+        
+        <div id="disclaimerActions" style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+            <label style="display: flex; align-items: center; gap: 10px; font-size: 16px; cursor: pointer;">
+                <input type="checkbox" id="disclaimerAccept" style="width: 20px; height: 20px; cursor: pointer;">
+                <span>Yukarıdaki metni okudum, anladım ve kabul ediyorum.</span>
+            </label>
+            
+            <button id="acceptDisclaimerBtn" onclick="acceptDisclaimer()" disabled style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 15px 40px;
+                font-size: 16px;
+                border-radius: 30px;
+                cursor: not-allowed;
+                opacity: 0.5;
+                transition: all 0.3s;
+            ">
+                ✅ Kabul Ediyorum ve Devam Et
+            </button>
+        </div>
+    </div>
+   </div>
+
    <!-- My Reports Screen -->
    <div class="welcome-screen hidden" id="myReportsScreen">
     <h1>📊 Geçmiş Raporlarım</h1>
@@ -6389,9 +6537,8 @@ www.akcaprox.com
         // Sayfa yüklendiğinde login ekranını göster
         showLogin();
     </script>
-    
-    <!-- Sorumluluk Reddi Modal -->
-    <div id="disclaimerModal" style="
+</body>
+</html>
         display: none;
         position: fixed;
         top: 0;
