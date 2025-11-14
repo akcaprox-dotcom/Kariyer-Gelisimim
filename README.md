@@ -749,265 +749,255 @@ www.akcaprox.com
 
         @media (max-width: 768px) {
             body {
-                font-size: 14px;
-                padding: 0;
+                font-size: 16px;
             }
 
             .container {
-                padding: 5px;
-                margin: 0;
+                padding: 15px;
+                max-width: 100%;
             }
             
             .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
-                padding: 15px;
-                border-radius: 12px;
-                margin: 5px;
-                width: calc(100% - 10px);
+                padding: 25px 20px;
+                border-radius: 15px;
+                margin: 10px 0;
             }
 
             .chart-container {
                 grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 10px 0;
+                gap: 20px;
             }
             
             .login-screen h1, .register-screen h1, .welcome-screen h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+                line-height: 1.3;
             }
 
             .admin-panel h1 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
             .question-text {
-                font-size: 1rem;
-                line-height: 1.4;
+                font-size: 1.15rem;
+                line-height: 1.5;
             }
             
             .option {
-                padding: 12px;
+                padding: 16px;
+                min-height: 60px;
             }
 
             .option-label {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             .option-text {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .navigation-buttons {
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
             }
             
             .nav-btn, .btn {
                 width: 100%;
-                padding: 12px 20px;
-                font-size: 1rem;
+                padding: 16px 20px;
+                font-size: 1.1rem;
+                min-height: 50px;
             }
 
             .prev-btn, .next-btn {
-                padding: 10px 20px;
+                padding: 16px 20px;
+                font-size: 1.1rem;
             }
 
             .admin-table {
-                font-size: 0.7rem;
+                font-size: 0.85rem;
                 overflow-x: auto;
                 display: block;
-                width: 100%;
-                -webkit-overflow-scrolling: touch;
             }
 
             .admin-table th, .admin-table td {
-                padding: 8px 4px;
+                padding: 10px 8px;
                 white-space: nowrap;
-                font-size: 11px;
-                min-width: 80px;
-            }
-            
-            .admin-table thead {
-                position: sticky;
-                top: 0;
-                background: white;
-                z-index: 10;
             }
 
             .results-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+
+            .overall-score {
+                font-size: 3rem;
+            }
+
+            .score-interpretation {
+                font-size: 1.15rem;
+            }
+
+            .category-name {
+                font-size: 1.1rem;
+            }
+
+            .chart-title {
+                font-size: 1.15rem;
+            }
+
+            .analysis-title {
+                font-size: 1.7rem;
+            }
+
+            .category-analysis h4 {
+                font-size: 1.2rem;
+            }
+
+            .category-analysis p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            .form-group input, .form-group select {
+                padding: 14px;
+                font-size: 1rem;
+                min-height: 50px;
+            }
+
+            .question-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .question-counter, .category-badge {
+                font-size: 0.95rem;
+                padding: 8px 14px;
+            }
+
+            .disclaimer {
+                padding: 20px;
+            }
+
+            .disclaimer-title {
+                font-size: 1.1rem;
+            }
+
+            .chart-canvas {
+                height: 280px;
+            }
+
+            .admin-gear {
+                top: 10px;
+                left: 10px;
+                width: 24px;
+                height: 24px;
+            }
+            
+            .form-group label {
+                font-size: 1rem;
+            }
+            
+            .google-auth-btn {
+                padding: 16px 24px;
+                font-size: 1.1rem;
+                min-height: 54px;
+            }
+            
+            .firebase-auth-status {
+                right: 15px;
+                top: 15px;
+                min-width: 280px;
+                padding: 18px 22px;
+            }
+        }
+
+        /* Çok küçük ekranlar için ekstra optimizasyon */
+        @media (max-width: 480px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .container {
+                padding: 12px;
+            }
+
+            .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
+                padding: 20px 16px;
+                border-radius: 12px;
+            }
+
+            .login-screen h1, .register-screen h1, .welcome-screen h1 {
+                font-size: 1.75rem;
+                margin-bottom: 12px;
+                line-height: 1.3;
+            }
+
+            .question-text {
+                font-size: 1.05rem;
+                line-height: 1.5;
+            }
+
+            .option {
+                padding: 14px;
+                min-height: 56px;
+            }
+
+            .option-label {
+                font-size: 1.05rem;
+            }
+
+            .option-text {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 14px 16px;
+                font-size: 1.05rem;
+                margin: 8px 0;
+                min-height: 50px;
             }
 
             .overall-score {
                 font-size: 2.5rem;
             }
 
-            .score-interpretation {
-                font-size: 1rem;
-            }
-
-            .category-name {
-                font-size: 1rem;
-            }
-
-            .chart-title {
-                font-size: 1rem;
-            }
-
-            .analysis-title {
-                font-size: 1.5rem;
-            }
-
-            .category-analysis h4 {
-                font-size: 1.1rem;
-            }
-
-            .category-analysis p {
-                font-size: 0.9rem;
-            }
-
-            .form-group input, .form-group select {
-                padding: 10px;
-                font-size: 0.95rem;
-            }
-
-            .question-header {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
-
-            .question-counter, .category-badge {
-                font-size: 0.85rem;
-                padding: 6px 12px;
-            }
-
-            .disclaimer {
-                padding: 15px;
-            }
-
-            .disclaimer-title {
-                font-size: 1rem;
-            }
-
-            .chart-canvas {
-                height: 250px;
-                max-width: 100%;
-            }
-
-            .admin-gear {
-                top: 5px;
-                left: 5px;
-                width: 18px;
-                height: 18px;
-            }
-            
-            .pdf-info {
-                grid-template-columns: 1fr !important;
-                gap: 10px;
-            }
-            
-            .pdf-chart-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
-        /* Çok küçük ekranlar için ekstra optimizasyon */
-        @media (max-width: 480px) {
-            .container {
-                padding: 3px;
-                max-width: 100%;
-            }
-
-            .login-screen, .register-screen, .welcome-screen, .quiz-container, .results-container, .report-container, .admin-panel {
-                padding: 12px;
-                border-radius: 10px;
-                margin: 3px;
-                width: calc(100% - 6px);
-            }
-
-            .login-screen h1, .register-screen h1, .welcome-screen h1 {
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-
-            .question-text {
-                font-size: 0.95rem;
-            }
-
-            .option {
-                padding: 10px;
-            }
-
-            .option-label {
-                font-size: 0.9rem;
-            }
-
-            .option-text {
-                font-size: 0.85rem;
-            }
-
-            .btn {
-                padding: 10px 15px;
-                font-size: 0.95rem;
-                margin: 5px 0;
-            }
-
-            .overall-score {
-                font-size: 2rem;
-            }
-
             .results-title {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
             }
 
             .analysis-title {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
             .category-analysis {
-                padding: 15px;
+                padding: 18px;
             }
 
             .chart-canvas {
-                height: 200px;
-                max-width: 100%;
+                height: 240px;
             }
 
             .form-group {
-                margin-bottom: 12px;
+                margin-bottom: 16px;
             }
             
-            .form-group input,
-            .form-group select {
-                font-size: 16px !important;
-                min-height: 44px;
-            }
-            
-            .pdf-info {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .pdf-chart-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            #disclaimerModal > div {
-                margin: 10px;
-                padding: 20px;
-                max-width: calc(100% - 20px);
-            }
-            
-            #disclaimerModal h2 {
-                font-size: 1.2rem;
-            }
-            
-            #disclaimerModal h3 {
+            .form-group input, .form-group select {
+                padding: 14px;
                 font-size: 1rem;
+                min-height: 50px;
             }
             
-            #disclaimerModal p {
-                font-size: 0.9rem;
+            .google-auth-btn {
+                padding: 14px 20px;
+                font-size: 1.05rem;
+                min-height: 52px;
+            }
+            
+            .firebase-auth-status {
+                right: 10px;
+                top: 10px;
+                left: 10px;
+                min-width: auto;
+                padding: 16px 18px;
             }
         }
 
@@ -1028,31 +1018,21 @@ www.akcaprox.com
             .option {
                 min-height: 60px;
                 touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
             }
 
             .btn, .nav-btn {
-                min-height: 48px;
+                min-height: 44px;
                 touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
-                font-size: 16px;
             }
 
             .form-group input, .form-group select {
-                min-height: 48px;
-                font-size: 16px;
+                min-height: 44px;
             }
 
             .admin-gear {
-                width: 35px;
-                height: 35px;
-                padding: 10px;
-                top: 5px;
-                left: 5px;
-            }
-            
-            a, button, input, select, textarea {
-                -webkit-tap-highlight-color: transparent;
+                width: 30px;
+                height: 30px;
+                padding: 8px;
             }
         }
     </style>
@@ -1217,33 +1197,11 @@ www.akcaprox.com
     /* Mobile responsive */
     @media (max-width: 768px) {
         .firebase-auth-status {
-            top: 5px;
-            right: 5px;
-            left: 5px;
+            top: 10px;
+            right: 10px;
+            left: 10px;
             min-width: auto;
-            max-width: calc(100% - 10px);
-            padding: 12px;
-            font-size: 13px;
-        }
-        
-        .firebase-auth-status h3 {
-            font-size: 14px;
-        }
-        
-        .firebase-auth-status .email {
-            font-size: 12px;
-            word-break: break-all;
-            padding: 6px 8px;
-        }
-        
-        .google-auth-btn {
-            padding: 12px 16px;
-            font-size: 14px;
-        }
-        
-        .google-auth-btn svg {
-            width: 20px;
-            height: 20px;
+            padding: 15px;
         }
     }
   </style>
@@ -1422,59 +1380,6 @@ www.akcaprox.com
     <button class="btn btn-secondary" onclick="logout()">Çıkış Yap</button>
    </div>
    
-   <!-- Sorumluluk Reddi Modal -->
-   <div id="disclaimerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; overflow-y: auto;">
-    <div style="max-width: 800px; margin: 30px auto; background: white; border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 10px 50px rgba(0,0,0,0.3);">
-        <button class="disclaimer-close-btn" onclick="closeDisclaimerModal()" style="position: absolute; top: 15px; right: 15px; background: #f44336; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center;">×</button>
-        
-        <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">⚖️ Sorumluluk Reddi ve Gizlilik Beyanı</h2>
-        
-        <div style="max-height: 60vh; overflow-y: auto; padding: 20px; background: #f9f9f9; border-radius: 10px; margin-bottom: 20px;">
-            <h3 style="color: #333; margin-top: 0;">1. Genel Bilgilendirme</h3>
-            <p style="line-height: 1.6;">Bu Kariyer Gelişim Envanteri, kişisel değerlendirme ve gelişim amaçlı bir araçtır. Test sonuçları genel bir değerlendirme niteliğindedir ve profesyonel kariyer danışmanlığının yerini tutmaz.</p>
-            
-            <h3 style="color: #333;">2. Profesyonel Danışmanlık Gereksinimi</h3>
-            <p style="line-height: 1.6;"><strong>ÖNEMLİ:</strong> Bu analizin yorumlanması için mutlaka profesyonel bir destek ve danışmanlık alınız. Bireysel çıkarımlar sizi hatalı değerlendirmelere sevk edebilir.</p>
-            
-            <h3 style="color: #333;">3. Gizlilik ve Veri Güvenliği</h3>
-            <p style="line-height: 1.6;">Verileriniz Firebase Realtime Database'de güvenli bir şekilde saklanmaktadır. Kişisel bilgileriniz hiçbir şekilde üçüncü şahıslarla paylaşılmayacaktır. Rumuz sistemi, gizliliğinizi korumak için tasarlanmıştır - lütfen gerçek isim-soyisim kullanmayınız.</p>
-            
-            <h3 style="color: #333;">4. Google Authentication</h3>
-            <p style="line-height: 1.6;">Güvenlik nedeniyle sisteme giriş için Google kimlik doğrulaması zorunludur. Google hesabınız sadece kimlik doğrulama için kullanılır ve email adresiniz kayıt işlemi sırasında kaydedilir.</p>
-            
-            <h3 style="color: #333;">5. Test Sonuçları</h3>
-            <p style="line-height: 1.6;">Test sonuçları, belirli bir zamandaki durumunuzu yansıtır ve zaman içinde değişebilir. Sonuçlar, kariyer kararlarınızda tek başına belirleyici olmamalıdır.</p>
-            
-            <h3 style="color: #333;">6. Sorumluluk Reddi</h3>
-            <p style="line-height: 1.6;">Bu envanter sonuçlarına dayanarak alınan kararlardan ve bunların sonuçlarından platform geliştiricisi sorumlu değildir. Tüm kararlarınızı profesyonel danışmanlık eşliğinde almanızı tavsiye ederiz.</p>
-            
-            <h3 style="color: #333;">7. Veri Saklama</h3>
-            <p style="line-height: 1.6;">Test geçmişiniz ve sonuçlarınız Firebase'de güvenli bir şekilde saklanır. Hesabınızı silmek isterseniz, sistem yöneticisi ile iletişime geçebilirsiniz.</p>
-        </div>
-        
-        <div id="disclaimerActions" style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-            <label style="display: flex; align-items: center; gap: 10px; font-size: 16px; cursor: pointer;">
-                <input type="checkbox" id="disclaimerAccept" style="width: 20px; height: 20px; cursor: pointer;">
-                <span>Yukarıdaki metni okudum, anladım ve kabul ediyorum.</span>
-            </label>
-            
-            <button id="acceptDisclaimerBtn" onclick="acceptDisclaimer()" disabled style="
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border: none;
-                padding: 15px 40px;
-                font-size: 16px;
-                border-radius: 30px;
-                cursor: not-allowed;
-                opacity: 0.5;
-                transition: all 0.3s;
-            ">
-                ✅ Kabul Ediyorum ve Devam Et
-            </button>
-        </div>
-    </div>
-   </div>
-
    <!-- My Reports Screen -->
    <div class="welcome-screen hidden" id="myReportsScreen">
     <h1>📊 Geçmiş Raporlarım</h1>
@@ -6537,8 +6442,9 @@ www.akcaprox.com
         // Sayfa yüklendiğinde login ekranını göster
         showLogin();
     </script>
-</body>
-</html>
+    
+    <!-- Sorumluluk Reddi Modal -->
+    <div id="disclaimerModal" style="
         display: none;
         position: fixed;
         top: 0;
